@@ -1,0 +1,33 @@
+{
+  "name": "MakeParty_API",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./bin/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/localTeste/MakeParty_API.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/localTeste/MakeParty_API/issues"
+  },
+  "homepage": "https://github.com/localTeste/MakeParty_API#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "debug": "^4.1.0",
+    "express": "^4.16.3",
+    "guid": "0.0.12",
+    "http": "0.0.0",
+    "jsonwebtoken": "^7.4.3",
+    "md5": "^2.2.1",
+    "mongoose": "^5.3.3",
+    "sendgrid": "^2.0.0"
+  },
+  "devDependencies": {}
+}
