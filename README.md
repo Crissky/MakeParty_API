@@ -28,7 +28,6 @@
 **Resposta (SUCESSO):**
 ````javascript
 {
-    "message": "Usuário cadastrado com sucesso!",
     "data": {
         "active": true,
         "_id": "5bc372a59d148f0015752af9",
@@ -45,7 +44,6 @@
 **Resposta (ERROR):**
 ````javascript
 {
-    "message": "Falha ao processar requisição.",
     "error": {
         "driver": true,
         "name": "MongoError",
@@ -81,10 +79,10 @@
 ````javascript
 [
     {
-        "message": "E-mail inválido."
+        "error": "E-mail inválido."
     },
     {
-        "message": "Senha deve ter no mínimo 6 caracteres."
+        "error": "Senha deve ter no mínimo 6 caracteres."
     }
 ]
 ````
@@ -112,6 +110,6 @@
 **Resposta (ERROR):**
 ````javascript
 {
-    "message": "Token Inválido"
+    "error": "Token Inválido"
 }
 ````
