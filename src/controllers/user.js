@@ -18,7 +18,6 @@ exports.get = async (req, res, next) => {
         console.log("CATCH = user-controller: Listar Usuário\n", error);
 
         res.status(500).send({
-            message: 'Falha ao processar requisição.',
             error: error
         });
     }
@@ -58,13 +57,11 @@ exports.post = async (req, res, next) => {
 
         console.log("user-controller: Cadastrar Usuário - Enviando Resposta");
         res.status(201).send({
-            message: 'Usuário cadastrado com sucesso!',
             data: data
         });
     } catch (error) {
         console.log("CATCH = user-controller: Cadastrar Usuário\n", error);
         res.status(500).send({
-            message: 'Falha ao processar requisição.',
             error: error
         });
     }
@@ -94,14 +91,14 @@ exports.authenticate = async (req, res, next) => {
         if (!user) {
             console.log("user-controller: Autenticar Usuário - E-mail ou senha errados");
             res.status(404).send({
-                message: 'E-mail ou senha errados.'
+                error: 'E-mail ou senha errados.'
             });
 
             return;
         }
 
         const token = await authService.generateToken({
-            id: user._id,
+            _id: user._id,
             email: user.email
         });
 
@@ -115,7 +112,6 @@ exports.authenticate = async (req, res, next) => {
     } catch (error) {
         console.log("CATCH = user-controller: Autenticar Usuário\n", error);
         res.status(500).send({
-            message: 'Falha ao processar requisição.',
             error: error
         });
     }
@@ -128,19 +124,21 @@ exports.refreshToken = async (req, res, next) => {
         const token = req.body.token || req.query.token || req.headers['x-access-token'];
         const data = await authService.decodeToken(token);
 
-        const user = await repository.getById(data.id);
+        const user = await repository.getById(data._id);
 
         if (!user) {
             console.log("ERROR = user-controller: Refresh Token - Usuário não encontrado");
             res.status(404).send({
-                message: 'Usuário não encontrado.'
+                error: 'Usuário não encontrado.'
             });
 
             return;
         }
 
+        console.log("user-controller: Refresh Token - Criando novo Token");
+        console.log(user);
         const newToken = await authService.generateToken({
-            id: user._id,
+            _id: user._id,
             email: user.email
         });
 
@@ -154,7 +152,6 @@ exports.refreshToken = async (req, res, next) => {
     } catch (error) {
         console.log("CATCH = user-controller: Refresh Token\n", error);
         res.status(500).send({
-            message: 'Falha ao processar requisição.',
             error: error
         });
     }

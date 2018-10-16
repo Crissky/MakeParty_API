@@ -31,4 +31,10 @@ const schema = new Schema({
     }
 });
 
+schema.pre('save', function(next){
+    this.active = true;
+
+    next();
+});
+
 module.exports = mongoose.model('User', schema);

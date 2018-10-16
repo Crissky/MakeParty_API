@@ -21,14 +21,14 @@ exports.authorize = function (req, res, next) {
     if (!token) {
         console.log("auth-services: Usuário não enviou um Token");
         res.status(401).json({
-            message: 'Acesso Restrito'
+            error: 'Acesso Restrito'
         });
     } else {
         jwt.verify(token, authConfig.secret, function (error, decoded) {
             if (error) {
                 console.log("ERRO = auth-services: Token Inválido\n", error);
                 res.status(401).json({
-                    message: 'Token Inválido'
+                    error: 'Token Inválido'
                 });
             } else {
                 console.log("auth-services: Acesso Autorizado");
