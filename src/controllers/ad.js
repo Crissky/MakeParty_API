@@ -4,6 +4,7 @@ const repository = require('../repositories/ad');
 const ValidationContract = require('../validators/fluent-validator');
 const authService = require('../services/auth');
 
+const titleMinLen = 5;
 
 exports.get = async (req, res, next) => {
     try {
@@ -50,7 +51,7 @@ exports.getById = async (req, res, next) => {
 exports.post = async (req, res, next) => {
     console.log("ad-controller: Cadastrar Anúncio");
     let contract = new ValidationContract();
-    contract.hasMinLen(req.body.title, 5, "Título muito curto");
+    contract.hasMinLen(req.body.title, titleMinLen, "Título muito curto");
 
     if (!contract.isValid()) {
         console.log("ERROR = ad-controller: Título muito curto\n", contract.errors());
@@ -82,6 +83,16 @@ exports.post = async (req, res, next) => {
 
 exports.put = async (req, res, next) => {
     console.log("ad-controller: Atualizar Anúncio");
+    let contract = new ValidationContract();
+    contract.hasMinLen(req.body.title, titleMinLen, "Título muito curto");
+
+    if (!contract.isValid()) {
+        console.log("ERROR = ad-controller: Título muito curto\n", contract.errors());
+        res.status(400).send(contract.errors()).end();
+
+        return;
+    }
+    
     try {
         const token = req.body.token || req.query.token || req.headers['x-access-token'];
         const dataToken = await authService.decodeToken(token);

@@ -8,15 +8,15 @@ const authConfig = require('../config/auth');
 const emailConfig = require('../config/email');
 const emailService = require('../services/email');
 
+const PASSWORD_MIN_LEN = 6;
+
 exports.get = async (req, res, next) => {
     try {
         console.log("user-controller: Listar Usuário");
-
         var data = await repository.get();
         res.status(200).send(data);
     } catch (error) {
         console.log("CATCH = user-controller: Listar Usuário\n", error);
-
         res.status(500).send({
             error: error
         });
@@ -25,15 +25,12 @@ exports.get = async (req, res, next) => {
 
 exports.post = async (req, res, next) => {
     console.log("user-controller: Cadastrar Usuário");
-
     let contract = new ValidationContract();
     contract.isEmail(req.body.email, "E-mail inválido.");
-    contract.hasMinLen(req.body.password, 6, "Senha deve ter no mínimo 6 caracteres.");
-    contract.hasMinLen(req.body.name, 3, "Nome deve ter no mínimo 3 caracteres.");
+    contract.hasMinLen(req.body.password, PASSWORD_MIN_LEN, "Senha deve ter no mínimo 6 caracteres.");
 
     if (!contract.isValid()) {
         console.log("ERROR = user-controller: Cadastrar Usuário\n", contract.errors());
-
         res.status(400).send(contract.errors()).end();
 
         return;
@@ -47,6 +44,7 @@ exports.post = async (req, res, next) => {
         });
         console.log("user-controller: Cadastrar Usuário - Usuário Cadastrado");
         data.password = undefined;
+        data.__v = undefined;
 
         console.log("user-controller: Cadastrar Usuário - Enviando E-mail de Boas Vindas");
         emailService.send(
@@ -71,7 +69,7 @@ exports.authenticate = async (req, res, next) => {
     console.log("user-controller: Autenticar Usuário");
     let contract = new ValidationContract();
     contract.isEmail(req.body.email, "E-mail inválido.");
-    contract.hasMinLen(req.body.password, 6, "Senha deve ter no mínimo 6 caracteres.")
+    contract.hasMinLen(req.body.password, PASSWORD_MIN_LEN, "Senha deve ter no mínimo 6 caracteres.")
 
     if (!contract.isValid()) {
         console.log("ERROR = user-controller: Autenticar Usuário\n", contract.errors());

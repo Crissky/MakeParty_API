@@ -1,0 +1,43 @@
+'use strict';
+
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const schema = new Schema({
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
+    name:{
+        type: String,
+        required: true
+    },
+    birthdate:{
+        type: Date,
+        required: true
+    },
+    cpf:{
+        type: String,
+        required: true
+    },
+    phone:{
+        type: String,
+        required: true
+    },
+    photo:{
+        type: String
+    },
+    active:{
+        type: Boolean,
+        default: true
+    }
+}, { timestamps: true });
+
+schema.pre('save', function(next){
+    this.active = true;
+
+    next();
+});
+
+module.exports = mongoose.model('Customera', schema);

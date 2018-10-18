@@ -13,8 +13,10 @@ mongoose.connect(configDB.connectionString, { useNewUrlParser: true, useCreateIn
 
 console.log("app: Carregando Modelos...");
 //Load Models
-const User = require('./models/user');
 const Ad = require('./models/ad');
+const Advertiser = require('./models/advertiser');
+const Customer = require('./models/customer');
+const User = require('./models/user');
 
 console.log("app: Carregando Rotas...");
 //Load routes
