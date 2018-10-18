@@ -62,10 +62,8 @@ exports.post = async (req, res, next) => {
     try {
         const token = req.body.token || req.query.token || req.headers['x-access-token'];
         const dataToken = await authService.decodeToken(token);
-        
-        console.log(dataToken);
-
         req.body.owner = dataToken._id;
+        
         const data = await repository.create(req.body);
 
         console.log("ad-controller: Cadastrar Anúncio - Anúncio Cadastrado");
@@ -86,7 +84,21 @@ exports.post = async (req, res, next) => {
 exports.put = async (req, res, next) => {
     console.log("ad-controller: Atualizar Anúncio");
     try {
+        const token = req.body.token || req.query.token || req.headers['x-access-token'];
+        const dataToken = await authService.decodeToken(token);
+        req.body.owner = dataToken._id;
+        
         const data = await repository.update(req.body);
+        
+        if(!data){
+            console.log("ad-controller: Atualizar Anúncio - Anuncio não encontrado ou não pertence a este Usuário");
+            res.status(404).send({
+                error: "Anuncio não encontrado ou não pertence a este Usuário."
+            });
+
+            return;
+        }
+
         console.log("ad-controller: Atualizar Anúncio - Atualização finalizada");
         res.status(200).send({
             data: data
@@ -102,7 +114,20 @@ exports.put = async (req, res, next) => {
 exports.delete = async (req, res, next) => {
     console.log("ad-controller: Apagar Anúncio");
     try {
-        const data = await repository.delete(req.body._id);
+        const token = req.body.token || req.query.token || req.headers['x-access-token'];
+        const dataToken = await authService.decodeToken(token);
+        req.body.owner = dataToken._id;
+        
+        const data = await repository.delete(req.body);
+        
+        if(!data){
+            res.status(404).send({
+                error: "Anuncio não encontrado ou não pertence a este Usuário."
+            });
+
+            return;
+        }
+
         console.log("ad-controller: Apagar Anúncio - Anúncio Apagado");
         res.status(200).send({
             data: data

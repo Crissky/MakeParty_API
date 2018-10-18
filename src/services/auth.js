@@ -2,6 +2,7 @@
 
 const jwt = require('jsonwebtoken');
 const authConfig = require('../config/auth');
+const repository = require('../repositories/user');
 
 exports.generateToken = async (data) => {
     console.log("auth-services: Gerando Token");
@@ -24,11 +25,17 @@ exports.authorize = function (req, res, next) {
             error: 'Acesso Restrito'
         });
     } else {
-        jwt.verify(token, authConfig.secret, function (error, decoded) {
+        jwt.verify(token, authConfig.secret, async function (error, decoded) {
+            const user = await repository.getByIdActive(decoded._id);
             if (error) {
                 console.log("ERRO = auth-services: Token Inválido\n", error);
                 res.status(401).json({
                     error: 'Token Inválido'
+                });
+            } else if (!user) {
+                console.log("ERRO = auth-services: Usuário desativado");
+                res.status(401).json({
+                    error: 'Usuário desativado'
                 });
             } else {
                 console.log("auth-services: Acesso Autorizado");

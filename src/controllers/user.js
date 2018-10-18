@@ -91,7 +91,14 @@ exports.authenticate = async (req, res, next) => {
         if (!user) {
             console.log("user-controller: Autenticar Usuário - E-mail ou senha errados");
             res.status(404).send({
-                error: 'E-mail ou senha errados.'
+                error: 'E-mail ou senha incorretos.'
+            });
+
+            return;
+        } else if (!user.active) {
+            console.log("user-controller: Autenticar Usuário - Usuário desativado");
+            res.status(404).send({
+                error: 'Usuário desativado.'
             });
 
             return;
@@ -136,7 +143,6 @@ exports.refreshToken = async (req, res, next) => {
         }
 
         console.log("user-controller: Refresh Token - Criando novo Token");
-        console.log(user);
         const newToken = await authService.generateToken({
             _id: user._id,
             email: user.email

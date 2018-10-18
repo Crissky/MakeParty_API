@@ -24,14 +24,10 @@ const schema = new Schema({
     active: {
         type: Boolean,
         default: true
-    },
-    createAt: {
-        type: Date,
-        default: Date.now
     }
-});
+}, { timestamps: true });
 
-schema.pre('save', function(next){
+schema.pre('save', function (next) {
     this.active = true;
 
     next();

@@ -12,7 +12,7 @@ exports.get = async () => {
 exports.create = async (data) => {
     console.log("user-repositories: create");
     var user = new User(data);
-    
+
     return await user.save();
 }
 
@@ -28,5 +28,15 @@ exports.authenticate = async (data) => {
 exports.getById = async (id) => {
     console.log("user-repositories: getById");
     const res = await User.findById(id);
+    return res;
+}
+
+exports.getByIdActive = async (id) => {
+    console.log("user-repositories: getByIdActive");
+    const res = await User.findOne({
+        _id: id,
+        active: true
+    });
+    
     return res;
 }

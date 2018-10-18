@@ -8,7 +8,7 @@ exports.get = async () => {
     const res = await Ad
         .find({
             active: true
-        }, 'owner title description price tags createAt').populate('owner', 'name email');
+        }, 'owner title description price tags createdAt updatedAt active').populate('owner', 'name email');
     return res;
 }
 
@@ -18,7 +18,7 @@ exports.getByTag = async (tag) => {
         .find({
             tags: tag,
             active: true
-        }, 'owner title description price tags createAt').populate('owner', 'name email');
+        }, 'owner title description price tags createdAt updatedAt active').populate('owner', 'name email');
     return res;
 }
 
@@ -52,28 +52,42 @@ exports.create = async (data) => {
 exports.update = async (data) => {
     console.log("ad-repositories: update");
 
-    await Ad
-        .findByIdAndUpdate(data._id, {
-            $set: {
+    return await Ad
+        .findOneAndUpdate(
+            {
+                _id: data._id,
+                owner: data.owner,
+                active: true
+            },
+            {
                 title: data.title,
                 description: data.description,
                 price: data.price,
                 tags: data.tags
-            }
-        });
-
-    return this.getById(data._id);
+            },
+            {
+                runValidators: true,
+                new: true,
+                fields: 'owner title description price tags createdAt updatedAt active'
+            });
 }
 
-exports.delete = async (id) => {
+exports.delete = async (data) => {
     console.log("ad-repositories: delete");
 
-    await Ad
-        .findByIdAndUpdate(id, {
-            $set: {
+    return await Ad
+        .findOneAndUpdate(
+            {
+                _id: data._id,
+                owner: data.owner,
+                active: true
+            },
+            {
                 active: false
-            }
-        });
-
-    return this.getById(id);
+            },
+            {
+                runValidators: true,
+                new: true,
+                fields: 'owner title description price tags createdAt updatedAt active'
+            });
 }
