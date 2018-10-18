@@ -68,7 +68,6 @@ exports.post = async (req, res, next) => {
 
         console.log("ad-controller: Cadastrar Anúncio - Anúncio Cadastrado");
         
-        console.log("ad-controller: Cadastrar Anúncio - Enviando Resposta");
         res.status(201).send({
             data: data
         });

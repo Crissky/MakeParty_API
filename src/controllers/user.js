@@ -55,7 +55,6 @@ exports.post = async (req, res, next) => {
             emailConfig.template.replace('{0}', req.body.name)
         );
 
-        console.log("user-controller: Cadastrar Usuário - Enviando Resposta");
         res.status(201).send({
             data: data
         });
