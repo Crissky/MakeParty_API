@@ -21,16 +21,20 @@ const User = require('./models/user');
 console.log("app: Carregando Rotas...");
 //Load routes
 const indexRoute = require('./routes/index');
-const userRoute = require('./routes/user');
 const adRoute = require('./routes/ad');
+const advertiserRoute = require('./routes/advertiser');
+const customerRoute = require('./routes/customer');
+const userRoute = require('./routes/user');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 console.log("app: Indexando Rotas...");
 app.use('/', indexRoute);
-app.use('/users', userRoute);
 app.use('/ads', adRoute);
+app.use('/advertisers', advertiserRoute);
+app.use('/customers', customerRoute);
+app.use('/users', userRoute);
 
 console.log("app: Exportando APP...");
 module.exports = app;

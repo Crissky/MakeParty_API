@@ -1,10 +1,8 @@
 'use strict';
 
 const repository = require('../repositories/ad');
-const ValidationContract = require('../validators/fluent-validator');
+const ValidationFields = require('../validators/validator-fields');
 const authService = require('../services/auth');
-
-const titleMinLen = 5;
 
 exports.get = async (req, res, next) => {
     try {
@@ -50,9 +48,9 @@ exports.getById = async (req, res, next) => {
 
 exports.post = async (req, res, next) => {
     console.log("ad-controller: Cadastrar Anúncio");
-    let contract = new ValidationContract();
-    contract.hasMinLen(req.body.title, titleMinLen, "Título muito curto");
-
+    let contract = new ValidationFields();
+    contract.title(req.body.title);
+    
     if (!contract.isValid()) {
         console.log("ERROR = ad-controller: Título muito curto\n", contract.errors());
         res.status(400).send(contract.errors()).end();
@@ -66,6 +64,7 @@ exports.post = async (req, res, next) => {
         req.body.owner = dataToken._id;
         
         const data = await repository.create(req.body);
+        data.__v = undefined;
 
         console.log("ad-controller: Cadastrar Anúncio - Anúncio Cadastrado");
         
@@ -83,9 +82,9 @@ exports.post = async (req, res, next) => {
 
 exports.put = async (req, res, next) => {
     console.log("ad-controller: Atualizar Anúncio");
-    let contract = new ValidationContract();
-    contract.hasMinLen(req.body.title, titleMinLen, "Título muito curto");
-
+    let contract = new ValidationFields();
+    contract.title(req.body.title);
+    
     if (!contract.isValid()) {
         console.log("ERROR = ad-controller: Título muito curto\n", contract.errors());
         res.status(400).send(contract.errors()).end();

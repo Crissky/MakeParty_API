@@ -16,17 +16,27 @@ const schema = new Schema({
     },
     description:{
         type: String,
-        required: false,
+        trim: true,
         default: "Sem descrição"
     },
     price:{
         type: Number,
-        required: false,
         default: 0
     },
-    tags:[{
+    type:{
+        type: String,
+        required: true,
+        trim: true,
+    },
+    phone:{
+        type: String,
+        trim: true,
+    },tags:[{
         type: String,
         lowercase: true
+    }],
+    photos:[{
+        type: String,
     }],
     active:{
         type: Boolean,

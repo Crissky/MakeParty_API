@@ -19,6 +19,8 @@ const schema = new Schema({
     },
     cpf:{
         type: String,
+        index:true,
+        unique: true,
         required: true
     },
     phone:{
@@ -40,4 +42,4 @@ schema.pre('save', function(next){
     next();
 });
 
-module.exports = mongoose.model('Customera', schema);
+module.exports = mongoose.model('Customer', schema);

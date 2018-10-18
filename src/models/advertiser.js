@@ -15,11 +15,12 @@ const schema = new Schema({
     },
     cnpj:{
         type: String,
+        index:true,
+        unique: true,
         required: true
     },
     authorization:{
-        type: String,
-        required: true
+        type: String
     },
     photo:{
         type: String

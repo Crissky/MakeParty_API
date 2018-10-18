@@ -1,22 +1,22 @@
 'use strict';
 
 const repository = require('../repositories/user');
-const ValidationContract = require('../validators/fluent-validator');
+const advertiserRepository = require('../repositories/advertiser');
+const customerRepository = require('../repositories/customer');
+const ValidationFields = require('../validators/validator-fields');
 const md5 = require('md5');
 const authService = require('../services/auth');
 const authConfig = require('../config/auth');
 const emailConfig = require('../config/email');
 const emailService = require('../services/email');
 
-const PASSWORD_MIN_LEN = 6;
-
 exports.get = async (req, res, next) => {
     try {
-        console.log("user-controller: Listar Usuário");
+        console.log("user-controller: Listar Usuários");
         var data = await repository.get();
         res.status(200).send(data);
     } catch (error) {
-        console.log("CATCH = user-controller: Listar Usuário\n", error);
+        console.log("CATCH = user-controller: Listar Usuários\n", error);
         res.status(500).send({
             error: error
         });
@@ -25,10 +25,10 @@ exports.get = async (req, res, next) => {
 
 exports.post = async (req, res, next) => {
     console.log("user-controller: Cadastrar Usuário");
-    let contract = new ValidationContract();
-    contract.isEmail(req.body.email, "E-mail inválido.");
-    contract.hasMinLen(req.body.password, PASSWORD_MIN_LEN, "Senha deve ter no mínimo 6 caracteres.");
-
+    let contract = new ValidationFields();
+    contract.email(req.body.email);
+    contract.password(req.body.password);
+    
     if (!contract.isValid()) {
         console.log("ERROR = user-controller: Cadastrar Usuário\n", contract.errors());
         res.status(400).send(contract.errors()).end();
@@ -39,7 +39,6 @@ exports.post = async (req, res, next) => {
     try {
         const data = await repository.create({
             email: req.body.email,
-            name: req.body.name,
             password: md5(req.body.password + authConfig.secret + req.body.email)
         });
         console.log("user-controller: Cadastrar Usuário - Usuário Cadastrado");
@@ -62,15 +61,136 @@ exports.post = async (req, res, next) => {
             error: error
         });
     }
+};
+
+exports.signupAdvertiser = async (req, res, next) => {
+    console.log("user-controller: Cadastrar Anunciante");
+    let contract = new ValidationFields();
+    contract.email(req.body.user.email);
+    contract.password(req.body.user.password);
+    contract.cnpj(req.body.cnpj);
+
+    if (!contract.isValid()) {
+        console.log("ERROR = user-controller: Cadastrar Anunciante\n", contract.errors());
+        res.status(400).send(contract.errors()).end();
+
+        return;
+    }
+
+    try {
+        const user = await repository.create({
+            email: req.body.user.email,
+            password: md5(req.body.user.password + authConfig.secret + req.body.user.email)
+        });
+        req.body.user = user._id;
+        console.log("user-controller: Cadastrar Anunciante - Usuário Cadastrado");
+    } catch (error) {
+        console.log("CATCH = user-controller: Cadastrar Anunciante - Erro ao cadastrar Usuário\n", error);
+        res.status(500).send({
+            error: error
+        });
+        
+        return;
+    }
+
+    try {
+        const advertiser = await advertiserRepository.create(req.body);
+        console.log("user-controller: Cadastrar Anunciante - Anunciante Cadastrado");
+        advertiser.__v = undefined;
+
+        console.log("user-controller: Cadastrar Anunciante - Enviando E-mail de Boas Vindas");
+        emailService.send(
+            req.body.email,
+            'Bem-vindo ao MakeParty!!!',
+            emailConfig.template.replace('{0}', req.body.socialname)
+        );
+
+        res.status(201).send({
+            data: advertiser
+        });
+    } catch (error) {
+        console.log("CATCH = user-controller: Cadastrar Anunciante - Apagando Usuário\n", error);
+        try {
+            await repository.deleteRaw(req.body.user);
+        } catch (error2) {
+            res.status(500).send({
+                error: error2
+            });
+        }
+        res.status(500).send({
+            error: error
+        });
+    }
+
+};
+
+exports.signupCustomer = async (req, res, next) => {
+    console.log("user-controller: Cadastrar Cliente");
+    let contract = new ValidationFields();
+    contract.email(req.body.user.email);
+    contract.password(req.body.user.password);
+    contract.cpf(req.body.cpf);
+
+    if (!contract.isValid()) {
+        console.log("ERROR = user-controller: Cadastrar Cliente\n", contract.errors());
+        res.status(400).send(contract.errors()).end();
+
+        return;
+    }
+
+    try {
+        const user = await repository.create({
+            email: req.body.user.email,
+            password: md5(req.body.user.password + authConfig.secret + req.body.user.email)
+        });
+        req.body.user = user._id;
+        console.log("user-controller: Cadastrar Cliente - Usuário Cadastrado");
+    } catch (error) {
+        console.log("CATCH = user-controller: Cadastrar Cliente - Erro ao cadastrar Usuário\n", error);
+        res.status(500).send({
+            error: error
+        });
+        
+        return;
+    }
+
+    try {
+        const customer = await customerRepository.create(req.body);
+        console.log("user-controller: Cadastrar Cliente - Cliente Cadastrado");
+        customer.__v = undefined;
+
+        console.log("user-controller: Cadastrar Cliente - Enviando E-mail de Boas Vindas");
+        emailService.send(
+            req.body.email,
+            'Bem-vindo ao MakeParty!!!',
+            emailConfig.template.replace('{0}', req.body.socialname)
+        );
+
+        res.status(201).send({
+            data: customer
+        });
+    } catch (error) {
+        console.log("CATCH = user-controller: Cadastrar Cliente - Apagando Usuário\n", error);
+        try {
+            await repository.deleteRaw(req.body.user);
+        } catch (error2) {
+            res.status(500).send({
+                error: error2
+            });
+        }
+        res.status(500).send({
+            error: error
+        });
+    }
 
 };
 
 exports.authenticate = async (req, res, next) => {
     console.log("user-controller: Autenticar Usuário");
-    let contract = new ValidationContract();
-    contract.isEmail(req.body.email, "E-mail inválido.");
-    contract.hasMinLen(req.body.password, PASSWORD_MIN_LEN, "Senha deve ter no mínimo 6 caracteres.")
-
+    let contract = new ValidationFields();
+    contract.email(req.body.email);
+    contract.password(req.body.password);
+    
     if (!contract.isValid()) {
         console.log("ERROR = user-controller: Autenticar Usuário\n", contract.errors());
         res.status(400).send(contract.errors()).end();

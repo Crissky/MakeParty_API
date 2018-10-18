@@ -3,12 +3,14 @@
 const mongoose = require('mongoose');
 const Ad = mongoose.model('Ad');
 
+const COLUMNS = 'owner title description price type phone tags photos createdAt updatedAt active';
+
 exports.get = async () => {
     console.log("ad-repositories: get");
     const res = await Ad
         .find({
             active: true
-        }, 'owner title description price tags createdAt updatedAt active').populate('owner', 'name email');
+        }, COLUMNS).populate('owner', 'name email');
     return res;
 }
 
@@ -18,34 +20,21 @@ exports.getByTag = async (tag) => {
         .find({
             tags: tag,
             active: true
-        }, 'owner title description price tags createdAt updatedAt active').populate('owner', 'name email');
+        }, COLUMNS).populate('owner', 'email');
     return res;
 }
 
 exports.getById = async (id) => {
     console.log("ad-repositories: getById");
-    const res = await Ad.findById(id, 'owner title description price tags createAt').populate('owner', 'name email');
+    const res = await Ad.findById(id, COLUMNS).populate('owner', 'email');
 
     return res;
 }
 
 exports.create = async (data) => {
     console.log("ad-repositories: create");
-    var ad = new Ad();
-    if (data.owner) {
-        ad.owner = data.owner;
-    }
-    if (data.title) {
-        ad.title = data.title;
-    }
-    if (data.description) {
-        ad.description = data.description;
-    }
-    if (data.price) {
-        ad.price = data.price;
-    }
-    ad.tags = data.tags;
-
+    var ad = new Ad(data);
+    
     return await ad.save();
 }
 
@@ -68,7 +57,7 @@ exports.update = async (data) => {
             {
                 runValidators: true,
                 new: true,
-                fields: 'owner title description price tags createdAt updatedAt active'
+                fields: COLUMNS
             });
 }
 
@@ -88,6 +77,6 @@ exports.delete = async (data) => {
             {
                 runValidators: true,
                 new: true,
-                fields: 'owner title description price tags createdAt updatedAt active'
+                fields: COLUMNS
             });
 }
