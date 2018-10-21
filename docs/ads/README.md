@@ -85,12 +85,12 @@ Chave | Tipo | Requerimento
 ------|------|-------------
 \_id | String | Obrigatório
 title | String | Obrigatório
-description | String | Opcional
-price | Number | Opcional
+description | String | Obrigatório
+price | Number | Obrigatório
 type | String | Obrigatório
-phone | String | Opcional
-tags | StringList | Opcional
-photos | StringList | Opcional
+phone | String | Obrigatório
+tags | StringList | Obrigatório
+photos | StringList | Obrigatório
 
 <br>
 
