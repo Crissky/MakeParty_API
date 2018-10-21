@@ -1,13 +1,7 @@
-# MakeParty API
-
-## API dedicada a APP [MakeParty](https://github.com/InovaUFRPE/MakeParty)
-
+# Rotas - Usuário (users) - /users
 ## AVISO: API em desenvolvimento, as ROTAS, REQUISIÇÕES e RETORNOS podem sofrer alterações.
 
-# Rotas
 https://makepartyserver.herokuapp.com
-
-## Usuário (users) - /users
 
 ### Criar Usuário Pessoa Jurídica (Anunciante)
 #### Método **POST: /users/signup/advertiser**
