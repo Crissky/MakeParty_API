@@ -3,7 +3,7 @@
 
 https://makepartyserver.herokuapp.com
 
-## Pessoa Jurídica - Anunciante (advertisers) - /users
+## Pessoa Jurídica - Anunciante (advertisers)
 
 ### Atualizar Pessoa Jurídica (Anunciante)
 #### Método **PUT: /advertisers**
