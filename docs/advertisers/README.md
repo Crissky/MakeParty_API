@@ -1,9 +1,7 @@
-# Rotas
+# Rotas - Pessoa Jurídica - Anunciante (advertisers)
 ## AVISO: API em desenvolvimento, as ROTAS, REQUISIÇÕES e RETORNOS podem sofrer alterações.
 
 https://makepartyserver.herokuapp.com
-
-## Pessoa Jurídica - Anunciante (advertisers)
 
 ### Atualizar Pessoa Jurídica (Anunciante)
 #### Método **PUT: /advertisers**
