@@ -9,7 +9,6 @@ https://makepartyserver.herokuapp.com
 
 ## Usuário (users) - /users
 
-
 ### Criar Usuário Pessoa Jurídica (Anunciante)
 #### Método **POST: /users/signup/advertiser**
 
@@ -74,6 +73,7 @@ photo | String | Opcional
 }
 ````
 
+<br>
 
 ### Criar Usuário Pessoa Física (Cliente)
 #### Método **POST: /users/signup/customer**
@@ -142,6 +142,7 @@ photo | String | Opcional
 }
 ````
 
+<br>
 
 ### Autenticar Usuário
 #### Método **POST: /users/authenticate**
