@@ -130,6 +130,7 @@ exports.delete = async (req, res, next) => {
         const data = await repository.delete(req.body);
         
         if(!data){
+            console.log("ad-controller: Apagar Anúncio - Anuncio não encontrado ou não pertence a este Usuário");
             res.status(404).send({
                 error: "Anuncio não encontrado ou não pertence a este Usuário."
             });

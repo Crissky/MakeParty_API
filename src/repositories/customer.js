@@ -14,7 +14,17 @@ exports.get = async () => {
 
 exports.getById = async (id) => {
     console.log("customer-repositories: getById");
-    const res = await Customer.findById(id, COLUMNS).populate('owner', 'email');
+    const res = await Customer.findById(id, COLUMNS).populate('user', 'email');
+
+    return res;
+}
+
+exports.getByUserId = async (userId) => {
+    console.log("customer-repositories: getByUserId");
+    const res = await Customer.findOne({
+        user: userId,
+        active: true
+    }, COLUMNS).populate('user', 'email');
 
     return res;
 }
@@ -24,4 +34,48 @@ exports.create = async (data) => {
     var user = new Customer(data);
 
     return await user.save();
+}
+
+exports.update = async (data) => {
+    console.log("customer-repositories: update");
+
+    return await Customer
+        .findOneAndUpdate(
+            {
+                _id: data._id,
+                user: data.user,
+                active: true
+            },
+            {
+                name: data.name,
+                birthdate: data.birthdate,
+                cpf: data.cpf,
+                phone: data.phone,
+                photo: data.photo
+            },
+            {
+                runValidators: true,
+                new: true,
+                fields: COLUMNS
+            }).populate('user', 'email');
+}
+
+exports.delete = async (data) => {
+    console.log("customer-repositories: delete");
+
+    return await Customer
+        .findOneAndUpdate(
+            {
+                _id: data._id,
+                user: data.user,
+                active: true
+            },
+            {
+                active: false
+            },
+            {
+                runValidators: true,
+                new: true,
+                fields: COLUMNS
+            }).populate('user', 'email');
 }

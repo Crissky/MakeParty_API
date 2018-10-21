@@ -24,6 +24,11 @@ exports.get = async (req, res, next) => {
 }
 
 exports.post = async (req, res, next) => {
+    res.status(303).send({
+        message: "A criação de Usuário não é mais realizada nesta rota. Para criar um anunciante use a rota: /user/signup/advertiser Para criar um consumidor use a rota: /user/signup/customer"
+    });
+    return;
+
     console.log("user-controller: Cadastrar Usuário");
     let contract = new ValidationFields();
     contract.email(req.body.email);
@@ -221,17 +226,30 @@ exports.authenticate = async (req, res, next) => {
             return;
         }
 
+        console.log("user-controller: Autenticar Usuário - Buscando Anunciante ou Cliente vinculado ao Usuário");
+        var client = await getCustomerOrAdvertiserByUserId(user._id);
+
+        if(!client){
+            console.log("user-controller: Autenticar Usuário - Cliente desativado");
+            res.status(404).send({
+                error: 'Usuário Ativo, mas cliente desativado, favor entrar em contato com o administrador.'
+            });
+
+            return;
+        }
+
+        console.log(client);
         const token = await authService.generateToken({
-            _id: user._id,
-            email: user.email
+            _id: client._id,
+            user: {
+                _id: client.user._id,
+                email: client.user.email
+            }
         });
 
         console.log("user-controller: Autenticar Usuário - Usuário Autenticado");
         res.status(201).send({
-            token: token,
-            data: {
-                email: user.email
-            }
+            token: token
         });
     } catch (error) {
         console.log("CATCH = user-controller: Autenticar Usuário\n", error);
@@ -248,12 +266,12 @@ exports.refreshToken = async (req, res, next) => {
         const token = req.body.token || req.query.token || req.headers['x-access-token'];
         const data = await authService.decodeToken(token);
 
-        const user = await repository.getById(data._id);
+        const client = await getCustomerOrAdvertiserByUserId(data.user._id);
 
-        if (!user) {
-            console.log("ERROR = user-controller: Refresh Token - Usuário não encontrado");
+        if (!client) {
+            console.log("ERROR = user-controller: Refresh Token - Cliente não encontrado");
             res.status(404).send({
-                error: 'Usuário não encontrado.'
+                error: 'Cliente não encontrado.'
             });
 
             return;
@@ -261,16 +279,16 @@ exports.refreshToken = async (req, res, next) => {
 
         console.log("user-controller: Refresh Token - Criando novo Token");
         const newToken = await authService.generateToken({
-            _id: user._id,
-            email: user.email
+            _id: client._id,
+            user: {
+                _id: client.user._id,
+                email: client.user.email
+            }
         });
 
         console.log("user-controller: Refresh Token - Token Atualizado");
         res.status(201).send({
-            token: newToken,
-            data: {
-                email: user.email
-            }
+            token: newToken
         });
     } catch (error) {
         console.log("CATCH = user-controller: Refresh Token\n", error);
@@ -280,3 +298,15 @@ exports.refreshToken = async (req, res, next) => {
     }
 
 };
+
+async function getCustomerOrAdvertiserByUserId(userId){
+    console.log("user-controller: inner function = getCustomerOrAdvertiserByUserId");
+    var client = await advertiserRepository.getByUserId(userId);
+
+    if(!client){
+        client = await customerRepository.getByUserId(userId);
+    
+    }
+
+    return client;
+}

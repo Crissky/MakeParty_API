@@ -1,6 +1,9 @@
 'use strict';
 
 const repository = require('../repositories/customer');
+const ValidationFields = require('../validators/validator-fields');
+const authService = require('../services/auth');
+
 
 exports.get = async (req, res, next) => {
     try {
@@ -28,3 +31,76 @@ exports.getById = async (req, res, next) => {
         });
     }
 }
+
+exports.put = async (req, res, next) => {
+    console.log("customer-controller: Atualizar Cliente");
+    let contract = new ValidationFields();
+    contract.cpf(req.body.cpf);
+    
+    if (!contract.isValid()) {
+        console.log("ERROR = customer-controller: Atualizar Cliente\n", contract.errors());
+        res.status(400).send(contract.errors()).end();
+
+        return;
+    }
+    
+    try {
+        const token = req.body.token || req.query.token || req.headers['x-access-token'];
+        const dataToken = await authService.decodeToken(token);
+        req.body._id = dataToken._id;
+        req.body.user = dataToken.user._id;
+        
+        console.log(req.body);
+        const data = await repository.update(req.body);
+
+        if(!data){
+            console.log("customer-controller: Atualizar Cliente - Cliente não encontrado ou inativo.");
+            res.status(404).send({
+                error: "Cliente não encontrado ou inativo."
+            });
+
+            return;
+        }
+
+        console.log("customer-controller: Atualizar Cliente - Atualização finalizada");
+        res.status(200).send({
+            data: data
+        });
+    } catch (error) {
+        console.log("CATCH = customer-controller: Atualizar Cliente");
+        res.status(500).send({
+            error: error
+        });
+    }
+};
+
+exports.delete = async (req, res, next) => {
+    console.log("customer-controller: Apagar Cliente");
+    try {
+        const token = req.body.token || req.query.token || req.headers['x-access-token'];
+        const dataToken = await authService.decodeToken(token);
+        req.body._id = dataToken._id;
+        req.body.user = dataToken.user._id;
+        
+        const data = await repository.delete(req.body);
+        
+        if(!data){
+            console.log("customer-controller: Apagar Cliente - Cliente não encontrado ou inativo.");
+            res.status(404).send({
+                error: "Cliente não encontrado ou inativo."
+            });
+
+            return;
+        }
+
+        console.log("customer-controller: Apagar Cliente - Cliente Apagado");
+        res.status(200).send({
+            data: data
+        });
+    } catch (error) {
+        console.log("CATCH = customer-controller: Apagar Cliente");
+        res.status(500).send({
+            error: error
+        });
+    }
+};

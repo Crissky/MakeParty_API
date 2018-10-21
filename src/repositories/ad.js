@@ -4,13 +4,14 @@ const mongoose = require('mongoose');
 const Ad = mongoose.model('Ad');
 
 const COLUMNS = 'owner title description price type phone tags photos createdAt updatedAt active';
+const OWNER_COLUMNS = 'active user socialname cnpj authorization photo createdAt updatedAt';
 
 exports.get = async () => {
     console.log("ad-repositories: get");
     const res = await Ad
         .find({
             active: true
-        }, COLUMNS).populate('owner', 'name email');
+        }, COLUMNS).populate('owner', OWNER_COLUMNS);
     return res;
 }
 
@@ -20,13 +21,13 @@ exports.getByTag = async (tag) => {
         .find({
             tags: tag,
             active: true
-        }, COLUMNS).populate('owner', 'email');
+        }, COLUMNS).populate('owner', OWNER_COLUMNS);
     return res;
 }
 
 exports.getById = async (id) => {
     console.log("ad-repositories: getById");
-    const res = await Ad.findById(id, COLUMNS).populate('owner', 'email');
+    const res = await Ad.findById(id, COLUMNS).populate('owner', OWNER_COLUMNS);
 
     return res;
 }
@@ -52,13 +53,16 @@ exports.update = async (data) => {
                 title: data.title,
                 description: data.description,
                 price: data.price,
-                tags: data.tags
+                tags: data.tags,
+                type: data.type,
+                phone: data.phone,
+                photos: data.photos
             },
             {
                 runValidators: true,
                 new: true,
                 fields: COLUMNS
-            });
+            }).populate('owner', OWNER_COLUMNS);
 }
 
 exports.delete = async (data) => {
@@ -78,5 +82,5 @@ exports.delete = async (data) => {
                 runValidators: true,
                 new: true,
                 fields: COLUMNS
-            });
+            }).populate('owner', OWNER_COLUMNS);
 }

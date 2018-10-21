@@ -26,7 +26,11 @@ exports.authorize = function (req, res, next) {
         });
     } else {
         jwt.verify(token, authConfig.secret, async function (error, decoded) {
-            const user = await repository.getByIdActive(decoded._id);
+            console.log(decoded);
+            if(decoded){
+                var user = await repository.getByIdActive(decoded.user._id);
+            }
+            
             if (error) {
                 console.log("ERRO = auth-services: Token Inválido\n", error);
                 res.status(401).json({

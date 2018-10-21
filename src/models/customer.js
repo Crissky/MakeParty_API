@@ -13,14 +13,14 @@ const schema = new Schema({
         type: String,
         required: true
     },
-    birthdate:{
-        type: Date,
-        required: true
-    },
     cpf:{
         type: String,
         index:true,
         unique: true,
+        required: true
+    },
+    birthdate:{
+        type: Date,
         required: true
     },
     phone:{

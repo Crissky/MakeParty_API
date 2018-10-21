@@ -13,7 +13,7 @@ function ValidatorFields() {
 }
 
 ValidatorFields.prototype.cnpj = (cnpj) => {
-    console.log("ValidatorFields: CNPJ");
+    console.log("ValidatorFields: cnpj");
     contract.hasMinLen(cnpj, CNPJ_MIN_LEN, "CNPJ deve ter no mínimo " + CNPJ_MIN_LEN + " dígitos.");
 }
 
@@ -23,7 +23,7 @@ ValidatorFields.prototype.cpf = (cpf) => {
 }
 
 ValidatorFields.prototype.email = (email) => {
-    console.log("ValidatorFields: email");
+    console.log("ValidatorFields: e-mail");
     contract.isEmail(email, "E-mail inválido.");
 }
 
@@ -33,12 +33,12 @@ ValidatorFields.prototype.password = (password) => {
 }
 
 ValidatorFields.prototype.name = (name) => {
-    console.log("ValidatorFields: password");
+    console.log("ValidatorFields: name");
     contract.hasMinLen(name, NAME_MIN_LEN, "Nome deve ter no mínimo " + NAME_MIN_LEN + " caracteres.");
 }
 
 ValidatorFields.prototype.title = (title) => {
-    console.log("ValidatorFields: password");
+    console.log("ValidatorFields: title");
     contract.hasMinLen(title, TITLE_MIN_LEN, "Título deve ter no mínimo " + TITLE_MIN_LEN + " caracteres.");
 }
 

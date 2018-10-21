@@ -14,7 +14,17 @@ exports.get = async () => {
 
 exports.getById = async (id) => {
     console.log("advertiser-repositories: getById");
-    const res = await Advertiser.findById(id, COLUMNS).populate('owner', 'email');
+    const res = await Advertiser.findById(id, COLUMNS).populate('user', 'email');
+
+    return res;
+}
+
+exports.getByUserId = async (userId) => {
+    console.log("advertiser-repositories: getByUserId");
+    const res = await Advertiser.findOne({
+        user: userId,
+        active: true
+    }, COLUMNS).populate('user', 'email');
 
     return res;
 }
@@ -24,4 +34,47 @@ exports.create = async (data) => {
     var user = new Advertiser(data);
 
     return await user.save();
+}
+
+exports.update = async (data) => {
+    console.log("advertiser-repositories: update");
+
+    return await Advertiser
+        .findOneAndUpdate(
+            {
+                _id: data._id,
+                user: data.user,
+                active: true
+            },
+            {
+                socialname: data.socialname,
+                cnpj: data.cnpj,
+                authorization: data.authorization,
+                photo: data.photo
+            },
+            {
+                runValidators: true,
+                new: true,
+                fields: COLUMNS
+            }).populate('user', 'email');
+}
+
+exports.delete = async (data) => {
+    console.log("advertiser-repositories: delete");
+
+    return await Advertiser
+        .findOneAndUpdate(
+            {
+                _id: data._id,
+                user: data.user,
+                active: true
+            },
+            {
+                active: false
+            },
+            {
+                runValidators: true,
+                new: true,
+                fields: COLUMNS
+            }).populate('user', 'email');
 }
