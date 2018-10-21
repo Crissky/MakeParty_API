@@ -3,7 +3,7 @@
 
 https://makepartyserver.herokuapp.com
 
-**Rotas que não são abertas necessitam receber o token de acesso. O Token pode ser passado no Body ou no Header**
+**Rotas que não são abertas necessitam receber o token de acesso. O Token pode ser passado no Body ou no Header.**
 
 <br>
 
