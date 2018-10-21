@@ -4,7 +4,6 @@
 
 ## AVISO: API em desenvolvimento, as ROTAS, REQUISIÇÕES e RETORNOS podem sofrer alterações.
 
-<br><br>
 # Rotas
 https://makepartyserver.herokuapp.com
 
