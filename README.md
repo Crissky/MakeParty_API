@@ -190,7 +190,13 @@ password | String (len >= 6) | Obrigatório
 <br>
 
 ### Atualizar Token
-#### Método **POST: {{URL_BASE/users/refresh-token**
+#### Método **POST: /users/refresh-token**
+
+<br>
+
+Chave | Tipo | Requerimento
+------|------|-------------
+token | String | Obrigatório
 
 <br>
 
@@ -208,6 +214,48 @@ password | String (len >= 6) | Obrigatório
 {
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YmNjZDQxNGNmMzk5ZDIzMTAwMDg0OWQiLCJ1c2VyIjp7Il9pZCI6IjViY2NkNDE0Y2YzOTlkMjMxMDAwODQ5YyIsImVtYWlsIjoidGVzdGVAdGVzdGUuY29tIn0sImlhdCI6MTU0MDE1MTIyOCwiZXhwIjoxNTQwMjM3NjI4fQ.GonXkHkUQNcin23NsssLeorfxpZhFCTJjfsYhLFjHjA"
 }
+````
+
+<br>
+
+**Resposta (ERROR):**
+````javascript
+{
+    "error": "Token Inválido"
+}
+````
+
+<br>
+
+### Listar Usuários
+#### Método **GET: /users**
+
+<br>
+
+**Resposta (SUCESSO):**
+````javascript
+[
+    {
+        "_id": "5bca0f42f9475400159db27e",
+        "email": "fagner-silva@hotmail.com"
+    },
+    {
+        "_id": "5bca1207f9475400159db280",
+        "email": "pg2006pe@hotmail.com"
+    },
+    {
+        "_id": "5bca1e3cf9475400159db286",
+        "email": "teste@hotmail.com"
+    },
+    {
+        "_id": "5bccd414cf399d231000849c",
+        "email": "teste@teste.com"
+    },
+    {
+        "_id": "5bccd5c5cf399d231000849f",
+        "email": "teste2@teste.com"
+    }
+]
 ````
 
 <br>
