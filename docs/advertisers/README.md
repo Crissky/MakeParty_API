@@ -1,41 +1,31 @@
-# MakeParty API
-
-## API dedicada a APP [MakeParty](https://github.com/InovaUFRPE/MakeParty)
-
+# Rotas
 ## AVISO: API em desenvolvimento, as ROTAS, REQUISIÇÕES e RETORNOS podem sofrer alterações.
 
-# Rotas
 https://makepartyserver.herokuapp.com
 
-## Usuário (users) - /users
+## Pessoa Jurídica - Anunciante (advertisers) - /users
 
-### Criar Usuário Pessoa Jurídica (Anunciante)
-#### Método **POST: /users/signup/advertiser**
+### Atualizar Pessoa Jurídica (Anunciante)
+#### Método **PUT: /advertisers**
 
 <br>
 
 Chave | Tipo | Requerimento
 ------|------|-------------
-email | String (teste@teste.com) | Obrigatório
-password | String (len >= 6) | Obrigatório
 socialname | String | Obrigatório
 cnpj | String (len >= 14) | Obrigatório
-authorization | String | Opcional
-photo | String | Opcional
+authorization | String | Obrigatório
+photo | String | Obrigatório
 
 <br>
 
 **Corpo:**
 ````javascript
 {
-  "user":{
-    "email": "teste@teste.com",
-    "password":"123456"
-  },
-  "socialname":"Teste INC.",
+  "socialname":"Teste Testando",
   "cnpj":"98765432109876",
-  "authorization":"Eventos - a5s46as54da6s54d",
-  "photo":"photo.jpg"
+  "authorization":"13a2sd465asd",
+  "photo":"photo2.jpg"
 }
 ````
 
@@ -47,13 +37,16 @@ photo | String | Opcional
     "data": {
         "active": true,
         "_id": "5bccd414cf399d231000849d",
-        "user": "5bccd414cf399d231000849c",
-        "socialname": "Teste INC.",
+        "user": {
+            "_id": "5bccd414cf399d231000849c",
+            "email": "teste@teste.com"
+        },
+        "socialname": "Teste Testando",
         "cnpj": "98765432109876",
-        "authorization": "Eventos - a5s46as54da6s54d",
-        "photo": "photo.jpg",
+        "authorization": "13a2sd465asd",
+        "photo": "photo2.jpg",
         "createdAt": "2018-10-21T19:31:32.625Z",
-        "updatedAt": "2018-10-21T19:31:32.625Z"
+        "updatedAt": "2018-10-21T20:25:11.185Z"
     }
 }
 ````
@@ -64,133 +57,27 @@ photo | String | Opcional
 ````javascript
 {
     "error": {
-        "driver": true,
-        "name": "MongoError",
-        "index": 0,
+        "operationTime": "6614909179607908353",
+        "ok": 0,
+        "errmsg": "E11000 duplicate key error index: makepartydb.advertisers.$cnpj_1 dup key: { : \"12345678901234\" }",
         "code": 11000,
-        "errmsg": "E11000 duplicate key error index: makepartydb.users.$email_1 dup key: { : \"teste@teste.com\" }"
+        "codeName": "DuplicateKey",
+        "$clusterTime": {
+            "clusterTime": "6614909179607908353",
+            "signature": {
+                "hash": "g6M7vxlBw5mK1vzvL0gNaGETe78=",
+                "keyId": "6614056138973380609"
+            }
+        },
+        "name": "MongoError"
     }
 }
 ````
 
 <br>
 
-### Criar Usuário Pessoa Física (Cliente)
-#### Método **POST: /users/signup/customer**
-
-<br>
-
-Chave | Tipo | Requerimento
-------|------|-------------
-email | String (teste@teste.com) | Obrigatório
-password | String (len >= 6) | Obrigatório
-name | String | Obrigatório
-cpf | String (len >= 11) | Obrigatório
-birthdate | Date-String | Obrigatório
-phone | String | Obrigatório
-photo | String | Opcional
-
-<br>
-
-**Corpo:**
-````javascript
-{
-	"user":{
-		"email": "teste2@teste.com",
-		"password":"123456"
-	},
-	"name":"Testeonildo do Teste",
-	"cpf":"98765432109",
-	"birthdate":"1990-01-02",
-	"phone":"34333163",
-	"photo":"photo.jpg"
-}
-````
-
-<br>
-
-**Resposta (SUCESSO):**
-````javascript
-{
-    "data": {
-        "active": true,
-        "_id": "5bccd5c5cf399d23100084a0",
-        "user": "5bccd5c5cf399d231000849f",
-        "name": "Testeonildo do Teste",
-        "cpf": "98765432109",
-        "birthdate": "1990-01-02T00:00:00.000Z",
-        "phone": "34333163",
-        "photo": "photo.jpg",
-        "createdAt": "2018-10-21T19:38:45.931Z",
-        "updatedAt": "2018-10-21T19:38:45.931Z"
-    }
-}
-````
-
-<br>
-
-**Resposta (ERROR):**
-````javascript
-{
-    "error": {
-        "driver": true,
-        "name": "MongoError",
-        "index": 0,
-        "code": 11000,
-        "errmsg": "E11000 duplicate key error index: makepartydb.users.$email_1 dup key: { : \"teste2@teste.com\" }"
-    }
-}
-````
-
-<br>
-
-### Autenticar Usuário
-#### Método **POST: /users/authenticate**
-
-<br>
-
-Chave | Tipo | Requerimento
-------|------|-------------
-email | String (teste@teste.com) | Obrigatório
-password | String (len >= 6) | Obrigatório
-
-<br>
-
-**Corpo:**
-````javascript
-{ 
-  "email": "teste@teste.com", 
-  "password": "123456"
-}
-````
-
-<br>
-
-**Resposta (SUCESSO):**
-````javascript
-{
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YmNjZDQxNGNmMzk5ZDIzMTAwMDg0OWQiLCJ1c2VyIjp7Il9pZCI6IjViY2NkNDE0Y2YzOTlkMjMxMDAwODQ5YyIsImVtYWlsIjoidGVzdGVAdGVzdGUuY29tIn0sImlhdCI6MTU0MDE1MTEyOSwiZXhwIjoxNTQwMjM3NTI5fQ.o9UJuaX3uJL1vW3MxqydUk8QA9PnJS0yL3x7rZHgJrg"
-}
-````
-
-<br>
-
-**Resposta (ERROR):**
-````javascript
-[
-    {
-        "error": "E-mail inválido."
-    },
-    {
-        "error": "Senha deve ter no mínimo 6 caracteres."
-    }
-]
-````
-
-<br>
-
-### Atualizar Token
-#### Método **POST: /users/refresh-token**
+### Apagar Pessoa Jurídica (Anunciante)
+#### Método **DELETE: /advertisers**
 
 <br>
 
@@ -212,8 +99,85 @@ token | String | Obrigatório
 **Resposta (SUCESSO):**
 ````javascript
 {
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YmNjZDQxNGNmMzk5ZDIzMTAwMDg0OWQiLCJ1c2VyIjp7Il9pZCI6IjViY2NkNDE0Y2YzOTlkMjMxMDAwODQ5YyIsImVtYWlsIjoidGVzdGVAdGVzdGUuY29tIn0sImlhdCI6MTU0MDE1MTIyOCwiZXhwIjoxNTQwMjM3NjI4fQ.GonXkHkUQNcin23NsssLeorfxpZhFCTJjfsYhLFjHjA"
+    "data": {
+        "active": false,
+        "_id": "5bccd414cf399d231000849d",
+        "user": {
+            "_id": "5bccd414cf399d231000849c",
+            "email": "teste@teste.com"
+        },
+        "socialname": "Teste Testando",
+        "cnpj": "98765432109876",
+        "authorization": "13a2sd465asd",
+        "photo": "photo2.jpg",
+        "createdAt": "2018-10-21T19:31:32.625Z",
+        "updatedAt": "2018-10-21T20:31:05.665Z"
+    }
 }
+````
+
+<br>
+
+**Resposta (ERROR):**
+````javascript
+{
+    "error": "Anunciante não encontrado ou inativo."
+}
+````
+
+<br>
+
+### Listar Pessoas Jurídica
+#### Método **GET: /advertisers**
+
+<br>
+
+**Resposta (SUCESSO):**
+````javascript
+[
+    {
+        "active": true,
+        "_id": "5bca1207f9475400159db281",
+        "user": {
+            "_id": "5bca1207f9475400159db280",
+            "email": "pg2006pe@hotmail.com"
+        },
+        "socialname": "Fagner INC.",
+        "cnpj": "12345678901234",
+        "authorization": "13a2sd465asd",
+        "photo": "photo2.jpg",
+        "createdAt": "2018-10-19T17:19:03.698Z",
+        "updatedAt": "2018-10-21T20:21:52.813Z"
+    },
+    {
+        "active": true,
+        "_id": "5bca1e3cf9475400159db287",
+        "user": {
+            "_id": "5bca1e3cf9475400159db286",
+            "email": "teste@hotmail.com"
+        },
+        "socialname": "Fagner INC.",
+        "cnpj": "12345678901235",
+        "authorization": "13a2sd465asd",
+        "photo": "photo.jpg",
+        "createdAt": "2018-10-19T18:11:08.458Z",
+        "updatedAt": "2018-10-19T18:11:08.458Z"
+    },
+    {
+        "active": true,
+        "_id": "5bccd414cf399d231000849d",
+        "user": {
+            "_id": "5bccd414cf399d231000849c",
+            "email": "teste@teste.com"
+        },
+        "socialname": "Teste Testando",
+        "cnpj": "98765432109876",
+        "authorization": "13a2sd465asd",
+        "photo": "photo2.jpg",
+        "createdAt": "2018-10-21T19:31:32.625Z",
+        "updatedAt": "2018-10-21T20:31:05.665Z"
+    }
+]
 ````
 
 <br>
@@ -227,35 +191,33 @@ token | String | Obrigatório
 
 <br>
 
-### Listar Usuários
-#### Método **GET: /users**
+### Pesquisar Pessoa Jurídica pelo ID
+#### Método **GET: /advertisers/:id**
+
+<br>
+
+Parametro | Observação
+------|------
+ID | O ID deve ser passado no fim da rota.
 
 <br>
 
 **Resposta (SUCESSO):**
 ````javascript
-[
-    {
-        "_id": "5bca0f42f9475400159db27e",
-        "email": "fagner-silva@hotmail.com"
-    },
-    {
-        "_id": "5bca1207f9475400159db280",
-        "email": "pg2006pe@hotmail.com"
-    },
-    {
-        "_id": "5bca1e3cf9475400159db286",
-        "email": "teste@hotmail.com"
-    },
-    {
+{
+    "active": true,
+    "_id": "5bccd414cf399d231000849d",
+    "user": {
         "_id": "5bccd414cf399d231000849c",
         "email": "teste@teste.com"
     },
-    {
-        "_id": "5bccd5c5cf399d231000849f",
-        "email": "teste2@teste.com"
-    }
-]
+    "socialname": "Teste Testando",
+    "cnpj": "98765432109876",
+    "authorization": "13a2sd465asd",
+    "photo": "photo2.jpg",
+    "createdAt": "2018-10-21T19:31:32.625Z",
+    "updatedAt": "2018-10-21T20:31:05.665Z"
+}
 ````
 
 <br>
