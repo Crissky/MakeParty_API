@@ -1,4 +1,4 @@
-# Rotas - Usuário (users) - /users
+# Rotas - Usuário (users)
 ## AVISO: API em desenvolvimento, as ROTAS, REQUISIÇÕES e RETORNOS podem sofrer alterações.
 
 https://makepartyserver.herokuapp.com
