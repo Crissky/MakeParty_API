@@ -6,6 +6,6 @@
 
 # Rotas
 - [Ads](https://github.com/localTeste/MakeParty_API/tree/dev/docs/ads)
-- [advertisers](https://github.com/localTeste/MakeParty_API/tree/dev/docs/advertisers)
+- [Advertisers](https://github.com/localTeste/MakeParty_API/tree/dev/docs/advertisers)
 - [Customers](https://github.com/localTeste/MakeParty_API/tree/dev/docs/customers)
 - [Users](https://github.com/localTeste/MakeParty_API/tree/dev/docs/users)
