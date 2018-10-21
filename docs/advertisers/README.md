@@ -125,7 +125,7 @@ token | String | Obrigatório
 
 <br>
 
-### Listar Pessoas Jurídica
+### Listar Pessoas Jurídica (Anunciante)
 #### Método **GET: /advertisers**
 
 <br>
@@ -189,7 +189,7 @@ token | String | Obrigatório
 
 <br>
 
-### Pesquisar Pessoa Jurídica pelo ID
+### Pesquisar Pessoa Jurídica pelo ID (Anunciante)
 #### Método **GET: /advertisers/:id**
 
 <br>
