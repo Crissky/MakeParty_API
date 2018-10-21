@@ -3,7 +3,7 @@
 
 https://makepartyserver.herokuapp.com
 
-### Criar Usuário Pessoa Jurídica (Anunciante)
+### Criar Usuário Pessoa Jurídica (Anunciante) - ROTA ABERTA (NÃO NECESSITA DE TOKEN)
 #### Método **POST: /users/signup/advertiser**
 
 <br>
@@ -69,7 +69,7 @@ photo | String | Opcional
 
 <br>
 
-### Criar Usuário Pessoa Física (Cliente)
+### Criar Usuário Pessoa Física (Cliente) - ROTA ABERTA (NÃO NECESSITA DE TOKEN)
 #### Método **POST: /users/signup/customer**
 
 <br>
@@ -138,7 +138,7 @@ photo | String | Opcional
 
 <br>
 
-### Autenticar Usuário
+### Autenticar Usuário - ROTA ABERTA (NÃO NECESSITA DE TOKEN)
 #### Método **POST: /users/authenticate**
 
 <br>
