@@ -4,7 +4,7 @@
 
 ## AVISO: API em desenvolvimento, as ROTAS, REQUISIÇÕES e RETORNOS podem sofrer alterações.
 
-# Rotas
+# Documentação das Rotas
 - [Ads](https://github.com/localTeste/MakeParty_API/tree/dev/docs/ads)
 - [Advertisers](https://github.com/localTeste/MakeParty_API/tree/dev/docs/advertisers)
 - [Customers](https://github.com/localTeste/MakeParty_API/tree/dev/docs/customers)
