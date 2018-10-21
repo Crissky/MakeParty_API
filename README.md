@@ -13,6 +13,8 @@ https://makepartyserver.herokuapp.com
 ### Criar Usuário Pessoa Jurídica (Anunciante)
 #### Método **POST: /users/signup/advertiser**
 
+<br>
+
 Chave | Tipo | Requerimento
 ------|------|-------------
 email | String (teste@teste.com) | Obrigatório
@@ -21,6 +23,8 @@ socialname | String | Obrigatório
 cnpj | String (len >= 14) | Obrigatório
 authorization | String | Opcional
 photo | String | Opcional
+
+<br>
 
 **Corpo:**
 ````javascript
@@ -74,6 +78,8 @@ photo | String | Opcional
 ### Criar Usuário Pessoa Física (Cliente)
 #### Método **POST: /users/signup/customer**
 
+<br>
+
 Chave | Tipo | Requerimento
 ------|------|-------------
 email | String (teste@teste.com) | Obrigatório
@@ -83,6 +89,8 @@ cpf | String (len >= 11) | Obrigatório
 birthdate | Date-String | Obrigatório
 phone | String | Obrigatório
 photo | String | Opcional
+
+<br>
 
 **Corpo:**
 ````javascript
@@ -138,10 +146,14 @@ photo | String | Opcional
 ### Autenticar Usuário
 #### Método **POST: /users/authenticate**
 
+<br>
+
 Chave | Tipo | Requerimento
 ------|------|-------------
 email | String (teste@teste.com) | Obrigatório
 password | String (len >= 6) | Obrigatório
+
+<br>
 
 **Corpo:**
 ````javascript
@@ -151,12 +163,16 @@ password | String (len >= 6) | Obrigatório
 }
 ````
 
+<br>
+
 **Resposta (SUCESSO):**
 ````javascript
 {
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YmNjZDQxNGNmMzk5ZDIzMTAwMDg0OWQiLCJ1c2VyIjp7Il9pZCI6IjViY2NkNDE0Y2YzOTlkMjMxMDAwODQ5YyIsImVtYWlsIjoidGVzdGVAdGVzdGUuY29tIn0sImlhdCI6MTU0MDE1MTEyOSwiZXhwIjoxNTQwMjM3NTI5fQ.o9UJuaX3uJL1vW3MxqydUk8QA9PnJS0yL3x7rZHgJrg"
 }
 ````
+
+<br>
 
 **Resposta (ERROR):**
 ````javascript
@@ -170,8 +186,12 @@ password | String (len >= 6) | Obrigatório
 ]
 ````
 
+<br>
+
 ### Atualizar Token
 #### Método **POST: {{URL_BASE/users/refresh-token**
+
+<br>
 
 **Corpo:**
 ````javascript
@@ -180,12 +200,16 @@ password | String (len >= 6) | Obrigatório
 }
 ````
 
+<br>
+
 **Resposta (SUCESSO):**
 ````javascript
 {
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YmNjZDQxNGNmMzk5ZDIzMTAwMDg0OWQiLCJ1c2VyIjp7Il9pZCI6IjViY2NkNDE0Y2YzOTlkMjMxMDAwODQ5YyIsImVtYWlsIjoidGVzdGVAdGVzdGUuY29tIn0sImlhdCI6MTU0MDE1MTIyOCwiZXhwIjoxNTQwMjM3NjI4fQ.GonXkHkUQNcin23NsssLeorfxpZhFCTJjfsYhLFjHjA"
 }
 ````
+
+<br>
 
 **Resposta (ERROR):**
 ````javascript
