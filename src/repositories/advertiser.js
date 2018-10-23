@@ -19,6 +19,16 @@ exports.getById = async (id) => {
     return res;
 }
 
+exports.getByIdActive = async (id) => {
+    console.log("advertiser-repositories: getByIdActive");
+    const res = await Advertiser.findOne({
+        _id: id,
+        active: true
+    });
+    
+    return res;
+}
+
 exports.getByUserId = async (userId) => {
     console.log("advertiser-repositories: getByUserId");
     const res = await Advertiser.findOne({
