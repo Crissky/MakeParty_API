@@ -33,6 +33,20 @@ exports.getByTag = async (req, res, next) => {
     }
 }
 
+exports.getByType = async (req, res, next) => {
+    console.log("ad-controller: Pesquisar Anúncios pelo Tipo");
+    try {
+        var data = await repository.getByType(req.params.type);
+        console.log("ad-controller: Pesquisar Anúncios pelo Tipo - Pesquisa finalizada");
+    res.status(200).send(data);
+    } catch (error) {
+        console.log("CATCH = ad-controller: Pesquisar Anúncios pelo Tipo");
+        res.status(500).send({
+            error: error
+        });
+    }
+}
+
 exports.getById = async (req, res, next) => {
     console.log("ad-controller: Pesquisar Anúncio pelo ID");
     try {
@@ -62,11 +76,8 @@ exports.post = async (req, res, next) => {
     try {
         const token = req.body.token || req.query.token || req.headers['x-access-token'];
         const dataToken = await authService.decodeToken(token);
-        console.log("dataToken", dataToken);
         const owner = await advertiserRepository.getByIdActive(dataToken._id);
         req.body.owner = dataToken._id;
-        
-        console.log(owner);
         
         if(!owner){
             res.status(401).send({

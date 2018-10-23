@@ -19,7 +19,17 @@ exports.getByTag = async (tag) => {
     console.log("ad-repositories: getByTag");
     const res = await Ad
         .find({
-            tags: tag,
+            tags: { $regex : new RegExp(tag, "i") },
+            active: true
+        }, COLUMNS).populate('owner', OWNER_COLUMNS);
+    return res;
+}
+
+exports.getByType = async (type) => {
+    console.log("ad-repositories: getByType");
+    const res = await Ad
+        .find({
+            type: { $regex : new RegExp(type, "i") },
             active: true
         }, COLUMNS).populate('owner', OWNER_COLUMNS);
     return res;

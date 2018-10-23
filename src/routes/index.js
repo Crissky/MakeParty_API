@@ -7,7 +7,7 @@ console.log("Index: Versão do App");
 router.get('/', (req, res, next) => {
     res.status(200).send({
         title: "MakeParty API",
-        version: "0.0.4"
+        version: "0.0.5"
     });
 });
 

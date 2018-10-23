@@ -520,6 +520,88 @@ TAG | A TAG deve ser passada no fim da rota.
 ]
 ````
 
+
+<br>
+
+### Listar Anúncios pelo Tipo - ROTA ABERTA (NÃO NECESSITA DE TOKEN)
+#### Método **GET: /types/:type**
+
+<br>
+
+Parametro | Observação
+------|------
+TIPO | O TIPO deve ser passada no fim da rota.
+
+<br>
+
+**Resposta (SUCESSO):**
+````javascript
+[
+    {
+        "description": "Festa muito topzera 2018 UFRPE",
+        "price": 150,
+        "tags": [
+            "festa",
+            "top",
+            "ufrpe"
+        ],
+        "photos": [
+            "Foto.jpg",
+            "Capa.jpg"
+        ],
+        "active": true,
+        "_id": "5bccc9890a6229312442519c",
+        "title": "Calourada Top 2018 UFRPE",
+        "type": "Festa",
+        "phone": "89452639",
+        "owner": {
+            "active": true,
+            "_id": "5bca1207f9475400159db281",
+            "user": "5bca1207f9475400159db280",
+            "socialname": "Fagner INC.",
+            "cnpj": "12345678901234",
+            "authorization": "13a2sd465asd",
+            "photo": "photo2.jpg",
+            "createdAt": "2018-10-19T17:19:03.698Z",
+            "updatedAt": "2018-10-21T20:21:52.813Z"
+        },
+        "createdAt": "2018-10-21T18:46:33.825Z",
+        "updatedAt": "2018-10-21T18:46:33.825Z"
+    },
+    {
+        "description": "Festa muito topzera 2018 UFRPE",
+        "price": 150,
+        "tags": [
+            "festa",
+            "top",
+            "ufrpe"
+        ],
+        "photos": [
+            "Foto.jpg",
+            "Capa.jpg"
+        ],
+        "active": true,
+        "_id": "5bccc9b30b0a3715b4a07b38",
+        "title": "Calourada Top 2018 UFRPE",
+        "type": "Festa",
+        "phone": "89452639",
+        "owner": {
+            "active": true,
+            "_id": "5bca1207f9475400159db281",
+            "user": "5bca1207f9475400159db280",
+            "socialname": "Fagner INC.",
+            "cnpj": "12345678901234",
+            "authorization": "13a2sd465asd",
+            "photo": "photo2.jpg",
+            "createdAt": "2018-10-19T17:19:03.698Z",
+            "updatedAt": "2018-10-21T20:21:52.813Z"
+        },
+        "createdAt": "2018-10-21T18:47:15.622Z",
+        "updatedAt": "2018-10-21T18:47:15.622Z"
+    }
+]
+````
+
 <br>
 
 **Resposta (ERROR):**

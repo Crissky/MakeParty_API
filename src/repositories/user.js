@@ -22,7 +22,7 @@ exports.create = async (data) => {
 exports.authenticate = async (data) => {
     console.log("user-repositories: authenticate");
     const res = await User.findOne({
-        email: data.email,
+        email: { $regex : new RegExp(data.email, "i") }, //RegExp for case insensitive
         password: data.password,
         active: true
     }).select('+password');
