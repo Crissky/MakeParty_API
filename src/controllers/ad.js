@@ -62,9 +62,16 @@ exports.post = async (req, res, next) => {
     try {
         const token = req.body.token || req.query.token || req.headers['x-access-token'];
         const dataToken = await authService.decodeToken(token);
+        console.log("dataToken", dataToken);
+        const owner = await advertiserRepository.getByIdActive(dataToken._id);
         req.body.owner = dataToken._id;
         
-        if(!advertiserRepository.getById(req.body.owner)){
+        console.log(owner);
+        
+        if(!owner){
+            res.status(401).send({
+                error: "Usuário não autorizado ou desativado"
+            });
             return;
         }
 
