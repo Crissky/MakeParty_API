@@ -1,6 +1,7 @@
 'use strict';
 
 const repository = require('../repositories/ad');
+const advertiserRepository = require('../repositories/advertiser');
 const ValidationFields = require('../validators/validator-fields');
 const authService = require('../services/auth');
 
@@ -63,6 +64,10 @@ exports.post = async (req, res, next) => {
         const dataToken = await authService.decodeToken(token);
         req.body.owner = dataToken._id;
         
+        if(!advertiserRepository.getById(req.body.owner)){
+            return;
+        }
+
         const data = await repository.create(req.body);
         data.__v = undefined;
 
