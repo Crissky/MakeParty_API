@@ -36,8 +36,28 @@ const schema = new Schema({
         lowercase: true
     }],
     photos:[{
-        type: String,
+        type: String
     }],
+    address:{
+        street:{
+            type: String
+        },
+        number:{
+            type: String
+        },
+        neighborhood:{
+            type: String
+        },
+        city:{
+            type: String
+        },
+        zipcode:{
+            type: String
+        },
+        state:{
+            type: String
+        }
+    },
     active:{
         type: Boolean,
         default: true

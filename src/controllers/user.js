@@ -70,6 +70,14 @@ exports.post = async (req, res, next) => {
 
 exports.signupAdvertiser = async (req, res, next) => {
     console.log("user-controller: Cadastrar Anunciante");
+    
+    if (!req.body.user) {
+        console.log("ERROR = user-controller: Cadastrar Anunciante\n", );
+        res.status(400).send({error: "Email e Senha são obrigatórios."}).end();
+
+        return;
+    }
+
     let contract = new ValidationFields();
     contract.email(req.body.user.email);
     contract.password(req.body.user.password);
@@ -131,6 +139,14 @@ exports.signupAdvertiser = async (req, res, next) => {
 
 exports.signupCustomer = async (req, res, next) => {
     console.log("user-controller: Cadastrar Cliente");
+
+    if (!req.body.user) {
+        console.log("ERROR = user-controller: Cadastrar Cliente\n", );
+        res.status(400).send({error: "Email e Senha são obrigatórios."}).end();
+
+        return;
+    }
+
     let contract = new ValidationFields();
     contract.email(req.body.user.email);
     contract.password(req.body.user.password);

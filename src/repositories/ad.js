@@ -3,7 +3,7 @@
 const mongoose = require('mongoose');
 const Ad = mongoose.model('Ad');
 
-const COLUMNS = 'owner title description price type phone tags photos createdAt updatedAt active';
+const COLUMNS = 'owner title description price type phone tags photos createdAt updatedAt active address';
 const OWNER_COLUMNS = 'active user socialname cnpj authorization photo createdAt updatedAt';
 
 exports.get = async () => {
@@ -66,7 +66,15 @@ exports.update = async (data) => {
                 tags: data.tags,
                 type: data.type,
                 phone: data.phone,
-                photos: data.photos
+                photos: data.photos,
+                address: {
+                    street: data.address.street,
+                    number: data.address.number,
+                    neighborhood: data.address.neighborhood,
+                    city: data.address.city,
+                    zipcode: data.address.zipcode,
+                    state: data.address.state
+                }
             },
             {
                 runValidators: true,
