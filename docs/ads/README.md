@@ -21,6 +21,12 @@ type | String | Obrigatório
 phone | String | Opcional
 tags | StringList | Opcional
 photos | StringList | Opcional
+address.street | String | Opcional
+address.number | String | Opcional
+address.neighborhood | String | Opcional
+address.city | String | Opcional
+address.zipcode | String | Opcional
+address.state | String | Opcional
 
 <br>
 
@@ -33,7 +39,15 @@ photos | StringList | Opcional
 	"type": "Festa",
 	"phone":"89452639",
 	"tags": ["Festa", "Top", "UFRPE"],
-	"photos": ["Foto.jpg", "Capa.jpg"]
+    "photos": ["Foto.jpg", "Capa.jpg"],
+    "address":{
+        "street":"Rua do Barro",
+        "number":"302",
+        "neighborhood":"Macaxeira",
+        "city":"Hellcife",
+        "zipcode":"53000-100",
+        "state":"PE"
+	}
 }
 ````
 
@@ -59,6 +73,14 @@ photos | StringList | Opcional
         "title": "Calourada Top 2018 UFRPE",
         "type": "Festa",
         "phone": "89452639",
+        "address": {
+            "street": "Rua do Barro",
+            "number": "302",
+            "neighborhood": "Macaxeira",
+            "city": "Hellcife",
+            "zipcode": "53000-100",
+            "state": "PE"
+        },
         "owner": "5bccd414cf399d231000849d",
         "createdAt": "2018-10-21T21:08:37.235Z",
         "updatedAt": "2018-10-21T21:08:37.235Z"
@@ -93,6 +115,12 @@ type | String | Obrigatório
 phone | String | Obrigatório
 tags | StringList | Obrigatório
 photos | StringList | Obrigatório
+address.street | String | Obrigatório
+address.number | String | Obrigatório
+address.neighborhood | String | Obrigatório
+address.city | String | Obrigatório
+address.zipcode | String | Obrigatório
+address.state | String | Obrigatório
 
 <br>
 
@@ -106,7 +134,15 @@ photos | StringList | Obrigatório
 	"type": "Festa",
 	"phone":"89452639",
 	"tags": ["FESTA", "Topzera", "BEST", "Bebidas"],
-	"photos": ["Foto.jpg", "Capa.jpg"]
+    "photos": ["Foto.jpg", "Capa.jpg"],
+    "address": {
+            "street": "Rua do Jorge Luiz",
+            "number": "3020",
+            "neighborhood": "Dois Irmãos",
+            "city": "Hellcife",
+            "zipcode": "53000-101",
+            "state": "PE"
+        }
 }
 ````
 
@@ -116,6 +152,14 @@ photos | StringList | Obrigatório
 ````javascript
 {
     "data": {
+        "address": {
+            "street": "Rua do Jorge Luiz",
+            "number": "3020",
+            "neighborhood": "Dois Irmãos",
+            "city": "Hellcife",
+            "zipcode": "53000-101",
+            "state": "PE"
+        },
         "description": "Festa muito top...",
         "price": 400,
         "tags": [
@@ -185,6 +229,14 @@ Chave | Tipo | Requerimento
 ````javascript
 {
     "data": {
+        "address": {
+            "street": "Rua do Jorge Luiz",
+            "number": "3020",
+            "neighborhood": "Dois Irmãos",
+            "city": "Hellcife",
+            "zipcode": "53000-101",
+            "state": "PE"
+        },
         "description": "Festa muito top...",
         "price": 400,
         "tags": [
@@ -301,6 +353,14 @@ Chave | Tipo | Requerimento
         "updatedAt": "2018-10-21T18:47:15.622Z"
     },
     {
+        "address": {
+            "street": "Rua do Jorge Luiz",
+            "number": "3020",
+            "neighborhood": "Dois Irmãos",
+            "city": "Hellcife",
+            "zipcode": "53000-101",
+            "state": "PE"
+        },
         "description": "Festa muito top...",
         "price": 400,
         "tags": [
@@ -391,6 +451,14 @@ ID | O ID deve ser passado no fim da rota.
 **Resposta (SUCESSO):**
 ````javascript
 {
+    "address": {
+        "street": "Rua do Jorge Luiz",
+        "number": "3020",
+        "neighborhood": "Dois Irmãos",
+        "city": "Hellcife",
+        "zipcode": "53000-101",
+        "state": "PE"
+    },
     "description": "Festa muito topzera 2018 UFRPE",
     "price": 150,
     "tags": [
@@ -487,6 +555,14 @@ TAG | A TAG deve ser passada no fim da rota.
         "updatedAt": "2018-10-21T18:46:33.825Z"
     },
     {
+        "address": {
+        "street": "Rua do Jorge Luiz",
+        "number": "3020",
+        "neighborhood": "Dois Irmãos",
+        "city": "Hellcife",
+        "zipcode": "53000-101",
+        "state": "PE"
+        },
         "description": "Festa muito topzera 2018 UFRPE",
         "price": 150,
         "tags": [
@@ -538,6 +614,14 @@ TIPO | O TIPO deve ser passada no fim da rota.
 ````javascript
 [
     {
+        "address": {
+            "street": "Rua do Barro",
+            "number": "302",
+            "neighborhood": "Macaxeira",
+            "city": "Hellcife",
+            "zipcode": "53000-100",
+            "state": "PE"
+        },
         "description": "Festa muito topzera 2018 UFRPE",
         "price": 150,
         "tags": [
