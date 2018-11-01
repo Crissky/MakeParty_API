@@ -40,15 +40,15 @@ address.state | String | Opcional
 	"type": "Festa",
 	"phone":"89452639",
 	"tags": ["Festa", "Top", "UFRPE"],
-    "mainphoto":"Foto principal.png",
+    	"mainphoto":"Foto principal.png",
 	"photos": ["Foto.jpg", "Capa.jpg"],
-    "address":{
-        "street":"Rua do Barro",
-        "number":"302",
-        "neighborhood":"Macaxeira",
-        "city":"Hellcife",
-        "zipcode":"53000-100",
-        "state":"PE"
+    	"address":{
+        	"street":"Rua do Barro",
+        	"number":"302",
+        	"neighborhood":"Macaxeira",
+        	"city":"Hellcife",
+        	"zipcode":"53000-100",
+        	"state":"PE"
 	}
 }
 ````
@@ -138,9 +138,9 @@ address.state | String | Obrigatório
 	"type": "Festa",
 	"phone":"89452639",
 	"tags": ["FESTA", "Topzera", "BEST", "Bebidas"],
-    "mainphoto":"Foto principal Nova.png",
+    	"mainphoto":"Foto principal Nova.png",
 	"photos": ["Foto.jpg", "Capa.jpg"],
-    "address": {
+    	"address": {
             "street": "Rua do Jorge Luiz",
             "number": "3020",
             "neighborhood": "Dois Irmãos",
