@@ -35,6 +35,9 @@ const schema = new Schema({
         type: String,
         lowercase: true
     }],
+    mainphoto:{
+        type: String
+    },
     photos:[{
         type: String
     }],

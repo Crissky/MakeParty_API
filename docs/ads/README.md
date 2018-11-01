@@ -3,7 +3,7 @@
 
 https://makepartyserver.herokuapp.com
 
-**Rotas que não são abertas necessitam receber o token de acesso. O Token pode ser passado no Body ou no Header.**
+**Rotas que não são abertas necessitam receber o token de acesso. O Token pode ser passado no Body ou no Header(x-access-token).**
 
 <br>
 
@@ -20,6 +20,7 @@ price | Number | Opcional
 type | String | Obrigatório
 phone | String | Opcional
 tags | StringList | Opcional
+mainphoto | String | Opcional
 photos | StringList | Opcional
 address.street | String | Opcional
 address.number | String | Opcional
@@ -39,7 +40,8 @@ address.state | String | Opcional
 	"type": "Festa",
 	"phone":"89452639",
 	"tags": ["Festa", "Top", "UFRPE"],
-    "photos": ["Foto.jpg", "Capa.jpg"],
+    "mainphoto":"Foto principal.png",
+	"photos": ["Foto.jpg", "Capa.jpg"],
     "address":{
         "street":"Rua do Barro",
         "number":"302",
@@ -73,6 +75,7 @@ address.state | String | Opcional
         "title": "Calourada Top 2018 UFRPE",
         "type": "Festa",
         "phone": "89452639",
+        "mainphoto": "Foto principal.png",
         "address": {
             "street": "Rua do Barro",
             "number": "302",
@@ -114,6 +117,7 @@ price | Number | Obrigatório
 type | String | Obrigatório
 phone | String | Obrigatório
 tags | StringList | Obrigatório
+mainphoto | String | Opcional
 photos | StringList | Obrigatório
 address.street | String | Obrigatório
 address.number | String | Obrigatório
@@ -134,7 +138,8 @@ address.state | String | Obrigatório
 	"type": "Festa",
 	"phone":"89452639",
 	"tags": ["FESTA", "Topzera", "BEST", "Bebidas"],
-    "photos": ["Foto.jpg", "Capa.jpg"],
+    "mainphoto":"Foto principal Nova.png",
+	"photos": ["Foto.jpg", "Capa.jpg"],
     "address": {
             "street": "Rua do Jorge Luiz",
             "number": "3020",
@@ -189,7 +194,8 @@ address.state | String | Obrigatório
             "updatedAt": "2018-10-21T20:31:05.665Z"
         },
         "createdAt": "2018-10-21T21:08:37.235Z",
-        "updatedAt": "2018-10-21T21:12:27.608Z"
+        "updatedAt": "2018-10-21T21:12:27.608Z",
+        "mainphoto":"Foto principal Nova.png",
     }
 }
 ````
@@ -266,7 +272,8 @@ Chave | Tipo | Requerimento
             "updatedAt": "2018-10-21T20:31:05.665Z"
         },
         "createdAt": "2018-10-21T21:08:37.235Z",
-        "updatedAt": "2018-10-21T21:15:24.635Z"
+        "updatedAt": "2018-10-21T21:15:24.635Z",
+        "mainphoto": "Foto principal nova.png"
     }
 }
 ````
