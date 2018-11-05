@@ -265,7 +265,8 @@ exports.authenticate = async (req, res, next) => {
 
         console.log("user-controller: Autenticar Usuário - Usuário Autenticado");
         res.status(201).send({
-            token: token
+            token: token,
+            type: client.type
         });
     } catch (error) {
         console.log("CATCH = user-controller: Autenticar Usuário\n", error);
@@ -285,9 +286,9 @@ exports.refreshToken = async (req, res, next) => {
         const client = await getCustomerOrAdvertiserByUserId(data.user._id);
 
         if (!client) {
-            console.log("ERROR = user-controller: Refresh Token - Cliente não encontrado");
+            console.log("ERROR = user-controller: Refresh Token - Usuário não encontrado");
             res.status(404).send({
-                error: 'Cliente não encontrado.'
+                error: 'Usuário não encontrado.'
             });
 
             return;
@@ -304,7 +305,8 @@ exports.refreshToken = async (req, res, next) => {
 
         console.log("user-controller: Refresh Token - Token Atualizado");
         res.status(201).send({
-            token: newToken
+            token: newToken,
+            type: client.type
         });
     } catch (error) {
         console.log("CATCH = user-controller: Refresh Token\n", error);
@@ -318,10 +320,12 @@ exports.refreshToken = async (req, res, next) => {
 async function getCustomerOrAdvertiserByUserId(userId){
     console.log("user-controller: inner function = getCustomerOrAdvertiserByUserId");
     var client = await advertiserRepository.getByUserId(userId);
-
+    
     if(!client){
         client = await customerRepository.getByUserId(userId);
-    
+        client.type = "customer";
+    } else {
+        client.type = "advertiser";
     }
 
     return client;

@@ -165,7 +165,8 @@ password | String (len >= 6) | Obrigatório
 **Resposta (SUCESSO):**
 ````javascript
 {
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YmNjZDQxNGNmMzk5ZDIzMTAwMDg0OWQiLCJ1c2VyIjp7Il9pZCI6IjViY2NkNDE0Y2YzOTlkMjMxMDAwODQ5YyIsImVtYWlsIjoidGVzdGVAdGVzdGUuY29tIn0sImlhdCI6MTU0MDE1MTEyOSwiZXhwIjoxNTQwMjM3NTI5fQ.o9UJuaX3uJL1vW3MxqydUk8QA9PnJS0yL3x7rZHgJrg"
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YmNjZDQxNGNmMzk5ZDIzMTAwMDg0OWQiLCJ1c2VyIjp7Il9pZCI6IjViY2NkNDE0Y2YzOTlkMjMxMDAwODQ5YyIsImVtYWlsIjoidGVzdGVAdGVzdGUuY29tIn0sImlhdCI6MTU0MDE1MTEyOSwiZXhwIjoxNTQwMjM3NTI5fQ.o9UJuaX3uJL1vW3MxqydUk8QA9PnJS0yL3x7rZHgJrg",
+    "type": "customer"
 }
 ````
 
@@ -208,7 +209,8 @@ token | String | Obrigatório
 **Resposta (SUCESSO):**
 ````javascript
 {
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YmNjZDQxNGNmMzk5ZDIzMTAwMDg0OWQiLCJ1c2VyIjp7Il9pZCI6IjViY2NkNDE0Y2YzOTlkMjMxMDAwODQ5YyIsImVtYWlsIjoidGVzdGVAdGVzdGUuY29tIn0sImlhdCI6MTU0MDE1MTIyOCwiZXhwIjoxNTQwMjM3NjI4fQ.GonXkHkUQNcin23NsssLeorfxpZhFCTJjfsYhLFjHjA"
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YmNjZDQxNGNmMzk5ZDIzMTAwMDg0OWQiLCJ1c2VyIjp7Il9pZCI6IjViY2NkNDE0Y2YzOTlkMjMxMDAwODQ5YyIsImVtYWlsIjoidGVzdGVAdGVzdGUuY29tIn0sImlhdCI6MTU0MDE1MTIyOCwiZXhwIjoxNTQwMjM3NjI4fQ.GonXkHkUQNcin23NsssLeorfxpZhFCTJjfsYhLFjHjA",
+    "type": "advertiser"
 }
 ````
 

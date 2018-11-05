@@ -7,6 +7,7 @@ const schema = new Schema({
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Advertiser',
+        index:true,
         required: true
     },
     title:{
