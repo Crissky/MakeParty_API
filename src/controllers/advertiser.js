@@ -45,8 +45,7 @@ exports.put = async (req, res, next) => {
     }
     
     try {
-        const token = req.body.token || req.query.token || req.headers['x-access-token'];
-        const dataToken = await authService.decodeToken(token);
+        const dataToken = await authService.decodeTokenREQ(req);
         req.body._id = dataToken._id;
         req.body.user = dataToken.user._id;
         
@@ -76,8 +75,7 @@ exports.put = async (req, res, next) => {
 exports.delete = async (req, res, next) => {
     console.log("advertiser-controller: Apagar Anunciante");
     try {
-        const token = req.body.token || req.query.token || req.headers['x-access-token'];
-        const dataToken = await authService.decodeToken(token);
+        const dataToken = await authService.decodeTokenREQ(req);
         req.body._id = dataToken._id;
         req.body.user = dataToken.user._id;
         

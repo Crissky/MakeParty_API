@@ -15,6 +15,13 @@ exports.decodeToken = async (token) => {
     return data;
 }
 
+exports.decodeTokenREQ = async (req) => {
+    console.log("auth-services: Decriptando Token pelo req");
+    const token = req.body.token || req.query.token || req.headers['x-access-token'];
+
+    return await this.decodeToken(token);
+}
+
 exports.authorize = function (req, res, next) {
     console.log("auth-services: Validando Token");
     var token = req.body.token || req.query.token || req.headers['x-access-token'];

@@ -1,60 +1,20 @@
 'use strict';
 
-const repository = require('../repositories/ad');
-const advertiserRepository = require('../repositories/advertiser');
+const repository = require('../repositories/wishlist');
+const customerRepository = require('../repositories/customer');
 const ValidationFields = require('../validators/validator-fields');
 const authService = require('../services/auth');
 
 exports.get = async (req, res, next) => {
+    console.log("wishlist-controller: Pesquisar Lista de Desejo pelo TOKEN");
     try {
-        console.log("ad-controller: Listar Anúncios");
-        
-        var data = await repository.get();
+        const dataToken = await authService.decodeTokenREQ(req);
+
+        var data = await repository.getByOwnerId(dataToken._id);
+        console.log("wishlist-controller: Pesquisar Lista de Desejo pelo TOKEN - Pesquisa finalizada");
         res.status(200).send(data);
     } catch (error) {
-        console.log("CATCH = ad-controller: Listar Anúncios\n", error);
-        res.status(500).send({
-            error: error
-        });
-    }
-}
-
-exports.getByTag = async (req, res, next) => {
-    console.log("ad-controller: Pesquisar Anúncios pela TAG");
-    try {
-        var data = await repository.getByTag(req.params.tag);
-        console.log("ad-controller: Pesquisar Anúncios pela TAG - Pesquisa finalizada");
-    res.status(200).send(data);
-    } catch (error) {
-        console.log("CATCH = ad-controller: Pesquisar Anúncios pela TAG");
-        res.status(500).send({
-            error: error
-        });
-    }
-}
-
-exports.getByType = async (req, res, next) => {
-    console.log("ad-controller: Pesquisar Anúncios pelo Tipo");
-    try {
-        var data = await repository.getByType(req.params.type);
-        console.log("ad-controller: Pesquisar Anúncios pelo Tipo - Pesquisa finalizada");
-    res.status(200).send(data);
-    } catch (error) {
-        console.log("CATCH = ad-controller: Pesquisar Anúncios pelo Tipo");
-        res.status(500).send({
-            error: error
-        });
-    }
-}
-
-exports.getById = async (req, res, next) => {
-    console.log("ad-controller: Pesquisar Anúncio pelo ID");
-    try {
-        var data = await repository.getById(req.params.id);
-        console.log("ad-controller: Pesquisar Anúncio pelo ID - Pesquisa finalizada");
-        res.status(200).send(data);
-    } catch (error) {
-        console.log("CATCH = ad-controller: Pesquisar Anúncio pelo ID");
+        console.log("CATCH = wishlist-controller: Lista de Desejo Anúncio pelo TOKEN");
         res.status(500).send({
             error: error
         });
@@ -75,7 +35,7 @@ exports.post = async (req, res, next) => {
     
     try {
         const dataToken = await authService.decodeTokenREQ(req);
-        const owner = await advertiserRepository.getByIdActive(dataToken._id);
+        const owner = await customerRepository.getByIdActive(dataToken._id);
         req.body.owner = dataToken._id;
         
         if(!owner){

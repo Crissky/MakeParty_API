@@ -30,9 +30,7 @@ exports.post = async (req, res, next) => {
     return;
 
     console.log("user-controller: Cadastrar Usuário");
-    let contract = new ValidationFields();
-    contract.email(req.body.email);
-    contract.password(req.body.password);
+    let contract = validationUser(req.body);
     
     if (!contract.isValid()) {
         console.log("ERROR = user-controller: Cadastrar Usuário\n", contract.errors());
@@ -44,7 +42,7 @@ exports.post = async (req, res, next) => {
     try {
         const data = await repository.create({
             email: req.body.email,
-            password: md5(req.body.password + authConfig.secret + req.body.email)
+            password: encryptPassword(req.body.user)
         });
         console.log("user-controller: Cadastrar Usuário - Usuário Cadastrado");
         data.password = undefined;
@@ -78,10 +76,7 @@ exports.signupAdvertiser = async (req, res, next) => {
         return;
     }
 
-    let contract = new ValidationFields();
-    contract.email(req.body.user.email);
-    contract.password(req.body.user.password);
-    contract.cnpj(req.body.cnpj);
+    let contract = validationAdvertiser(req.body);
 
     if (!contract.isValid()) {
         console.log("ERROR = user-controller: Cadastrar Anunciante\n", contract.errors());
@@ -93,7 +88,7 @@ exports.signupAdvertiser = async (req, res, next) => {
     try {
         const user = await repository.create({
             email: req.body.user.email,
-            password: md5(req.body.user.password + authConfig.secret + req.body.user.email)
+            password: encryptPassword(req.body.user)
         });
         req.body.user = user._id;
         console.log("user-controller: Cadastrar Anunciante - Usuário Cadastrado");
@@ -112,11 +107,7 @@ exports.signupAdvertiser = async (req, res, next) => {
         advertiser.__v = undefined;
 
         console.log("user-controller: Cadastrar Anunciante - Enviando E-mail de Boas Vindas");
-        emailService.send(
-            req.body.email,
-            'Bem-vindo ao MakeParty!!!',
-            emailConfig.template.replace('{0}', req.body.socialname)
-        );
+        sendEmail(req.body);
 
         res.status(201).send({
             data: advertiser
@@ -147,10 +138,7 @@ exports.signupCustomer = async (req, res, next) => {
         return;
     }
 
-    let contract = new ValidationFields();
-    contract.email(req.body.user.email);
-    contract.password(req.body.user.password);
-    contract.cpf(req.body.cpf);
+    let contract = validationCustomer(req.body);
 
     if (!contract.isValid()) {
         console.log("ERROR = user-controller: Cadastrar Cliente\n", contract.errors());
@@ -162,7 +150,7 @@ exports.signupCustomer = async (req, res, next) => {
     try {
         const user = await repository.create({
             email: req.body.user.email,
-            password: md5(req.body.user.password + authConfig.secret + req.body.user.email)
+            password: encryptPassword(req.body.user)
         });
         req.body.user = user._id;
         console.log("user-controller: Cadastrar Cliente - Usuário Cadastrado");
@@ -181,11 +169,7 @@ exports.signupCustomer = async (req, res, next) => {
         customer.__v = undefined;
 
         console.log("user-controller: Cadastrar Cliente - Enviando E-mail de Boas Vindas");
-        emailService.send(
-            req.body.email,
-            'Bem-vindo ao MakeParty!!!',
-            emailConfig.template.replace('{0}', req.body.socialname)
-        );
+        sendEmail(req.body);
 
         res.status(201).send({
             data: customer
@@ -208,9 +192,7 @@ exports.signupCustomer = async (req, res, next) => {
 
 exports.authenticate = async (req, res, next) => {
     console.log("user-controller: Autenticar Usuário");
-    let contract = new ValidationFields();
-    contract.email(req.body.email);
-    contract.password(req.body.password);
+    let contract = validationUser(req.body);
     
     if (!contract.isValid()) {
         console.log("ERROR = user-controller: Autenticar Usuário\n", contract.errors());
@@ -223,7 +205,7 @@ exports.authenticate = async (req, res, next) => {
         console.log("user-controller: Autenticar Usuário - Autenticando...");
         const user = await repository.authenticate({
             email: req.body.email,
-            password: md5(req.body.password + authConfig.secret + req.body.email)
+            password: encryptPassword(req.body)
         });
 
         if (!user) {
@@ -280,8 +262,7 @@ exports.authenticate = async (req, res, next) => {
 exports.refreshToken = async (req, res, next) => {
     try {
         console.log("user-controller: Refresh Token");
-        const token = req.body.token || req.query.token || req.headers['x-access-token'];
-        const data = await authService.decodeToken(token);
+        const data = await authService.decodeTokenREQ(req);
 
         const client = await getCustomerOrAdvertiserByUserId(data.user._id);
 
@@ -329,4 +310,40 @@ async function getCustomerOrAdvertiserByUserId(userId){
     }
 
     return client;
+}
+
+function encryptPassword(user){
+    console.log("user-controller: inner function = encryptPassword");
+    return md5(user.password + authConfig.secret + user.email);
+}
+
+function validationAdvertiser(body){
+    var contract = validationUser(body.user);
+    contract.cnpj(body.cnpj);
+
+    return contract;
+}
+
+function validationCustomer(body){
+    var contract = validationUser(body.user);
+    contract.cpf(body.cpf);
+
+    return contract;
+}
+
+function validationUser(user){
+    var contract = new ValidationFields();
+    contract.email(user.email);
+    contract.password(user.password);
+
+    return contract;
+}
+
+function sendEmail(body){
+    var userName = body.name || body.socialname;
+    emailService.send(
+        body.email,
+        'Bem-vindo ao MakeParty!!!',
+        emailConfig.template.replace('{0}', userName)
+    );
 }

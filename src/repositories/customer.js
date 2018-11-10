@@ -19,6 +19,16 @@ exports.getById = async (id) => {
     return res;
 }
 
+exports.getByIdActive = async (id) => {
+    console.log("customer-repositories: getByIdActive");
+    const res = await Customer.findOne({
+        _id: id,
+        active: true
+    });
+    
+    return res;
+}
+
 exports.getByUserId = async (userId) => {
     console.log("customer-repositories: getByUserId");
     const res = await Customer.findOne({
