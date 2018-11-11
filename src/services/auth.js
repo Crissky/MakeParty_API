@@ -33,7 +33,7 @@ exports.authorize = function (req, res, next) {
         });
     } else {
         jwt.verify(token, authConfig.secret, async function (error, decoded) {
-            console.log(decoded);
+            //console.log(decoded);
             if(decoded){
                 var user = await repository.getByIdActive(decoded.user._id);
             }

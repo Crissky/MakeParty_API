@@ -89,7 +89,6 @@ address.state | String | Opcional
         "updatedAt": "2018-10-21T21:08:37.235Z"
     }
 }
-}
 ````
 
 <br>

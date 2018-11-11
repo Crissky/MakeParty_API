@@ -22,13 +22,11 @@ exports.get = async (req, res, next) => {
 }
 
 exports.post = async (req, res, next) => {
-    console.log("ad-controller: Cadastrar Anúncio");
-    let contract = new ValidationFields();
-    contract.title(req.body.title);
+    console.log("wishlist-controller: Cadastrar Anúncio na Lista de Desejo");
     
-    if (!contract.isValid()) {
-        console.log("ERROR = ad-controller: Título muito curto\n", contract.errors());
-        res.status(400).send(contract.errors()).end();
+    if (!req.body.ad) {
+        console.log("ERROR = wishlist-controller: ID do Anúncio não informado\n");
+        res.status(400).send({error:"ID do Anúncio é obrigatório."});
 
         return;
     }
@@ -48,13 +46,13 @@ exports.post = async (req, res, next) => {
         const data = await repository.create(req.body);
         data.__v = undefined;
 
-        console.log("ad-controller: Cadastrar Anúncio - Anúncio Cadastrado");
+        console.log("wishlist-controller: Cadastrar Anúncio na Lista de Desejo - Anúncio Cadastrado");
         
         res.status(201).send({
             data: data
         });
     } catch (error) {
-        console.log("CATCH = ad-controller: Cadastrar Anúncio\n", error);
+        console.log("CATCH = wishlist-controller: Cadastrar Anúncio na Lista de Desejo\n", error);
         res.status(500).send({
             error: error
         });
@@ -62,14 +60,11 @@ exports.post = async (req, res, next) => {
 
 };
 
-exports.put = async (req, res, next) => {
-    console.log("ad-controller: Atualizar Anúncio");
-    let contract = new ValidationFields();
-    contract.title(req.body.title);
-    
-    if (!contract.isValid()) {
-        console.log("ERROR = ad-controller: Título muito curto\n", contract.errors());
-        res.status(400).send(contract.errors()).end();
+exports.delete = async (req, res, next) => {
+    console.log("wishlist-controller: Apagar Anúncio da Lista de Desejo");
+    if (!req.body.ad) {
+        console.log("ERROR = wishlist-controller: ID do Anúncio não informado\n");
+        res.status(400).send({error:"ID do Anúncio é obrigatório."});
 
         return;
     }
@@ -78,39 +73,10 @@ exports.put = async (req, res, next) => {
         const dataToken = await authService.decodeTokenREQ(req);
         req.body.owner = dataToken._id;
         
-        const data = await repository.update(req.body);
-        
-        if(!data){
-            console.log("ad-controller: Atualizar Anúncio - Anuncio não encontrado ou não pertence a este Usuário");
-            res.status(404).send({
-                error: "Anuncio não encontrado ou não pertence a este Usuário."
-            });
-
-            return;
-        }
-
-        console.log("ad-controller: Atualizar Anúncio - Atualização finalizada");
-        res.status(200).send({
-            data: data
-        });
-    } catch (error) {
-        console.log("CATCH = ad-controller: Atualizar Anúncio");
-        res.status(500).send({
-            error: error
-        });
-    }
-};
-
-exports.delete = async (req, res, next) => {
-    console.log("ad-controller: Apagar Anúncio");
-    try {
-        const dataToken = await authService.decodeTokenREQ(req);
-        req.body.owner = dataToken._id;
-        
         const data = await repository.delete(req.body);
         
         if(!data){
-            console.log("ad-controller: Apagar Anúncio - Anuncio não encontrado ou não pertence a este Usuário");
+            console.log("wishlist-controller: Apagar Anúncio da Lista de Desejo - Anuncio não encontrado ou não pertence a este Usuário");
             res.status(404).send({
                 error: "Anuncio não encontrado ou não pertence a este Usuário."
             });
@@ -118,12 +84,12 @@ exports.delete = async (req, res, next) => {
             return;
         }
 
-        console.log("ad-controller: Apagar Anúncio - Anúncio Apagado");
+        console.log("wishlist-controller: Apagar Anúncio da Lista de Desejo - Anúncio Apagado da Lista de Desejo");
         res.status(200).send({
             data: data
         });
     } catch (error) {
-        console.log("CATCH = ad-controller: Apagar Anúncio");
+        console.log("CATCH = wishlist-controller: Apagar Anúncio da Lista de Desejo");
         res.status(500).send({
             error: error
         });

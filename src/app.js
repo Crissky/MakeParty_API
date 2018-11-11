@@ -37,7 +37,7 @@ app.use('/ads', adRoute);
 app.use('/advertisers', advertiserRoute);
 app.use('/customers', customerRoute);
 app.use('/users', userRoute);
-app.use('/wishlist', wishlistRoute);
+app.use('/wishlists', wishlistRoute);
 
 console.log("app: Exportando APP...");
 module.exports = app;

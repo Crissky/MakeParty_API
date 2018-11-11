@@ -22,6 +22,8 @@ const schema = new Schema({
     }
 }, { timestamps: true });
 
+schema.index({ owner: 1, ad: 1 }, { unique: true });
+
 schema.pre('save', function (next) {
     this.active = true;
 
