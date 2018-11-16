@@ -16,6 +16,9 @@ socialname | String | Obrigatório
 cnpj | String (len >= 14) | Obrigatório
 authorization | String | Obrigatório
 photo | String | Obrigatório
+plan.name | String | Obrigatório
+plan.totalad | Number | Obrigatório
+plan.totalphoto | Number | Obrigatório
 
 <br>
 
@@ -25,7 +28,12 @@ photo | String | Obrigatório
   "socialname":"Teste Testando",
   "cnpj":"98765432109876",
   "authorization":"13a2sd465asd",
-  "photo":"photo2.jpg"
+  "photo":"photo2.jpg",
+  "plan":{
+  	"name":"prata",
+  	"totalad": 20,
+  	"totalphoto": 100
+  }
 }
 ````
 
@@ -35,6 +43,11 @@ photo | String | Obrigatório
 ````javascript
 {
     "data": {
+        "plan": {
+            "name": "prata",
+            "totalad": 20,
+            "totalphoto": 100
+        },
         "active": true,
         "_id": "5bccd414cf399d231000849d",
         "user": {
@@ -100,6 +113,11 @@ token | String | Obrigatório
 ````javascript
 {
     "data": {
+        "plan": {
+            "name": "prata",
+            "totalad": 20,
+            "totalphoto": 100
+        },
         "active": false,
         "_id": "5bccd414cf399d231000849d",
         "user": {
@@ -136,6 +154,11 @@ token | String | Obrigatório
 ````javascript
 [
     {
+        "plan": {
+            "name": "prata",
+            "totalad": 20,
+            "totalphoto": 100
+        },
         "active": true,
         "_id": "5bca1207f9475400159db281",
         "user": {
@@ -205,6 +228,11 @@ ID | O ID deve ser passado no fim da rota.
 **Resposta (SUCESSO):**
 ````javascript
 {
+    "plan": {
+        "name": "prata",
+        "totalad": 20,
+        "totalphoto": 100
+    },
     "active": true,
     "_id": "5bccd414cf399d231000849d",
     "user": {

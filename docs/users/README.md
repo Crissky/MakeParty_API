@@ -18,6 +18,9 @@ socialname | String | Obrigatório
 cnpj | String (len >= 14) | Obrigatório
 authorization | String | Opcional
 photo | String | Opcional
+plan.name | String | Opcional
+plan.totalad | Number | Opcional
+plan.totalphoto | Number | Opcional
 
 <br>
 
@@ -31,7 +34,12 @@ photo | String | Opcional
   "socialname":"Teste INC.",
   "cnpj":"98765432109876",
   "authorization":"Eventos - a5s46as54da6s54d",
-  "photo":"photo.jpg"
+  "photo":"photo.jpg",
+  "plan": {
+            "name": "bronze",
+            "totalad": 10,
+            "totalphoto": 50
+        }
 }
 ````
 
@@ -48,6 +56,11 @@ photo | String | Opcional
         "cnpj": "98765432109876",
         "authorization": "Eventos - a5s46as54da6s54d",
         "photo": "photo.jpg",
+        "plan": {
+            "name": "bronze",
+            "totalad": 10,
+            "totalphoto": 50
+        },
         "createdAt": "2018-10-21T19:31:32.625Z",
         "updatedAt": "2018-10-21T19:31:32.625Z"
     }

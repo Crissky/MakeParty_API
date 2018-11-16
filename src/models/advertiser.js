@@ -20,6 +20,17 @@ const schema = new Schema({
         unique: true,
         required: true
     },
+    plan:{
+        name:{
+            type:String
+        },
+        totalad:{
+            type: Number
+        },
+        totalphoto:{
+            type:Number
+        }
+    },
     authorization:{
         type: String
     },

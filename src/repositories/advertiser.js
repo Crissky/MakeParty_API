@@ -3,7 +3,7 @@
 const mongoose = require('mongoose');
 const Advertiser = mongoose.model('Advertiser');
 
-const COLUMNS = 'active user socialname cnpj authorization photo createdAt updatedAt';
+const COLUMNS = 'active user socialname cnpj authorization photo plan createdAt updatedAt';
 
 exports.get = async () => {
     console.log("advertiser-repositories: get");
@@ -60,6 +60,7 @@ exports.update = async (data) => {
                 socialname: data.socialname,
                 cnpj: data.cnpj,
                 authorization: data.authorization,
+                plan: data.plan,
                 photo: data.photo
             },
             {
