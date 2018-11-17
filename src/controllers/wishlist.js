@@ -37,6 +37,7 @@ exports.post = async (req, res, next) => {
         req.body.owner = dataToken._id;
         
         if(!owner){
+            console.log("Usuário não autorizado ou desativado");
             res.status(401).send({
                 error: "Usuário não autorizado ou desativado"
             });

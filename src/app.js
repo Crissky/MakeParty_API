@@ -16,6 +16,7 @@ console.log("app: Carregando Modelos...");
 const Ad = require('./models/ad');
 const Advertiser = require('./models/advertiser');
 const Customer = require('./models/customer');
+const Rating = require('./models/rating');
 const User = require('./models/user');
 const WishList = require('./models/wishlist');
 
@@ -25,6 +26,7 @@ const indexRoute = require('./routes/index');
 const adRoute = require('./routes/ad');
 const advertiserRoute = require('./routes/advertiser');
 const customerRoute = require('./routes/customer');
+const ratingRoute = require('./routes/rating');
 const userRoute = require('./routes/user');
 const wishlistRoute = require('./routes/wishlist');
 
@@ -36,6 +38,7 @@ app.use('/', indexRoute);
 app.use('/ads', adRoute);
 app.use('/advertisers', advertiserRoute);
 app.use('/customers', customerRoute);
+app.use('/ratings', ratingRoute);
 app.use('/users', userRoute);
 app.use('/wishlists', wishlistRoute);
 
