@@ -8,5 +8,6 @@
 - [Ads](https://github.com/localTeste/MakeParty_API/tree/dev/docs/ads)
 - [Advertisers](https://github.com/localTeste/MakeParty_API/tree/dev/docs/advertisers)
 - [Customers](https://github.com/localTeste/MakeParty_API/tree/dev/docs/customers)
+- [Ratings](https://github.com/localTeste/MakeParty_API/tree/dev/docs/ratings)
 - [Users](https://github.com/localTeste/MakeParty_API/tree/dev/docs/users)
 - [Wishlists](https://github.com/localTeste/MakeParty_API/tree/dev/docs/wishlists)
