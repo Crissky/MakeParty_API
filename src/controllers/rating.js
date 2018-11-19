@@ -2,33 +2,66 @@
 
 const repository = require('../repositories/rating');
 const customerRepository = require('../repositories/customer');
-const ValidationFields = require('../validators/validator-fields');
+const adRepository = require("../repositories/ad")
 const authService = require('../services/auth');
 const MIN = 0;
 const MAX = 5;
 
 exports.get = async (req, res, next) => {
     try {
-        console.log("ad-controller: Listar Anúncios");
+        console.log("rating-controller: Listar Avaliação de Anúncios");
 
         var data = await repository.get();
         res.status(200).send(data);
     } catch (error) {
-        console.log("CATCH = ad-controller: Listar Anúncios\n", error);
+        console.log("CATCH = rating-controller: Listar Avaliação de Anúncios\n", error);
         res.status(500).send({
             error: error
         });
     }
 }
 
-exports.getById = async (req, res, next) => {
-    console.log("ad-controller: Pesquisar Anúncio pelo ID");
+exports.getByAd = async (req, res, next) => {
+    console.log("rating-controller: Pesquisar Avaliação pelo ID do Anúncio e Cliente");
     try {
-        var data = await repository.getById(req.params.id);
-        console.log("ad-controller: Pesquisar Anúncio pelo ID - Pesquisa finalizada");
+        const dataToken = await authService.decodeTokenREQ(req);
+        const customer = await customerRepository.getByIdActive(dataToken._id);
+        req.body.customer = dataToken._id;
+        req.body.ad = req.params.ad;
+        
+        if (!customer) {
+            console.log("Usuário não autorizado ou desativado");
+            res.status(401).send({
+                error: "Usuário não autorizado ou desativado."
+            });
+            return;
+        }
+
+        const ad = await adRepository.getByIdActive(req.body.ad);
+
+        if (!ad) {
+            console.log("Anúncio desativado ou não existe");
+            res.status(401).send({
+                error: "Avaliação não encontrada ou não pertence a este Usuário."
+            });
+            return;
+        }
+
+        var data = await repository.getByAdAndCustomer(req.body);
+
+        if (!data) {
+            console.log("rating-controller: Pesquisar Avaliação pelo ID do Anúncio e Cliente - Avaliação não encontrada ou não pertence a este Usuário");
+            res.status(404).send({
+                error: "Avaliação não encontrada."
+            });
+
+            return;
+        }
+
+        console.log("rating-controller: Pesquisar Avaliação pelo ID do Anúncio e Cliente - Pesquisa finalizada");
         res.status(200).send(data);
     } catch (error) {
-        console.log("CATCH = ad-controller: Pesquisar Anúncio pelo ID");
+        console.log("CATCH = rating-controller: Pesquisar Avaliação pelo ID do Anúncio e Cliente");
         res.status(500).send({
             error: error
         });
@@ -40,7 +73,7 @@ exports.post = async (req, res, next) => {
 
     if (!isRating(req.body.rating)) {
         console.log("ERROR = rating-controller: campo 'rating' não informado ou incorreto\n");
-        res.status(400).send({ error: "Campo 'rating' não informado ou está incorreto. rating deve ser um valor entre (" + MIN + " e " + MAX + ")" }).end();
+        res.status(400).send({ error: "Campo 'rating' não informado ou está incorreto. rating deve ter um valor entre (" + MIN + " e " + MAX + ")" }).end();
 
         return;
     }
@@ -53,7 +86,7 @@ exports.post = async (req, res, next) => {
         if (!customer) {
             console.log("Usuário não autorizado ou desativado");
             res.status(401).send({
-                error: "Usuário não autorizado ou desativado"
+                error: "Usuário não autorizado ou desativado."
             });
             return;
         }
@@ -76,38 +109,55 @@ exports.post = async (req, res, next) => {
 };
 
 exports.put = async (req, res, next) => {
-    console.log("ad-controller: Atualizar Anúncio");
-    let contract = new ValidationFields();
-    contract.title(req.body.title);
-
-    if (!contract.isValid()) {
-        console.log("ERROR = ad-controller: Título muito curto\n", contract.errors());
-        res.status(400).send(contract.errors()).end();
+    console.log("rating-controller: Atualizar Avaliação de Anúncio");
+    
+    if (!isRating(req.body.rating)) {
+        console.log("ERROR = rating-controller: campo 'rating' não informado ou incorreto\n");
+        res.status(400).send({ error: "Campo 'rating' não informado ou está incorreto. rating deve ter um valor entre (" + MIN + " e " + MAX + ")." }).end();
 
         return;
     }
 
     try {
         const dataToken = await authService.decodeTokenREQ(req);
-        req.body.owner = dataToken._id;
+        const customer = await customerRepository.getByIdActive(dataToken._id);
+        req.body.customer = dataToken._id;
+
+        if (!customer) {
+            console.log("Usuário não autorizado ou desativado");
+            res.status(401).send({
+                error: "Usuário não autorizado ou desativado."
+            });
+            return;
+        }
+
+        const ad = await adRepository.getByIdActive(req.body.ad);
+
+        if (!ad) {
+            console.log("Anúncio desativado ou não existe");
+            res.status(401).send({
+                error: "Avaliação não encontrada ou não pertence a este Usuário."
+            });
+            return;
+        }
 
         const data = await repository.update(req.body);
 
         if (!data) {
-            console.log("ad-controller: Atualizar Anúncio - Anuncio não encontrado ou não pertence a este Usuário");
+            console.log("rating-controller: Atualizar Avaliação de Anúncio - Avaliação não encontrada ou não pertence a este Usuário");
             res.status(404).send({
-                error: "Anuncio não encontrado ou não pertence a este Usuário."
+                error: "Avaliação não encontrada."
             });
 
             return;
         }
 
-        console.log("ad-controller: Atualizar Anúncio - Atualização finalizada");
+        console.log("rating-controller: Atualizar Avaliação de Anúncio - Atualização finalizada");
         res.status(200).send({
             data: data
         });
     } catch (error) {
-        console.log("CATCH = ad-controller: Atualizar Anúncio");
+        console.log("CATCH = rating-controller: Atualizar Avaliação de Anúncio");
         res.status(500).send({
             error: error
         });
@@ -115,28 +165,48 @@ exports.put = async (req, res, next) => {
 };
 
 exports.delete = async (req, res, next) => {
-    console.log("ad-controller: Apagar Anúncio");
+    console.log("rating-controller: Apagar Avaliação do Anúncio");
+    
     try {
         const dataToken = await authService.decodeTokenREQ(req);
-        req.body.owner = dataToken._id;
+        const customer = await customerRepository.getByIdActive(dataToken._id);
+        req.body.customer = dataToken._id;
+
+        if (!customer) {
+            console.log("Usuário não autorizado ou desativado");
+            res.status(401).send({
+                error: "Usuário não autorizado ou desativado."
+            });
+            return;
+        }
+
+        const ad = await adRepository.getByIdActive(req.body.ad);
+
+        if (!ad) {
+            console.log("Anúncio desativado ou não existe");
+            res.status(401).send({
+                error: "Avaliação não encontrada ou não pertence a este Usuário."
+            });
+            return;
+        }
 
         const data = await repository.delete(req.body);
 
         if (!data) {
-            console.log("ad-controller: Apagar Anúncio - Anuncio não encontrado ou não pertence a este Usuário");
+            console.log("rating-controller: Apagar Avaliação do Anúncio - Avaliação não encontrada ou não pertence a este Usuário");
             res.status(404).send({
-                error: "Anuncio não encontrado ou não pertence a este Usuário."
+                error: "Avaliação não encontrada ou não pertence a este Usuário."
             });
 
             return;
         }
 
-        console.log("ad-controller: Apagar Anúncio - Anúncio Apagado");
+        console.log("rating-controller: Apagar Avaliação do Anúncio - Anúncio Apagado");
         res.status(200).send({
             data: data
         });
     } catch (error) {
-        console.log("CATCH = ad-controller: Apagar Anúncio");
+        console.log("CATCH = rating-controller: Apagar Avaliação do Anúncio");
         res.status(500).send({
             error: error
         });
@@ -144,5 +214,6 @@ exports.delete = async (req, res, next) => {
 };
 
 function isRating(rating) {
+    console.log("rating-controller: inner function = isRating")
     return (rating <= MAX && rating >= MIN && Number.isFinite(rating));
 }

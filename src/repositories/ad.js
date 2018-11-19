@@ -42,6 +42,16 @@ exports.getById = async (id) => {
     return res;
 }
 
+exports.getByIdActive = async (id) => {
+    console.log("ad-repositories: getByIdActive");
+    const res = await Ad.findOne({
+        _id: id,
+        active: true
+    });
+    
+    return res;
+}
+
 exports.create = async (data) => {
     console.log("ad-repositories: create");
     var ad = new Ad(data);

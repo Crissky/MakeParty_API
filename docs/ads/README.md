@@ -612,7 +612,7 @@ TAG | A TAG deve ser passada no fim da rota.
 
 Parametro | Observação
 ------|------
-TIPO | O TIPO deve ser passada no fim da rota.
+TYPE | O TYPE deve ser passada no fim da rota.
 
 <br>
 

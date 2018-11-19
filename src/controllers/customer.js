@@ -9,6 +9,16 @@ exports.get = async (req, res, next) => {
     try {
         console.log("customer-controller: Listar Clientes");
         var data = await repository.get();
+        console.log("customer-controller: Pesquisar Clientes - Pesquisa finalizada");
+        if (!data) {
+            console.log("customer-controller: Pesquisar Clientes - Cliente não encontrado");
+            res.status(404).send({
+                error: "Cliente não encontrado."
+            });
+
+            return;
+        }
+
         res.status(200).send(data);
     } catch (error) {
         console.log("CATCH = customer-controller: Listar Clientes\n", error);
@@ -23,6 +33,15 @@ exports.getById = async (req, res, next) => {
     try {
         var data = await repository.getById(req.params.id);
         console.log("customer-controller: Pesquisar Cliente pelo ID - Pesquisa finalizada");
+        if (!data) {
+            console.log("customer-controller: Pesquisar Cliente pelo ID - Cliente não encontrado");
+            res.status(404).send({
+                error: "Cliente não encontrado."
+            });
+
+            return;
+        }
+
         res.status(200).send(data);
     } catch (error) {
         console.log("CATCH = customer-controller: Pesquisar Cliente pelo ID");

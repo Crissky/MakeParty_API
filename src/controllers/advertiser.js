@@ -9,6 +9,16 @@ exports.get = async (req, res, next) => {
     try {
         console.log("advertiser-controller: Listar Anunciantes");
         var data = await repository.get();
+        console.log("advertiser-controller: Pesquisar Anunciante - Pesquisa finalizada");
+        if (!data) {
+            console.log("advertiser-controller: Listar Anunciantes - Anunciante não encontrado");
+            res.status(404).send({
+                error: "Anunciante não encontrado."
+            });
+
+            return;
+        }
+
         res.status(200).send(data);
     } catch (error) {
         console.log("CATCH = advertiser-controller: Listar Anunciantes\n", error);
@@ -23,6 +33,15 @@ exports.getById = async (req, res, next) => {
     try {
         var data = await repository.getById(req.params.id);
         console.log("advertiser-controller: Pesquisar Anunciante pelo ID - Pesquisa finalizada");
+        if (!data) {
+            console.log("advertiser-controller: Listar Anunciantes pelo ID - Anunciante não encontrado");
+            res.status(404).send({
+                error: "Anunciante não encontrado."
+            });
+
+            return;
+        }
+
         res.status(200).send(data);
     } catch (error) {
         console.log("CATCH = advertiser-controller: Pesquisar Anunciante pelo ID");

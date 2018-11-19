@@ -14,6 +14,16 @@ exports.get = async (req, res, next) => {
     try {
         console.log("user-controller: Listar Usuários");
         var data = await repository.get();
+        console.log("user-controller: Listar Usuários - Pesquisa finalizada");
+        if (!data) {
+            console.log("user-controller: Listar Usuários - Usuário não encontrado");
+            res.status(404).send({
+                error: "Usuário não encontrado."
+            });
+
+            return;
+        }
+
         res.status(200).send(data);
     } catch (error) {
         console.log("CATCH = user-controller: Listar Usuários\n", error);

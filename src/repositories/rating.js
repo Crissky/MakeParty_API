@@ -5,6 +5,7 @@ const Rating = mongoose.model('Rating');
 
 const COLUMNS = 'customer ad rating createdAt updatedAt active';
 const CUSTOMER_COLUMNS = 'active user name cpf birthdate photo phone createdAt updatedAt';
+const AD_COLUMNS = 'owner title description price type phone tags mainphoto photos createdAt updatedAt active address';
 
 exports.get = async () => {
     console.log("rating-repositories: get");
@@ -15,9 +16,13 @@ exports.get = async () => {
     return res;
 }
 
-exports.getById = async (id) => {
-    console.log("rating-repositories: getById");
-    const res = await Rating.findById(id, COLUMNS).populate('customer', CUSTOMER_COLUMNS);
+exports.getByAdAndCustomer = async (data) => {
+    console.log("rating-repositories: getByAdAndCustomer");
+    const res = await Rating.findOne({
+        ad: data.ad,
+        customer: data.customer,
+        active: true
+    }, COLUMNS).populate('customer', CUSTOMER_COLUMNS).populate('ad', AD_COLUMNS);
 
     return res;
 }
@@ -36,32 +41,18 @@ exports.update = async (data) => {
         .findOneAndUpdate(
             {
                 _id: data._id,
-                owner: data.owner,
+                ad: data.ad,
+                customer: data.customer,
                 active: true
             },
             {
-                title: data.title,
-                description: data.description,
-                price: data.price,
-                tags: data.tags,
-                type: data.type,
-                phone: data.phone,
-                mainphoto: data.mainphoto,
-                photos: data.photos,
-                address: {
-                    street: data.address.street,
-                    number: data.address.number,
-                    neighborhood: data.address.neighborhood,
-                    city: data.address.city,
-                    zipcode: data.address.zipcode,
-                    state: data.address.state
-                }
+                rating: data.rating
             },
             {
                 runValidators: true,
                 new: true,
                 fields: COLUMNS
-            }).populate('customer', CUSTOMER_COLUMNS);
+            }).populate('customer', CUSTOMER_COLUMNS).populate('ad', AD_COLUMNS);
 }
 
 exports.delete = async (data) => {
@@ -71,7 +62,8 @@ exports.delete = async (data) => {
         .findOneAndUpdate(
             {
                 _id: data._id,
-                owner: data.owner,
+                ad: data.ad,
+                customer: data.customer,
                 active: true
             },
             {
@@ -81,5 +73,5 @@ exports.delete = async (data) => {
                 runValidators: true,
                 new: true,
                 fields: COLUMNS
-            }).populate('customer', CUSTOMER_COLUMNS);
+            }).populate('customer', CUSTOMER_COLUMNS).populate('ad', AD_COLUMNS);
 }

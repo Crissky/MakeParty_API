@@ -12,6 +12,15 @@ exports.get = async (req, res, next) => {
 
         var data = await repository.getByOwnerId(dataToken._id);
         console.log("wishlist-controller: Pesquisar Lista de Desejo pelo TOKEN - Pesquisa finalizada");
+        if (!data) {
+            console.log("wishlist-controller: Pesquisar Lista de Desejo pelo TOKEN - Lista de Desejo não encontrada");
+            res.status(404).send({
+                error: "Lista de Desejo não encontrada."
+            });
+
+            return;
+        }
+
         res.status(200).send(data);
     } catch (error) {
         console.log("CATCH = wishlist-controller: Lista de Desejo Anúncio pelo TOKEN");
