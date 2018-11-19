@@ -1,4 +1,4 @@
-# Rotas - Avaliação de Anúncios (rate)
+# Rotas - Avaliação de Anúncios (rating)
 ## AVISO: API em desenvolvimento, as ROTAS, REQUISIÇÕES e RETORNOS podem sofrer alterações.
 
 https://makepartyserver.herokuapp.com
@@ -14,7 +14,6 @@ https://makepartyserver.herokuapp.com
 
 Chave | Tipo | Requerimento
 ------|------|-------------
-customer | String | Obrigatório
 ad | String | Obrigatório
 rating | Number (0-5) | Obrigatório
 
