@@ -158,7 +158,7 @@ ad | String | Obrigatório
 ````javascript
 {
 	"_id": "5bf00e1734916523d4e3e01a",
-    "ad": "5bccc9890a6229312442519c"
+	"ad": "5bccc9890a6229312442519c"
 }
 ````
 
