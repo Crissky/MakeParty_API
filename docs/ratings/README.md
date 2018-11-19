@@ -22,8 +22,8 @@ rating | Number (0-5) | Obrigatório
 **Corpo:**
 ````javascript
 {
-	"ad": "5bccc9b30b0a3715b4a07b38",
-	"rating": 4.5
+    "ad": "5bccc9b30b0a3715b4a07b38",
+    "rating": 4.5
 }
 ````
 
@@ -77,7 +77,7 @@ rating | Number (0-5) | Obrigatório
 **Corpo:**
 ````javascript
 {
-	"_id": "5bf00e1734916523d4e3e01a",
+    "_id": "5bf00e1734916523d4e3e01a",
     "ad": "5bccc9890a6229312442519c",
     "rating": 1.5
 }
@@ -157,8 +157,8 @@ ad | String | Obrigatório
 **Corpo:**
 ````javascript
 {
-	"_id": "5bf00e1734916523d4e3e01a",
-	"ad": "5bccc9890a6229312442519c"
+    "_id": "5bf00e1734916523d4e3e01a",
+    "ad": "5bccc9890a6229312442519c"
 }
 ````
 
