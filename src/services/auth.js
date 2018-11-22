@@ -3,6 +3,7 @@
 const jwt = require('jsonwebtoken');
 const authConfig = require('../config/auth');
 const repository = require('../repositories/user');
+const HEADER_TOKEN_NAME = 'x-access-token';
 
 exports.generateToken = async (data) => {
     console.log("auth-services: Gerando Token");
@@ -17,14 +18,14 @@ exports.decodeToken = async (token) => {
 
 exports.decodeTokenREQ = async (req) => {
     console.log("auth-services: Decriptando Token pelo req");
-    const token = req.body.token || req.query.token || req.headers['x-access-token'];
+    const token = req.body.token || req.query.token || req.headers[HEADER_TOKEN_NAME];
 
     return await this.decodeToken(token);
 }
 
 exports.authorize = function (req, res, next) {
     console.log("auth-services: Validando Token");
-    var token = req.body.token || req.query.token || req.headers['x-access-token'];
+    var token = req.body.token || req.query.token || req.headers[HEADER_TOKEN_NAME];
 
     if (!token) {
         console.log("auth-services: Usuário não enviou um Token");

@@ -3,7 +3,7 @@
 
 https://makepartyserver.herokuapp.com
 
-**Rotas que não são abertas necessitam receber o token de acesso. O Token pode ser passado no Body ou no Header(x-access-token).**
+**Rotas que não são abertas necessitam receber o token de acesso. O TOKEN pode ser passado no Body ou no Header(x-access-token).**
 
 <br>
 
@@ -602,6 +602,21 @@ TAG | A TAG deve ser passada no fim da rota.
 ]
 ````
 
+<br>
+
+**Resposta (ERROR):**
+````javascript
+{
+    "error": {
+        "message": "Cast to ObjectId failed for value \"tags\" at path \"_id\" for model \"Ad\"",
+        "name": "CastError",
+        "stringValue": "\"manhã\"",
+        "kind": "ObjectId",
+        "value": "manhã",
+        "path": "_id"
+    }
+}
+````
 
 <br>
 
@@ -612,7 +627,7 @@ TAG | A TAG deve ser passada no fim da rota.
 
 Parametro | Observação
 ------|------
-TYPE | O TYPE deve ser passada no fim da rota.
+TYPE | O TYPE deve ser passado no fim da rota.
 
 <br>
 
@@ -698,11 +713,228 @@ TYPE | O TYPE deve ser passada no fim da rota.
 ````javascript
 {
     "error": {
-        "message": "Cast to ObjectId failed for value \"tags\" at path \"_id\" for model \"Ad\"",
+        "message": "Cast to ObjectId failed for value \"type\" at path \"_id\" for model \"Ad\"",
         "name": "CastError",
-        "stringValue": "\"tags\"",
+        "stringValue": "\"festa\"",
         "kind": "ObjectId",
-        "value": "tags",
+        "value": "festa",
+        "path": "_id"
+    }
+}
+````
+
+<br>
+
+### Listar Anúncios pelo Título - ROTA ABERTA (NÃO NECESSITA DE TOKEN)
+#### Método **GET: /titles/:title**
+
+<br>
+
+Parametro | Observação
+------|------
+TITLE | O TITLE deve ser passado no fim da rota.
+
+<br>
+
+**Resposta (SUCESSO):**
+````javascript
+[
+    {
+        "address": {
+            "street": "Rua do Barro",
+            "number": "302",
+            "neighborhood": "Macaxeira",
+            "city": "Hellcife",
+            "zipcode": "53000-100",
+            "state": "PE"
+        },
+        "description": "Festa muito topzera 2018 UFRPE",
+        "price": 150,
+        "tags": [
+            "festa",
+            "top",
+            "ufrpe"
+        ],
+        "photos": [
+            "Foto.jpg",
+            "Capa.jpg"
+        ],
+        "active": true,
+        "_id": "5bccc9890a6229312442519c",
+        "title": "Calourada Top 2018 UFRPE",
+        "type": "Festa",
+        "phone": "89452639",
+        "owner": {
+            "active": true,
+            "_id": "5bca1207f9475400159db281",
+            "user": "5bca1207f9475400159db280",
+            "socialname": "Fagner INC.",
+            "cnpj": "12345678901234",
+            "authorization": "13a2sd465asd",
+            "photo": "photo2.jpg",
+            "createdAt": "2018-10-19T17:19:03.698Z",
+            "updatedAt": "2018-10-21T20:21:52.813Z"
+        },
+        "createdAt": "2018-10-21T18:46:33.825Z",
+        "updatedAt": "2018-10-21T18:46:33.825Z"
+    },
+    {
+        "description": "Festa muito topzera 2018 UFRPE",
+        "price": 150,
+        "tags": [
+            "festa",
+            "top",
+            "ufrpe"
+        ],
+        "photos": [
+            "Foto.jpg",
+            "Capa.jpg"
+        ],
+        "active": true,
+        "_id": "5bccc9b30b0a3715b4a07b38",
+        "title": "Calourada Top 2018 UFRPE",
+        "type": "Festa",
+        "phone": "89452639",
+        "owner": {
+            "active": true,
+            "_id": "5bca1207f9475400159db281",
+            "user": "5bca1207f9475400159db280",
+            "socialname": "Fagner INC.",
+            "cnpj": "12345678901234",
+            "authorization": "13a2sd465asd",
+            "photo": "photo2.jpg",
+            "createdAt": "2018-10-19T17:19:03.698Z",
+            "updatedAt": "2018-10-21T20:21:52.813Z"
+        },
+        "createdAt": "2018-10-21T18:47:15.622Z",
+        "updatedAt": "2018-10-21T18:47:15.622Z"
+    }
+]
+````
+
+<br>
+
+**Resposta (ERROR):**
+````javascript
+{
+    "error": {
+        "message": "Cast to ObjectId failed for value \"title\" at path \"_id\" for model \"Ad\"",
+        "name": "CastError",
+        "stringValue": "\"festa\"",
+        "kind": "ObjectId",
+        "value": "festa",
+        "path": "_id"
+    }
+}
+````
+
+<br>
+
+### Listar Anúncios pelo ID do Anunciante - ROTA ABERTA (NÃO NECESSITA DE TOKEN)
+#### É possível passar o ID do Anunciante como paramentro pela URL ou com o envio do TOKEN.
+#### Método **GET: /owners/:advertiserId**
+
+<br>
+
+Parametro | Observação
+------|------
+ADVERTISER_ID | O ADVERTISER_ID deve ser passado no fim da rota.
+
+**OU**
+
+Chave | Tipo | Requerimento
+------|------|-------------
+token | String | Obrigatório
+
+<br>
+
+**Resposta (SUCESSO):**
+````javascript
+[
+    {
+        "address": {
+            "street": "Rua do Barro",
+            "number": "302",
+            "neighborhood": "Macaxeira",
+            "city": "Hellcife",
+            "zipcode": "53000-100",
+            "state": "PE"
+        },
+        "description": "Festa muito topzera 2018 UFRPE",
+        "price": 150,
+        "tags": [
+            "festa",
+            "top",
+            "ufrpe"
+        ],
+        "photos": [
+            "Foto.jpg",
+            "Capa.jpg"
+        ],
+        "active": true,
+        "_id": "5bccc9890a6229312442519c",
+        "title": "Calourada Top 2018 UFRPE",
+        "type": "Festa",
+        "phone": "89452639",
+        "owner": {
+            "active": true,
+            "_id": "5bca1207f9475400159db281",
+            "user": "5bca1207f9475400159db280",
+            "socialname": "Fagner INC.",
+            "cnpj": "12345678901234",
+            "authorization": "13a2sd465asd",
+            "photo": "photo2.jpg",
+            "createdAt": "2018-10-19T17:19:03.698Z",
+            "updatedAt": "2018-10-21T20:21:52.813Z"
+        },
+        "createdAt": "2018-10-21T18:46:33.825Z",
+        "updatedAt": "2018-10-21T18:46:33.825Z"
+    },
+    {
+        "description": "Festa muito topzera 2018 UFRPE",
+        "price": 150,
+        "tags": [
+            "festa",
+            "top",
+            "ufrpe"
+        ],
+        "photos": [
+            "Foto.jpg",
+            "Capa.jpg"
+        ],
+        "active": true,
+        "_id": "5bccc9b30b0a3715b4a07b38",
+        "title": "Calourada Top 2018 UFRPE",
+        "type": "Festa",
+        "phone": "89452639",
+        "owner": {
+            "active": true,
+            "_id": "5bca1207f9475400159db281",
+            "user": "5bca1207f9475400159db280",
+            "socialname": "Fagner INC.",
+            "cnpj": "12345678901234",
+            "authorization": "13a2sd465asd",
+            "photo": "photo2.jpg",
+            "createdAt": "2018-10-19T17:19:03.698Z",
+            "updatedAt": "2018-10-21T20:21:52.813Z"
+        },
+        "createdAt": "2018-10-21T18:47:15.622Z",
+        "updatedAt": "2018-10-21T18:47:15.622Z"
+    }
+]
+````
+
+<br>
+
+**Resposta (ERROR):**
+````javascript
+{
+    "error": {
+        "message": "Cast to ObjectId failed for value \"owner\" at path \"_id\" for model \"Ad\"",
+        "name": "CastError",
+        "stringValue": "\"5bca1207f9475400159db281\"",
+        "kind": "ObjectId",
+        "value": "5bca1207f9475400159db281",
         "path": "_id"
     }
 }

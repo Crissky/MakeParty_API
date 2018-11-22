@@ -75,6 +75,69 @@ exports.getByType = async (req, res, next) => {
     }
 }
 
+exports.getByTitle = async (req, res, next) => {
+    console.log("ad-controller: Pesquisar Anúncios pelo Título");
+    try {
+        var data = await repository.getByTitle(req.params.title);
+        console.log("ad-controller: Pesquisar Anúncios pelo Título - Pesquisa finalizada");
+        if (!data) {
+            console.log("ad-controller: Listar Anúncios pelo Título - Anúncio não encontrado");
+            res.status(404).send({
+                error: "Anúncio não encontrado."
+            });
+
+            return;
+        }
+
+        res.status(200).send(data);
+    } catch (error) {
+        console.log("CATCH = ad-controller: Pesquisar Anúncios pelo Título");
+        res.status(500).send({
+            error: error
+        });
+    }
+}
+
+exports.getAllByAdvertiserId = async (req, res, next) => {
+    console.log("ad-controller: Pesquisar Anúncios pelo ID do Anunciante");
+    
+    try{
+        var dataToken = await authService.decodeTokenREQ(req);
+    } catch (error){
+        console.log("ad-controller: Pesquisar Anúncios pelo ID do Anunciante - Token não fornecido");
+        var dataToken = undefined;
+    }
+
+    try {
+        
+        if(!req.body.owner && req.params.advertiserId){
+            console.log("ad-controller: Pesquisar Anúncios pelo ID do Anunciante - IF");
+            req.body.owner = req.params.advertiserId;
+        } else if(dataToken) {
+            console.log("ad-controller: Pesquisar Anúncios pelo ID do Anunciante - ELSE IF");
+            req.body.owner = dataToken._id;
+        }
+        
+        var data = await repository.getAllByAdvertiserId(req.body.owner);
+        console.log("ad-controller: Pesquisar Anúncios pelo ID do Anunciante - Pesquisa finalizada");
+        if (!data) {
+            console.log("ad-controller: Pesquisar Anúncios pelo ID do Anunciante - Anúncio não encontrado");
+            res.status(404).send({
+                error: "Anúncio não encontrado."
+            });
+
+            return;
+        }
+
+        res.status(200).send(data);
+    } catch (error) {
+        console.log("CATCH = ad-controller: Pesquisar Anúncios pelo ID do Anunciante");
+        res.status(500).send({
+            error: error
+        });
+    }
+}
+
 exports.getById = async (req, res, next) => {
     console.log("ad-controller: Pesquisar Anúncio pelo ID");
     try {

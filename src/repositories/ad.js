@@ -35,6 +35,26 @@ exports.getByType = async (type) => {
     return res;
 }
 
+exports.getByTitle = async (title) => {
+    console.log("ad-repositories: getAllByTitle");
+    const res = await Ad
+        .find({
+            title: { $regex : new RegExp(title, "i") },
+            active: true
+        }, COLUMNS).populate('owner', OWNER_COLUMNS);
+    return res;
+}
+
+exports.getAllByAdvertiserId = async (advertiserId) => {
+    console.log("ad-repositories: getAllByAdvertiserId");
+    const res = await Ad
+        .find({
+            owner: advertiserId,
+            active: true
+        }, COLUMNS).populate('owner', OWNER_COLUMNS);
+    return res;
+}
+
 exports.getById = async (id) => {
     console.log("ad-repositories: getById");
     const res = await Ad.findById(id, COLUMNS).populate('owner', OWNER_COLUMNS);
