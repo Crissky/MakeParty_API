@@ -45,11 +45,11 @@ exports.getByTitle = async (title) => {
     return res;
 }
 
-exports.getAllByAdvertiserId = async (advertiserId) => {
+exports.getByOwnerId = async (owner) => {
     console.log("ad-repositories: getAllByAdvertiserId");
     const res = await Ad
         .find({
-            owner: advertiserId,
+            owner: owner,
             active: true
         }, COLUMNS).populate('owner', OWNER_COLUMNS);
     return res;

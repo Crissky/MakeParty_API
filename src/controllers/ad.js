@@ -98,7 +98,7 @@ exports.getByTitle = async (req, res, next) => {
     }
 }
 
-exports.getAllByAdvertiserId = async (req, res, next) => {
+exports.getByOwnerId = async (req, res, next) => {
     console.log("ad-controller: Pesquisar Anúncios pelo ID do Anunciante");
     
     try{
@@ -110,15 +110,15 @@ exports.getAllByAdvertiserId = async (req, res, next) => {
 
     try {
         
-        if(!req.body.owner && req.params.advertiserId){
+        if(!req.body.owner && req.params.owner){
             console.log("ad-controller: Pesquisar Anúncios pelo ID do Anunciante - IF");
-            req.body.owner = req.params.advertiserId;
+            req.body.owner = req.params.owner;
         } else if(dataToken) {
             console.log("ad-controller: Pesquisar Anúncios pelo ID do Anunciante - ELSE IF");
             req.body.owner = dataToken._id;
         }
         
-        var data = await repository.getAllByAdvertiserId(req.body.owner);
+        var data = await repository.getByOwnerId(req.body.owner);
         console.log("ad-controller: Pesquisar Anúncios pelo ID do Anunciante - Pesquisa finalizada");
         if (!data) {
             console.log("ad-controller: Pesquisar Anúncios pelo ID do Anunciante - Anúncio não encontrado");

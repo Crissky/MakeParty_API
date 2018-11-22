@@ -832,13 +832,13 @@ TITLE | O TITLE deve ser passado no fim da rota.
 
 ### Listar Anúncios pelo ID do Anunciante - ROTA ABERTA (NÃO NECESSITA DE TOKEN)
 #### É possível passar o ID do Anunciante como paramentro pela URL ou com o envio do TOKEN.
-#### Método **GET: /owners/:advertiserId**
+#### Método **GET: /owners/:owner**
 
 <br>
 
 Parametro | Observação
 ------|------
-ADVERTISER_ID | O ADVERTISER_ID deve ser passado no fim da rota.
+OWNER | O OWNER (ID do Anúnciante) deve ser passado no fim da rota.
 
 **OU**
 
