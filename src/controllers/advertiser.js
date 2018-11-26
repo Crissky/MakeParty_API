@@ -19,7 +19,9 @@ exports.get = async (req, res, next) => {
             return;
         }
 
-        res.status(200).send(data);
+        res.status(200).send({
+            list: data
+        });
     } catch (error) {
         console.log("CATCH = advertiser-controller: Listar Anunciantes\n", error);
         res.status(500).send({
@@ -58,7 +60,9 @@ exports.put = async (req, res, next) => {
     
     if (!contract.isValid()) {
         console.log("ERROR = advertiser-controller: Atualizar Anunciante\n", contract.errors());
-        res.status(400).send(contract.errors()).end();
+        res.status(400).send({
+            error: contract.errors()
+        }).end();
 
         return;
     }

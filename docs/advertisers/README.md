@@ -152,55 +152,52 @@ token | String | Obrigatório
 
 **Resposta (SUCESSO):**
 ````javascript
-[
-    {
-        "plan": {
-            "name": "prata",
-            "totalad": 20,
-            "totalphoto": 100
+{
+    "list": [
+        {
+            "active": true,
+            "_id": "5bca1207f9475400159db281",
+            "user": {
+                "_id": "5bca1207f9475400159db280",
+                "email": "pg2006pe@hotmail.com"
+            },
+            "socialname": "Fagner INC.",
+            "cnpj": "12345678901234",
+            "authorization": "13a2sd465asd",
+            "photo": "photo2.jpg",
+            "createdAt": "2018-10-19T17:19:03.698Z",
+            "updatedAt": "2018-10-21T20:21:52.813Z"
         },
-        "active": true,
-        "_id": "5bca1207f9475400159db281",
-        "user": {
-            "_id": "5bca1207f9475400159db280",
-            "email": "pg2006pe@hotmail.com"
+        {
+            "active": true,
+            "_id": "5bca1e3cf9475400159db287",
+            "user": {
+                "_id": "5bca1e3cf9475400159db286",
+                "email": "teste@hotmail.com"
+            },
+            "socialname": "Fagner INC.",
+            "cnpj": "12345678901235",
+            "authorization": "13a2sd465asd",
+            "photo": "photo.jpg",
+            "createdAt": "2018-10-19T18:11:08.458Z",
+            "updatedAt": "2018-10-19T18:11:08.458Z"
         },
-        "socialname": "Fagner INC.",
-        "cnpj": "12345678901234",
-        "authorization": "13a2sd465asd",
-        "photo": "photo2.jpg",
-        "createdAt": "2018-10-19T17:19:03.698Z",
-        "updatedAt": "2018-10-21T20:21:52.813Z"
-    },
-    {
-        "active": true,
-        "_id": "5bca1e3cf9475400159db287",
-        "user": {
-            "_id": "5bca1e3cf9475400159db286",
-            "email": "teste@hotmail.com"
-        },
-        "socialname": "Fagner INC.",
-        "cnpj": "12345678901235",
-        "authorization": "13a2sd465asd",
-        "photo": "photo.jpg",
-        "createdAt": "2018-10-19T18:11:08.458Z",
-        "updatedAt": "2018-10-19T18:11:08.458Z"
-    },
-    {
-        "active": true,
-        "_id": "5bccd414cf399d231000849d",
-        "user": {
-            "_id": "5bccd414cf399d231000849c",
-            "email": "teste@teste.com"
-        },
-        "socialname": "Teste Testando",
-        "cnpj": "98765432109876",
-        "authorization": "13a2sd465asd",
-        "photo": "photo2.jpg",
-        "createdAt": "2018-10-21T19:31:32.625Z",
-        "updatedAt": "2018-10-21T20:31:05.665Z"
-    }
-]
+        {
+            "active": true,
+            "_id": "5bccd414cf399d231000849d",
+            "user": {
+                "_id": "5bccd414cf399d231000849c",
+                "email": "teste@teste.com"
+            },
+            "socialname": "Teste Testando",
+            "cnpj": "98765432109876",
+            "authorization": "13a2sd465asd",
+            "photo": "photo2.jpg",
+            "createdAt": "2018-10-21T19:31:32.625Z",
+            "updatedAt": "2018-10-21T20:31:05.665Z"
+        }
+    ]
+}
 ````
 
 <br>

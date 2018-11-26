@@ -20,7 +20,9 @@ exports.get = async (req, res, next) => {
             return;
         }
 
-        res.status(200).send(data);
+        res.status(200).send({
+            list: data
+        });
     } catch (error) {
         console.log("CATCH = ad-controller: Listar Anúncios\n", error);
         res.status(500).send({
@@ -43,7 +45,9 @@ exports.getByTag = async (req, res, next) => {
             return;
         }
 
-        res.status(200).send(data);
+        res.status(200).send({
+            list: data
+        });
     } catch (error) {
         console.log("CATCH = ad-controller: Pesquisar Anúncios pela TAG");
         res.status(500).send({
@@ -66,7 +70,9 @@ exports.getByType = async (req, res, next) => {
             return;
         }
 
-        res.status(200).send(data);
+        res.status(200).send({
+            list: data
+        });
     } catch (error) {
         console.log("CATCH = ad-controller: Pesquisar Anúncios pelo Tipo");
         res.status(500).send({
@@ -89,7 +95,9 @@ exports.getByTitle = async (req, res, next) => {
             return;
         }
 
-        res.status(200).send(data);
+        res.status(200).send({
+            list: data
+        });
     } catch (error) {
         console.log("CATCH = ad-controller: Pesquisar Anúncios pelo Título");
         res.status(500).send({
@@ -129,7 +137,9 @@ exports.getByOwnerId = async (req, res, next) => {
             return;
         }
 
-        res.status(200).send(data);
+        res.status(200).send({
+            list: data
+        });
     } catch (error) {
         console.log("CATCH = ad-controller: Pesquisar Anúncios pelo ID do Anunciante");
         res.status(500).send({
@@ -168,7 +178,9 @@ exports.post = async (req, res, next) => {
 
     if (!contract.isValid()) {
         console.log("ERROR = ad-controller: Cadastrar Anúncio - Título muito curto\n", contract.errors());
-        res.status(400).send(contract.errors()).end();
+        res.status(400).send({
+            error: contract.errors()
+        }).end();
 
         return;
     }
@@ -210,7 +222,9 @@ exports.put = async (req, res, next) => {
 
     if (!contract.isValid()) {
         console.log("ERROR = ad-controller: Cadastrar Anúncio - Título muito curto\n", contract.errors());
-        res.status(400).send(contract.errors()).end();
+        res.status(400).send({
+            error: contract.errors()
+        }).end();
 
         return;
     }

@@ -19,7 +19,9 @@ exports.get = async (req, res, next) => {
             return;
         }
 
-        res.status(200).send(data);
+        res.status(200).send({
+            list: data
+        });
     } catch (error) {
         console.log("CATCH = customer-controller: Listar Clientes\n", error);
         res.status(500).send({
@@ -55,23 +57,25 @@ exports.put = async (req, res, next) => {
     console.log("customer-controller: Atualizar Cliente");
     let contract = new ValidationFields();
     contract.cpf(req.body.cpf);
-    
+
     if (!contract.isValid()) {
         console.log("ERROR = customer-controller: Atualizar Cliente\n", contract.errors());
-        res.status(400).send(contract.errors()).end();
+        res.status(400).send({
+            error: contract.errors()
+        }).end();
 
         return;
     }
-    
+
     try {
         const dataToken = await authService.decodeTokenREQ(req);
         req.body._id = dataToken._id;
         req.body.user = dataToken.user._id;
-        
+
         console.log(req.body);
         const data = await repository.update(req.body);
 
-        if(!data){
+        if (!data) {
             console.log("customer-controller: Atualizar Cliente - Cliente não encontrado ou inativo.");
             res.status(404).send({
                 error: "Cliente não encontrado ou inativo."
@@ -98,10 +102,10 @@ exports.delete = async (req, res, next) => {
         const dataToken = await authService.decodeTokenREQ(req);
         req.body._id = dataToken._id;
         req.body.user = dataToken.user._id;
-        
+
         const data = await repository.delete(req.body);
-        
-        if(!data){
+
+        if (!data) {
             console.log("customer-controller: Apagar Cliente - Cliente não encontrado ou inativo.");
             res.status(404).send({
                 error: "Cliente não encontrado ou inativo."

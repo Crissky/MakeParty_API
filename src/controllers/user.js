@@ -24,7 +24,9 @@ exports.get = async (req, res, next) => {
             return;
         }
 
-        res.status(200).send(data);
+        res.status(200).send({
+            list: data
+        });
     } catch (error) {
         console.log("CATCH = user-controller: Listar Usuários\n", error);
         res.status(500).send({
@@ -44,7 +46,9 @@ exports.post = async (req, res, next) => {
     
     if (!contract.isValid()) {
         console.log("ERROR = user-controller: Cadastrar Usuário\n", contract.errors());
-        res.status(400).send(contract.errors()).end();
+        res.status(400).send({
+            error: contract.errors()
+        }).end();
 
         return;
     }
@@ -90,7 +94,9 @@ exports.signupAdvertiser = async (req, res, next) => {
 
     if (!contract.isValid()) {
         console.log("ERROR = user-controller: Cadastrar Anunciante\n", contract.errors());
-        res.status(400).send(contract.errors()).end();
+        res.status(400).send({
+            error: contract.errors()
+        }).end();
 
         return;
     }
@@ -152,7 +158,9 @@ exports.signupCustomer = async (req, res, next) => {
 
     if (!contract.isValid()) {
         console.log("ERROR = user-controller: Cadastrar Cliente\n", contract.errors());
-        res.status(400).send(contract.errors()).end();
+        res.status(400).send({
+            error: contract.errors()
+        }).end();
 
         return;
     }
@@ -206,7 +214,9 @@ exports.authenticate = async (req, res, next) => {
     
     if (!contract.isValid()) {
         console.log("ERROR = user-controller: Autenticar Usuário\n", contract.errors());
-        res.status(400).send(contract.errors()).end();
+        res.status(400).send({
+            error: contract.errors()
+        }).end();
 
         return;
     }

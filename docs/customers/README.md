@@ -138,38 +138,55 @@ token | String | Obrigatório
 
 **Resposta (SUCESSO):**
 ````javascript
-[
-    {
-        "active": true,
-        "_id": "5bca0f42f9475400159db27f",
-        "user": {
-            "_id": "5bca0f42f9475400159db27e",
-            "email": "fagner-silva@hotmail.com"
+{
+    "list": [
+        {
+            "active": true,
+            "_id": "5bca0f42f9475400159db27f",
+            "user": {
+                "_id": "5bca0f42f9475400159db27e",
+                "email": "fagner-silva@hotmail.com"
+            },
+            "name": "Fagner da Silva Cristovam",
+            "cpf": "06941674785",
+            "birthdate": "1987-12-30T00:00:00.000Z",
+            "phone": "34333163",
+            "photo": "photo.jpg",
+            "createdAt": "2018-10-19T17:07:14.888Z",
+            "updatedAt": "2018-10-21T19:12:32.879Z"
         },
-        "name": "Fagner da Silva Cristovam",
-        "cpf": "06941674785",
-        "birthdate": "1987-12-30T00:00:00.000Z",
-        "phone": "34333163",
-        "photo": "photo.jpg",
-        "createdAt": "2018-10-19T17:07:14.888Z",
-        "updatedAt": "2018-10-21T19:12:32.879Z"
-    },
-    {
-        "active": true,
-        "_id": "5bccd5c5cf399d23100084a0",
-        "user": {
-            "_id": "5bccd5c5cf399d231000849f",
-            "email": "teste2@teste.com"
+        {
+            "active": true,
+            "_id": "5bccd5c5cf399d23100084a0",
+            "user": {
+                "_id": "5bccd5c5cf399d231000849f",
+                "email": "teste2@teste.com"
+            },
+            "name": "Teste 2 Testoievski",
+            "cpf": "98765432109",
+            "birthdate": "1990-01-03T00:00:00.000Z",
+            "phone": "34333163",
+            "photo": "photo.jpg",
+            "createdAt": "2018-10-21T19:38:45.931Z",
+            "updatedAt": "2018-10-21T20:51:30.984Z"
         },
-        "name": "Testeonildo do Teste",
-        "cpf": "98765432109",
-        "birthdate": "1990-01-02T00:00:00.000Z",
-        "phone": "34333163",
-        "photo": "photo.jpg",
-        "createdAt": "2018-10-21T19:38:45.931Z",
-        "updatedAt": "2018-10-21T19:38:45.931Z"
-    }
-]
+        {
+            "active": true,
+            "_id": "5bd348963358e90015ea609a",
+            "user": {
+                "_id": "5bd348963358e90015ea6099",
+                "email": "erico@hotmail.com"
+            },
+            "name": "Erico",
+            "cpf": "06941674889",
+            "birthdate": "1987-12-29T00:00:00.000Z",
+            "phone": "34333163",
+            "photo": "photo.jpg",
+            "createdAt": "2018-10-26T17:02:14.383Z",
+            "updatedAt": "2018-10-26T17:02:14.383Z"
+        }
+    ]
+}
 ````
 
 <br>

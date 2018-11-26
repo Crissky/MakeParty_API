@@ -135,72 +135,74 @@ ad | String | Obrigatório
 
 **Resposta (SUCESSO):**
 ````javascript
-[
-    {
-        "active": true,
-        "_id": "5be7738930509d0e3812b6da",
-        "ad": {
-            "description": "Festa muito topzera 2018 UFRPE",
-            "price": 150,
-            "tags": [
-                "festa",
-                "top",
-                "ufrpe"
-            ],
-            "photos": [
-                "Foto.jpg",
-                "Capa.jpg"
-            ],
+{
+    "list": [
+        {
             "active": true,
-            "_id": "5bccc9890a6229312442519c",
-            "title": "Calourada Top 2018 UFRPE",
-            "type": "Festa",
-            "phone": "89452639",
-            "owner": "5bca1207f9475400159db281",
-            "createdAt": "2018-10-21T18:46:33.825Z",
-            "updatedAt": "2018-10-21T18:46:33.825Z"
-        },
-        "owner": "5bca0f42f9475400159db27f",
-        "createdAt": "2018-11-11T00:10:49.124Z",
-        "updatedAt": "2018-11-11T00:10:49.124Z"
-    },
-    {
-        "active": true,
-        "_id": "5be77f6bc5e9b332c021ee31",
-        "ad": {
-            "address": {
-                "street": "Rua do Barro",
-                "number": "302",
-                "neighborhood": "Macaxeira",
-                "city": "Hellcife",
-                "zipcode": "53000-100",
-                "state": "PE"
+            "_id": "5be7738930509d0e3812b6da",
+            "ad": {
+                "description": "Festa muito topzera 2018 UFRPE",
+                "price": 150,
+                "tags": [
+                    "festa",
+                    "top",
+                    "ufrpe"
+                ],
+                "photos": [
+                    "Foto.jpg",
+                    "Capa.jpg"
+                ],
+                "active": true,
+                "_id": "5bccc9890a6229312442519c",
+                "title": "Calourada Top 2018 UFRPE",
+                "type": "Festa",
+                "phone": "89452639",
+                "owner": "5bca1207f9475400159db281",
+                "createdAt": "2018-10-21T18:46:33.825Z",
+                "updatedAt": "2018-10-21T18:46:33.825Z"
             },
-            "description": "Festa muito topzera 2018 UFRPE",
-            "price": 150,
-            "tags": [
-                "festa",
-                "top",
-                "ufrpe"
-            ],
-            "photos": [
-                "Foto.jpg",
-                "Capa.jpg"
-            ],
-            "active": true,
-            "_id": "5bd3d2592a0e2a1404941e9e",
-            "title": "Calourada Top 2018 UFRPE",
-            "type": "Festa",
-            "phone": "89452639",
-            "owner": "5bca1207f9475400159db281",
-            "createdAt": "2018-10-27T02:50:01.721Z",
-            "updatedAt": "2018-10-27T02:50:01.721Z"
+            "owner": "5bca0f42f9475400159db27f",
+            "createdAt": "2018-11-11T00:10:49.124Z",
+            "updatedAt": "2018-11-11T00:10:49.124Z"
         },
-        "owner": "5bca0f42f9475400159db27f",
-        "createdAt": "2018-11-11T01:01:31.703Z",
-        "updatedAt": "2018-11-11T01:01:31.703Z"
-    }
-]
+        {
+            "active": true,
+            "_id": "5be7858e2269c70016f612c1",
+            "ad": {
+                "address": {
+                    "street": "Rua do Barro",
+                    "number": "302",
+                    "neighborhood": "Macaxeira",
+                    "city": "Hellcife",
+                    "zipcode": "53000-100",
+                    "state": "PE"
+                },
+                "description": "Festa muito topzera 2018 UFRPE",
+                "price": 150,
+                "tags": [
+                    "festa",
+                    "top",
+                    "ufrpe"
+                ],
+                "photos": [
+                    "Foto.jpg",
+                    "Capa.jpg"
+                ],
+                "active": true,
+                "_id": "5bd3d2592a0e2a1404941e9e",
+                "title": "Calourada Top 2018 UFRPE",
+                "type": "Festa",
+                "phone": "89452639",
+                "owner": "5bca1207f9475400159db281",
+                "createdAt": "2018-10-27T02:50:01.721Z",
+                "updatedAt": "2018-10-27T02:50:01.721Z"
+            },
+            "owner": "5bca0f42f9475400159db27f",
+            "createdAt": "2018-11-11T01:27:42.048Z",
+            "updatedAt": "2018-11-11T01:27:42.048Z"
+        }
+    ]
+}
 ````
 
 <br>

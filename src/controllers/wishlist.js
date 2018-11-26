@@ -21,7 +21,9 @@ exports.get = async (req, res, next) => {
             return;
         }
 
-        res.status(200).send(data);
+        res.status(200).send({
+            list: data
+        });
     } catch (error) {
         console.log("CATCH = wishlist-controller: Lista de Desejo Anúncio pelo TOKEN");
         res.status(500).send({

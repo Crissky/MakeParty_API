@@ -187,14 +187,16 @@ password | String (len >= 6) | Obrigatório
 
 **Resposta (ERROR):**
 ````javascript
-[
-    {
-        "error": "E-mail inválido."
-    },
-    {
-        "error": "Senha deve ter no mínimo 6 caracteres."
-    }
-]
+{
+    "error": [
+        {
+            "error": "E-mail inválido."
+        },
+        {
+            "error": "Senha deve ter no mínimo 6 caracteres."
+        }
+    ]
+}
 ````
 
 <br>
@@ -245,28 +247,22 @@ token | String | Obrigatório
 
 **Resposta (SUCESSO):**
 ````javascript
-[
-    {
-        "_id": "5bca0f42f9475400159db27e",
-        "email": "fagner-silva@hotmail.com"
-    },
-    {
-        "_id": "5bca1207f9475400159db280",
-        "email": "pg2006pe@hotmail.com"
-    },
-    {
-        "_id": "5bca1e3cf9475400159db286",
-        "email": "teste@hotmail.com"
-    },
-    {
-        "_id": "5bccd414cf399d231000849c",
-        "email": "teste@teste.com"
-    },
-    {
-        "_id": "5bccd5c5cf399d231000849f",
-        "email": "teste2@teste.com"
-    }
-]
+{
+    "list": [
+        {
+            "_id": "5bca0f42f9475400159db27e",
+            "email": "fagner-silva@hotmail.com"
+        },
+        {
+            "_id": "5bca1207f9475400159db280",
+            "email": "pg2006pe@hotmail.com"
+        },
+        {
+            "_id": "5bca1e3cf9475400159db286",
+            "email": "teste@hotmail.com"
+        }
+    ]
+}
 ````
 
 <br>
