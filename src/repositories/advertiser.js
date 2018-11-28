@@ -4,17 +4,18 @@ const mongoose = require('mongoose');
 const Advertiser = mongoose.model('Advertiser');
 
 const COLUMNS = 'active user socialname cnpj authorization photo plan createdAt updatedAt';
+const USER_COLUMNS = 'active email createdAt updatedAt';
 
 exports.get = async () => {
     console.log("advertiser-repositories: get");
-    const res = await Advertiser.find({active:true}, COLUMNS).populate('user', 'email');
-    
+    const res = await Advertiser.find({ active: true }, COLUMNS).populate('user', USER_COLUMNS);
+
     return res;
 }
 
 exports.getById = async (id) => {
     console.log("advertiser-repositories: getById");
-    const res = await Advertiser.findById(id, COLUMNS).populate('user', 'email');
+    const res = await Advertiser.findById(id, COLUMNS).populate('user', USER_COLUMNS);
 
     return res;
 }
@@ -25,7 +26,7 @@ exports.getByIdActive = async (id) => {
         _id: id,
         active: true
     });
-    
+
     return res;
 }
 
@@ -34,7 +35,7 @@ exports.getByUserId = async (userId) => {
     const res = await Advertiser.findOne({
         user: userId,
         active: true
-    }, COLUMNS).populate('user', 'email');
+    }, COLUMNS).populate('user', USER_COLUMNS);
 
     return res;
 }
@@ -67,7 +68,7 @@ exports.update = async (data) => {
                 runValidators: true,
                 new: true,
                 fields: COLUMNS
-            }).populate('user', 'email');
+            }).populate('user', USER_COLUMNS);
 }
 
 exports.delete = async (data) => {
@@ -87,5 +88,5 @@ exports.delete = async (data) => {
                 runValidators: true,
                 new: true,
                 fields: COLUMNS
-            }).populate('user', 'email');
+            }).populate('user', USER_COLUMNS);
 }

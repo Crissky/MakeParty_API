@@ -21,7 +21,7 @@ exports.get = async (req, res, next) => {
     }
 }
 
-exports.getByAd = async (req, res, next) => {
+exports.getByAdAndCustomer = async (req, res, next) => {
     console.log("rating-controller: Pesquisar Avaliação pelo ID do Anúncio e Cliente");
     try {
         const dataToken = await authService.decodeTokenREQ(req);

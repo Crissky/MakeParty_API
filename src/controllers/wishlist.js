@@ -10,7 +10,7 @@ exports.get = async (req, res, next) => {
     try {
         const dataToken = await authService.decodeTokenREQ(req);
 
-        var data = await repository.getByOwnerId(dataToken._id);
+        var data = await repository.getByCustomerId(dataToken._id);
         console.log("wishlist-controller: Pesquisar Lista de Desejo pelo TOKEN - Pesquisa finalizada");
         if (!data) {
             console.log("wishlist-controller: Pesquisar Lista de Desejo pelo TOKEN - Lista de Desejo não encontrada");
@@ -22,7 +22,7 @@ exports.get = async (req, res, next) => {
         }
 
         res.status(200).send({
-            list: data
+            wishlists: data
         });
     } catch (error) {
         console.log("CATCH = wishlist-controller: Lista de Desejo Anúncio pelo TOKEN");
@@ -44,10 +44,10 @@ exports.post = async (req, res, next) => {
     
     try {
         const dataToken = await authService.decodeTokenREQ(req);
-        const owner = await customerRepository.getByIdActive(dataToken._id);
-        req.body.owner = dataToken._id;
+        const customer = await customerRepository.getByIdActive(dataToken._id);
+        req.body.customer = dataToken._id;
         
-        if(!owner){
+        if(!customer){
             console.log("Usuário não autorizado ou desativado");
             res.status(401).send({
                 error: "Usuário não autorizado ou desativado"
@@ -83,7 +83,7 @@ exports.delete = async (req, res, next) => {
     
     try {
         const dataToken = await authService.decodeTokenREQ(req);
-        req.body.owner = dataToken._id;
+        req.body.customer = dataToken._id;
         
         const data = await repository.delete(req.body);
         

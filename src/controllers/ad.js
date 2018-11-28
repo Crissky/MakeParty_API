@@ -21,7 +21,7 @@ exports.get = async (req, res, next) => {
         }
 
         res.status(200).send({
-            list: data
+            ads: data
         });
     } catch (error) {
         console.log("CATCH = ad-controller: Listar Anúncios\n", error);
@@ -46,7 +46,7 @@ exports.getByTag = async (req, res, next) => {
         }
 
         res.status(200).send({
-            list: data
+            ads: data
         });
     } catch (error) {
         console.log("CATCH = ad-controller: Pesquisar Anúncios pela TAG");
@@ -71,7 +71,7 @@ exports.getByType = async (req, res, next) => {
         }
 
         res.status(200).send({
-            list: data
+            ads: data
         });
     } catch (error) {
         console.log("CATCH = ad-controller: Pesquisar Anúncios pelo Tipo");
@@ -96,7 +96,7 @@ exports.getByTitle = async (req, res, next) => {
         }
 
         res.status(200).send({
-            list: data
+            ads: data
         });
     } catch (error) {
         console.log("CATCH = ad-controller: Pesquisar Anúncios pelo Título");
@@ -138,7 +138,7 @@ exports.getByOwnerId = async (req, res, next) => {
         }
 
         res.status(200).send({
-            list: data
+            ads: data
         });
     } catch (error) {
         console.log("CATCH = ad-controller: Pesquisar Anúncios pelo ID do Anunciante");

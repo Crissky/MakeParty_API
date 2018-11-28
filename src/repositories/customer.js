@@ -4,17 +4,18 @@ const mongoose = require('mongoose');
 const Customer = mongoose.model('Customer');
 
 const COLUMNS = 'active user name cpf birthdate photo phone createdAt updatedAt';
+const USER_COLUMNS = 'active email createdAt updatedAt';
 
 exports.get = async () => {
     console.log("customer-repositories: get");
-    const res = await Customer.find({active:true}, COLUMNS).populate('user', 'email');
-   
+    const res = await Customer.find({ active: true }, COLUMNS).populate('user', USER_COLUMNS);
+
     return res;
 }
 
 exports.getById = async (id) => {
     console.log("customer-repositories: getById");
-    const res = await Customer.findById(id, COLUMNS).populate('user', 'email');
+    const res = await Customer.findById(id, COLUMNS).populate('user', USER_COLUMNS);
 
     return res;
 }
@@ -25,7 +26,7 @@ exports.getByIdActive = async (id) => {
         _id: id,
         active: true
     });
-    
+
     return res;
 }
 
@@ -34,7 +35,7 @@ exports.getByUserId = async (userId) => {
     const res = await Customer.findOne({
         user: userId,
         active: true
-    }, COLUMNS).populate('user', 'email');
+    }, COLUMNS).populate('user', USER_COLUMNS);
 
     return res;
 }
@@ -67,7 +68,7 @@ exports.update = async (data) => {
                 runValidators: true,
                 new: true,
                 fields: COLUMNS
-            }).populate('user', 'email');
+            }).populate('user', USER_COLUMNS);
 }
 
 exports.delete = async (data) => {
@@ -87,5 +88,5 @@ exports.delete = async (data) => {
                 runValidators: true,
                 new: true,
                 fields: COLUMNS
-            }).populate('user', 'email');
+            }).populate('user', USER_COLUMNS);
 }

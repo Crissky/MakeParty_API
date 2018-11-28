@@ -20,7 +20,7 @@ exports.get = async (req, res, next) => {
         }
 
         res.status(200).send({
-            list: data
+            customers: data
         });
     } catch (error) {
         console.log("CATCH = customer-controller: Listar Clientes\n", error);

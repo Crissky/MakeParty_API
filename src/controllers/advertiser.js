@@ -20,7 +20,7 @@ exports.get = async (req, res, next) => {
         }
 
         res.status(200).send({
-            list: data
+            advertivers: data
         });
     } catch (error) {
         console.log("CATCH = advertiser-controller: Listar Anunciantes\n", error);

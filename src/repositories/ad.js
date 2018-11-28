@@ -5,13 +5,22 @@ const Ad = mongoose.model('Ad');
 
 const COLUMNS = 'owner title description price type phone tags mainphoto photos createdAt updatedAt active address';
 const OWNER_COLUMNS = 'active user socialname cnpj authorization photo createdAt updatedAt';
+const USER_COLUMNS = 'active email createdAt updatedAt';
 
 exports.get = async () => {
     console.log("ad-repositories: get");
     const res = await Ad
         .find({
             active: true
-        }, COLUMNS).populate('owner', OWNER_COLUMNS);
+        }, COLUMNS).populate({
+            path:'owner',
+            select: OWNER_COLUMNS,
+            populate: {
+                path: 'user',
+                select: USER_COLUMNS
+            }
+        });
+
     return res;
 }
 
@@ -21,7 +30,15 @@ exports.getByTag = async (tag) => {
         .find({
             tags: { $regex : new RegExp(tag, "i") },
             active: true
-        }, COLUMNS).populate('owner', OWNER_COLUMNS);
+        }, COLUMNS).populate({
+            path:'owner',
+            select: OWNER_COLUMNS,
+            populate: {
+                path: 'user',
+                select: USER_COLUMNS
+            }
+        });
+
     return res;
 }
 
@@ -31,7 +48,15 @@ exports.getByType = async (type) => {
         .find({
             type: { $regex : new RegExp(type, "i") },
             active: true
-        }, COLUMNS).populate('owner', OWNER_COLUMNS);
+        }, COLUMNS).populate({
+            path:'owner',
+            select: OWNER_COLUMNS,
+            populate: {
+                path: 'user',
+                select: USER_COLUMNS
+            }
+        });
+
     return res;
 }
 
@@ -41,7 +66,15 @@ exports.getByTitle = async (title) => {
         .find({
             title: { $regex : new RegExp(title, "i") },
             active: true
-        }, COLUMNS).populate('owner', OWNER_COLUMNS);
+        }, COLUMNS).populate({
+            path:'owner',
+            select: OWNER_COLUMNS,
+            populate: {
+                path: 'user',
+                select: USER_COLUMNS
+            }
+        });
+
     return res;
 }
 
@@ -51,13 +84,28 @@ exports.getByOwnerId = async (owner) => {
         .find({
             owner: owner,
             active: true
-        }, COLUMNS).populate('owner', OWNER_COLUMNS);
+        }, COLUMNS).populate({
+            path:'owner',
+            select: OWNER_COLUMNS,
+            populate: {
+                path: 'user',
+                select: USER_COLUMNS
+            }
+        });
+        
     return res;
 }
 
 exports.getById = async (id) => {
     console.log("ad-repositories: getById");
-    const res = await Ad.findById(id, COLUMNS).populate('owner', OWNER_COLUMNS);
+    const res = await Ad.findById(id, COLUMNS).populate({
+        path:'owner',
+        select: OWNER_COLUMNS,
+        populate: {
+            path: 'user',
+            select: USER_COLUMNS
+        }
+    });
 
     return res;
 }
@@ -67,6 +115,13 @@ exports.getByIdActive = async (id) => {
     const res = await Ad.findOne({
         _id: id,
         active: true
+    }).populate({
+        path:'owner',
+        select: OWNER_COLUMNS,
+        populate: {
+            path: 'user',
+            select: USER_COLUMNS
+        }
     });
     
     return res;
@@ -111,7 +166,14 @@ exports.update = async (data) => {
                 runValidators: true,
                 new: true,
                 fields: COLUMNS
-            }).populate('owner', OWNER_COLUMNS);
+            }).populate({
+                path:'owner',
+                select: OWNER_COLUMNS,
+                populate: {
+                    path: 'user',
+                    select: USER_COLUMNS
+                }
+            });
 }
 
 exports.delete = async (data) => {

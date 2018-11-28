@@ -3,15 +3,36 @@
 const mongoose = require('mongoose');
 const WishList = mongoose.model('WishList');
 
-const COLUMNS = 'owner ad createdAt updatedAt active';
+const COLUMNS = 'customer ad createdAt updatedAt active';
 const AD_COLUMNS = 'owner title description price type phone tags mainphoto photos createdAt updatedAt active address';
+const OWNER_COLUMNS = 'active user socialname cnpj authorization photo createdAt updatedAt';
+const CUSTOMER_COLUMNS = 'active user name cpf birthdate photo phone createdAt updatedAt';
+const USER_COLUMNS = 'active email createdAt updatedAt';
 
-exports.getByOwnerId = async (id) => {
+exports.getByCustomerId = async (id) => {
     console.log("wishlist-repositories: getById");
     const res = await WishList.find({
-        owner: id,
+        customer: id,
         active: true
-    }, COLUMNS).populate('ad', AD_COLUMNS);
+    }, COLUMNS).populate({
+        path:'ad',
+        select: AD_COLUMNS,
+        populate: {
+            path: 'owner',
+            select: OWNER_COLUMNS,
+            populate: {
+                path: 'user',
+                select: USER_COLUMNS
+            }
+        }
+    }).populate({
+        path: 'customer',
+        select: CUSTOMER_COLUMNS,
+        populate: {
+            path: 'user',
+            select: USER_COLUMNS
+        }
+    });
 
     return res;
 }
@@ -30,7 +51,25 @@ exports.delete = async (data) => {
         .findOneAndDelete(
             {
                 ad: data.ad,
-                owner: data.owner,
+                customer: data.customer,
                 active: true
-            }).populate('ad', AD_COLUMNS);
+            }).populate({
+                path:'ad',
+                select: AD_COLUMNS,
+                populate: {
+                    path: 'owner',
+                    select: OWNER_COLUMNS,
+                    populate: {
+                        path: 'user',
+                        select: USER_COLUMNS
+                    }
+                }
+            }).populate({
+                path: 'customer',
+                select: CUSTOMER_COLUMNS,
+                populate: {
+                    path: 'user',
+                    select: USER_COLUMNS
+                }
+            });
 }

@@ -4,15 +4,49 @@ const mongoose = require('mongoose');
 const Rating = mongoose.model('Rating');
 
 const COLUMNS = 'customer ad rating createdAt updatedAt active';
-const CUSTOMER_COLUMNS = 'active user name cpf birthdate photo phone createdAt updatedAt';
 const AD_COLUMNS = 'owner title description price type phone tags mainphoto photos createdAt updatedAt active address';
+const OWNER_COLUMNS = 'active user socialname cnpj authorization photo createdAt updatedAt';
+const CUSTOMER_COLUMNS = 'active user name cpf birthdate photo phone createdAt updatedAt';
+const USER_COLUMNS = 'active email createdAt updatedAt';
+
+const TESTE = {
+    path:'ad',
+    select: AD_COLUMNS,
+    populate: {
+        path: 'owner',
+        select: OWNER_COLUMNS,
+        populate: {
+            path: 'user',
+            select: USER_COLUMNS
+        }
+    }
+};
 
 exports.get = async () => {
     console.log("rating-repositories: get");
     const res = await Rating
         .find({
             active: true
-        }, COLUMNS).populate('customer', CUSTOMER_COLUMNS);
+        }, COLUMNS).populate({
+            path:'ad',
+            select: AD_COLUMNS,
+            populate: {
+                path: 'owner',
+                select: OWNER_COLUMNS,
+                populate: {
+                    path: 'user',
+                    select: USER_COLUMNS
+                }
+            }
+        }).populate({
+            path: 'customer',
+            select: CUSTOMER_COLUMNS,
+            populate: {
+                path: 'user',
+                select: USER_COLUMNS
+            }
+        });
+
     return res;
 }
 
@@ -22,7 +56,25 @@ exports.getByAdAndCustomer = async (data) => {
         ad: data.ad,
         customer: data.customer,
         active: true
-    }, COLUMNS).populate('customer', CUSTOMER_COLUMNS).populate('ad', AD_COLUMNS);
+    }, COLUMNS).populate({
+            path:'ad',
+            select: AD_COLUMNS,
+            populate: {
+                path: 'owner',
+                select: OWNER_COLUMNS,
+                populate: {
+                    path: 'user',
+                    select: USER_COLUMNS
+                }
+            }
+        }).populate({
+            path: 'customer',
+            select: CUSTOMER_COLUMNS,
+            populate: {
+                path: 'user',
+                select: USER_COLUMNS
+            }
+        });
 
     return res;
 }
@@ -52,7 +104,25 @@ exports.update = async (data) => {
                 runValidators: true,
                 new: true,
                 fields: COLUMNS
-            }).populate('customer', CUSTOMER_COLUMNS).populate('ad', AD_COLUMNS);
+            }).populate({
+                path:'ad',
+                select: AD_COLUMNS,
+                populate: {
+                    path: 'owner',
+                    select: OWNER_COLUMNS,
+                    populate: {
+                        path: 'user',
+                        select: USER_COLUMNS
+                    }
+                }
+            }).populate({
+                path: 'customer',
+                select: CUSTOMER_COLUMNS,
+                populate: {
+                    path: 'user',
+                    select: USER_COLUMNS
+                }
+            });
 }
 
 exports.delete = async (data) => {
@@ -73,5 +143,23 @@ exports.delete = async (data) => {
                 runValidators: true,
                 new: true,
                 fields: COLUMNS
-            }).populate('customer', CUSTOMER_COLUMNS).populate('ad', AD_COLUMNS);
+            }).populate({
+                path:'ad',
+                select: AD_COLUMNS,
+                populate: {
+                    path: 'owner',
+                    select: OWNER_COLUMNS,
+                    populate: {
+                        path: 'user',
+                        select: USER_COLUMNS
+                    }
+                }
+            }).populate({
+                path: 'customer',
+                select: CUSTOMER_COLUMNS,
+                populate: {
+                    path: 'user',
+                    select: USER_COLUMNS
+                }
+            });
 }

@@ -25,7 +25,7 @@ exports.get = async (req, res, next) => {
         }
 
         res.status(200).send({
-            list: data
+            users: data
         });
     } catch (error) {
         console.log("CATCH = user-controller: Listar Usuários\n", error);
