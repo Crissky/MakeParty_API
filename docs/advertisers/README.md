@@ -1,46 +1,50 @@
 # Rotas - Pessoa Jurídica - Anunciante (advertisers)
+
 ## AVISO: API em desenvolvimento, as ROTAS, REQUISIÇÕES e RETORNOS podem sofrer alterações.
 
-https://makepartyserver.herokuapp.com
+<https://makepartyserver.herokuapp.com>
 
 **Rotas que não são abertas necessitam receber o token de acesso. O Token pode ser passado no Body ou no Header(x-access-token).**
 
 ### Atualizar Pessoa Jurídica (Anunciante)
+
 #### Método **PUT: /advertisers**
 
 <br>
 
-Chave | Tipo | Requerimento
-------|------|-------------
-socialname | String | Obrigatório
-cnpj | String (len >= 14) | Obrigatório
-authorization | String | Obrigatório
-photo | String | Obrigatório
-plan.name | String | Obrigatório
-plan.totalad | Number | Obrigatório
-plan.totalphoto | Number | Obrigatório
+Chave           | Tipo               | Requerimento
+--------------- | ------------------ | ------------
+socialname      | String             | Obrigatório
+cnpj            | String (len >= 14) | Obrigatório
+authorization   | String             | Obrigatório
+photo           | String             | Obrigatório
+plan.name       | String             | Obrigatório
+plan.totalad    | Number             | Obrigatório
+plan.totalphoto | Number             | Obrigatório
 
 <br>
 
 **Corpo:**
-````javascript
+
+```javascript
 {
   "socialname":"Teste Testando",
   "cnpj":"98765432109876",
   "authorization":"13a2sd465asd",
   "photo":"photo2.jpg",
   "plan":{
-  	"name":"prata",
-  	"totalad": 20,
-  	"totalphoto": 100
+      "name":"prata",
+      "totalad": 20,
+      "totalphoto": 100
   }
 }
-````
+```
 
 <br>
 
 **Resposta (SUCESSO):**
-````javascript
+
+```javascript
 {
     "data": {
         "plan": {
@@ -62,12 +66,13 @@ plan.totalphoto | Number | Obrigatório
         "updatedAt": "2018-10-21T20:25:11.185Z"
     }
 }
-````
+```
 
 <br>
 
 **Resposta (ERROR):**
-````javascript
+
+```javascript
 {
     "error": {
         "operationTime": "6614909179607908353",
@@ -85,32 +90,35 @@ plan.totalphoto | Number | Obrigatório
         "name": "MongoError"
     }
 }
-````
+```
 
 <br>
 
 ### Apagar Pessoa Jurídica (Anunciante)
+
 #### Método **DELETE: /advertisers**
 
 <br>
 
-Chave | Tipo | Requerimento
-------|------|-------------
+Chave | Tipo   | Requerimento
+----- | ------ | ------------
 token | String | Obrigatório
 
 <br>
 
 **Corpo:**
-````javascript
+
+```javascript
 {
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YmNjZDQxNGNmMzk5ZDIzMTAwMDg0OWQiLCJ1c2VyIjp7Il9pZCI6IjViY2NkNDE0Y2YzOTlkMjMxMDAwODQ5YyIsImVtYWlsIjoidGVzdGVAdGVzdGUuY29tIn0sImlhdCI6MTU0MDE1MTEyOSwiZXhwIjoxNTQwMjM3NTI5fQ.o9UJuaX3uJL1vW3MxqydUk8QA9PnJS0yL3x7rZHgJrg"
 }
-````
+```
 
 <br>
 
 **Resposta (SUCESSO):**
-````javascript
+
+```javascript
 {
     "data": {
         "plan": {
@@ -132,28 +140,31 @@ token | String | Obrigatório
         "updatedAt": "2018-10-21T20:31:05.665Z"
     }
 }
-````
+```
 
 <br>
 
 **Resposta (ERROR):**
-````javascript
+
+```javascript
 {
     "error": "Anunciante não encontrado ou inativo."
 }
-````
+```
 
 <br>
 
 ### Listar Pessoas Jurídica (Anunciante)
+
 #### Método **GET: /advertisers**
 
 <br>
 
 **Resposta (SUCESSO):**
-````javascript
+
+```javascript
 {
-    "list": [
+    "advertivers": [
         {
             "active": true,
             "_id": "5bca1207f9475400159db281",
@@ -198,32 +209,35 @@ token | String | Obrigatório
         }
     ]
 }
-````
+```
 
 <br>
 
 **Resposta (ERROR):**
-````javascript
+
+```javascript
 {
     "error": "Token Inválido"
 }
-````
+```
 
 <br>
 
 ### Pesquisar Pessoa Jurídica pelo ID (Anunciante)
+
 #### Método **GET: /advertisers/:id**
 
 <br>
 
 Parametro | Observação
-------|------
-ID | O ID deve ser passado no fim da rota.
+--------- | -------------------------------------
+ID        | O ID deve ser passado no fim da rota.
 
 <br>
 
 **Resposta (SUCESSO):**
-````javascript
+
+```javascript
 {
     "plan": {
         "name": "prata",
@@ -243,13 +257,14 @@ ID | O ID deve ser passado no fim da rota.
     "createdAt": "2018-10-21T19:31:32.625Z",
     "updatedAt": "2018-10-21T20:31:05.665Z"
 }
-````
+```
 
 <br>
 
 **Resposta (ERROR):**
-````javascript
+
+```javascript
 {
     "error": "Token Inválido"
 }
-````
+```

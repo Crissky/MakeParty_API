@@ -2,50 +2,14 @@
 
 const mongoose = require('mongoose');
 const Rating = mongoose.model('Rating');
-
-const COLUMNS = 'customer ad rating createdAt updatedAt active';
-const AD_COLUMNS = 'owner title description price type phone tags mainphoto photos createdAt updatedAt active address';
-const OWNER_COLUMNS = 'active user socialname cnpj authorization photo createdAt updatedAt';
-const CUSTOMER_COLUMNS = 'active user name cpf birthdate photo phone createdAt updatedAt';
-const USER_COLUMNS = 'active email createdAt updatedAt';
-
-const TESTE = {
-    path:'ad',
-    select: AD_COLUMNS,
-    populate: {
-        path: 'owner',
-        select: OWNER_COLUMNS,
-        populate: {
-            path: 'user',
-            select: USER_COLUMNS
-        }
-    }
-};
+const CONSTANTS_REPOSITORIES = require('../constants/repositories');
 
 exports.get = async () => {
     console.log("rating-repositories: get");
     const res = await Rating
         .find({
             active: true
-        }, COLUMNS).populate({
-            path:'ad',
-            select: AD_COLUMNS,
-            populate: {
-                path: 'owner',
-                select: OWNER_COLUMNS,
-                populate: {
-                    path: 'user',
-                    select: USER_COLUMNS
-                }
-            }
-        }).populate({
-            path: 'customer',
-            select: CUSTOMER_COLUMNS,
-            populate: {
-                path: 'user',
-                select: USER_COLUMNS
-            }
-        });
+        }, CONSTANTS_REPOSITORIES.RATING_COLUMNS).populate(CONSTANTS_REPOSITORIES.AD_CUSTOMER_POPULATE);
 
     return res;
 }
@@ -56,25 +20,7 @@ exports.getByAdAndCustomer = async (data) => {
         ad: data.ad,
         customer: data.customer,
         active: true
-    }, COLUMNS).populate({
-            path:'ad',
-            select: AD_COLUMNS,
-            populate: {
-                path: 'owner',
-                select: OWNER_COLUMNS,
-                populate: {
-                    path: 'user',
-                    select: USER_COLUMNS
-                }
-            }
-        }).populate({
-            path: 'customer',
-            select: CUSTOMER_COLUMNS,
-            populate: {
-                path: 'user',
-                select: USER_COLUMNS
-            }
-        });
+    }, CONSTANTS_REPOSITORIES.RATING_COLUMNS).populate(CONSTANTS_REPOSITORIES.AD_CUSTOMER_POPULATE);
 
     return res;
 }
@@ -103,26 +49,8 @@ exports.update = async (data) => {
             {
                 runValidators: true,
                 new: true,
-                fields: COLUMNS
-            }).populate({
-                path:'ad',
-                select: AD_COLUMNS,
-                populate: {
-                    path: 'owner',
-                    select: OWNER_COLUMNS,
-                    populate: {
-                        path: 'user',
-                        select: USER_COLUMNS
-                    }
-                }
-            }).populate({
-                path: 'customer',
-                select: CUSTOMER_COLUMNS,
-                populate: {
-                    path: 'user',
-                    select: USER_COLUMNS
-                }
-            });
+                fields: CONSTANTS_REPOSITORIES.RATING_COLUMNS
+            }).populate(CONSTANTS_REPOSITORIES.AD_CUSTOMER_POPULATE);
 }
 
 exports.delete = async (data) => {
@@ -142,24 +70,6 @@ exports.delete = async (data) => {
             {
                 runValidators: true,
                 new: true,
-                fields: COLUMNS
-            }).populate({
-                path:'ad',
-                select: AD_COLUMNS,
-                populate: {
-                    path: 'owner',
-                    select: OWNER_COLUMNS,
-                    populate: {
-                        path: 'user',
-                        select: USER_COLUMNS
-                    }
-                }
-            }).populate({
-                path: 'customer',
-                select: CUSTOMER_COLUMNS,
-                populate: {
-                    path: 'user',
-                    select: USER_COLUMNS
-                }
-            });
+                fields: CONSTANTS_REPOSITORIES.RATING_COLUMNS
+            }).populate(CONSTANTS_REPOSITORIES.AD_CUSTOMER_POPULATE);
 }

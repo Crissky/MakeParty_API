@@ -2,20 +2,22 @@
 
 const mongoose = require('mongoose');
 const Customer = mongoose.model('Customer');
-
-const COLUMNS = 'active user name cpf birthdate photo phone createdAt updatedAt';
-const USER_COLUMNS = 'active email createdAt updatedAt';
+const CONSTANTS_REPOSITORIES = require('../constants/repositories');
 
 exports.get = async () => {
     console.log("customer-repositories: get");
-    const res = await Customer.find({ active: true }, COLUMNS).populate('user', USER_COLUMNS);
+    const res = await Customer
+        .find({ active: true }, CONSTANTS_REPOSITORIES.CUSTOMER_COLUMNS)
+        .populate(CONSTANTS_REPOSITORIES.USER_POPULATE);
 
     return res;
 }
 
 exports.getById = async (id) => {
     console.log("customer-repositories: getById");
-    const res = await Customer.findById(id, COLUMNS).populate('user', USER_COLUMNS);
+    const res = await Customer
+        .findById(id, CONSTANTS_REPOSITORIES.CUSTOMER_COLUMNS)
+        .populate(CONSTANTS_REPOSITORIES.USER_POPULATE);
 
     return res;
 }
@@ -35,7 +37,8 @@ exports.getByUserId = async (userId) => {
     const res = await Customer.findOne({
         user: userId,
         active: true
-    }, COLUMNS).populate('user', USER_COLUMNS);
+    }, CONSTANTS_REPOSITORIES.CUSTOMER_COLUMNS)
+        .populate(CONSTANTS_REPOSITORIES.USER_POPULATE);
 
     return res;
 }
@@ -67,8 +70,8 @@ exports.update = async (data) => {
             {
                 runValidators: true,
                 new: true,
-                fields: COLUMNS
-            }).populate('user', USER_COLUMNS);
+                fields: CONSTANTS_REPOSITORIES.CUSTOMER_COLUMNS
+            }).populate(CONSTANTS_REPOSITORIES.USER_POPULATE);
 }
 
 exports.delete = async (data) => {
@@ -87,6 +90,6 @@ exports.delete = async (data) => {
             {
                 runValidators: true,
                 new: true,
-                fields: COLUMNS
-            }).populate('user', USER_COLUMNS);
+                fields: CONSTANTS_REPOSITORIES.CUSTOMER_COLUMNS
+            }).populate(CONSTANTS_REPOSITORIES.USER_POPULATE);
 }

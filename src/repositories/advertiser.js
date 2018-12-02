@@ -2,40 +2,45 @@
 
 const mongoose = require('mongoose');
 const Advertiser = mongoose.model('Advertiser');
-
-const COLUMNS = 'active user socialname cnpj authorization photo plan createdAt updatedAt';
-const USER_COLUMNS = 'active email createdAt updatedAt';
+const CONSTANTS_REPOSITORIES = require('../constants/repositories');
 
 exports.get = async () => {
     console.log("advertiser-repositories: get");
-    const res = await Advertiser.find({ active: true }, COLUMNS).populate('user', USER_COLUMNS);
+    const res = await Advertiser
+        .find({ active: true }, CONSTANTS_REPOSITORIES.ADVERTISER_COLUMNS)
+        .populate(CONSTANTS_REPOSITORIES.USER_POPULATE);
 
     return res;
 }
 
 exports.getById = async (id) => {
     console.log("advertiser-repositories: getById");
-    const res = await Advertiser.findById(id, COLUMNS).populate('user', USER_COLUMNS);
+    const res = await Advertiser
+        .findById(id, CONSTANTS_REPOSITORIES.ADVERTISER_COLUMNS)
+        .populate(CONSTANTS_REPOSITORIES.USER_POPULATE);
 
     return res;
 }
 
 exports.getByIdActive = async (id) => {
     console.log("advertiser-repositories: getByIdActive");
-    const res = await Advertiser.findOne({
-        _id: id,
-        active: true
-    });
+    const res = await Advertiser
+        .findOne({
+            _id: id,
+            active: true
+        });
 
     return res;
 }
 
 exports.getByUserId = async (userId) => {
     console.log("advertiser-repositories: getByUserId");
-    const res = await Advertiser.findOne({
-        user: userId,
-        active: true
-    }, COLUMNS).populate('user', USER_COLUMNS);
+    const res = await Advertiser
+        .findOne({
+            user: userId,
+            active: true
+        }, CONSTANTS_REPOSITORIES.ADVERTISER_COLUMNS)
+        .populate(CONSTANTS_REPOSITORIES.USER_POPULATE);
 
     return res;
 }
@@ -67,8 +72,8 @@ exports.update = async (data) => {
             {
                 runValidators: true,
                 new: true,
-                fields: COLUMNS
-            }).populate('user', USER_COLUMNS);
+                fields: CONSTANTS_REPOSITORIES.ADVERTISER_COLUMNS
+            }).populate(CONSTANTS_REPOSITORIES.USER_POPULATE);
 }
 
 exports.delete = async (data) => {
@@ -87,6 +92,6 @@ exports.delete = async (data) => {
             {
                 runValidators: true,
                 new: true,
-                fields: COLUMNS
-            }).populate('user', USER_COLUMNS);
+                fields: CONSTANTS_REPOSITORIES.ADVERTISER_COLUMNS
+            }).populate(CONSTANTS_REPOSITORIES.USER_POPULATE);
 }

@@ -1,40 +1,44 @@
 # Rotas - Pessoa Física - Cliente (customers)
+
 ## AVISO: API em desenvolvimento, as ROTAS, REQUISIÇÕES e RETORNOS podem sofrer alterações.
 
-https://makepartyserver.herokuapp.com
+<https://makepartyserver.herokuapp.com>
 
 **Rotas que não são abertas necessitam receber o token de acesso. O Token pode ser passado no Body ou no Header(x-access-token).**
 
 ### Atualizar Pessoa Física (Cliente)
+
 #### Método **PUT: /customers**
 
 <br>
 
-Chave | Tipo | Requerimento
-------|------|-------------
-name | String | Obrigatório
-cpf | String (len >= 11) | Obrigatório
-birthdate | Date-String | Obrigatório
-phone | String | Obrigatório
-photo | String | Opcional
+Chave     | Tipo               | Requerimento
+--------- | ------------------ | ------------
+name      | String             | Obrigatório
+cpf       | String (len >= 11) | Obrigatório
+birthdate | Date-String        | Obrigatório
+phone     | String             | Obrigatório
+photo     | String             | Opcional
 
 <br>
 
 **Corpo:**
-````javascript
+
+```javascript
 {
-	"name":"Teste 2 Testoievski",
-	"cpf":"98765432109",
-	"birthdate":"1990-01-03",
-	"phone":"34333163",
-	"photo":"photo.jpg"
+    "name":"Teste 2 Testoievski",
+    "cpf":"98765432109",
+    "birthdate":"1990-01-03",
+    "phone":"34333163",
+    "photo":"photo.jpg"
 }
-````
+```
 
 <br>
 
 **Resposta (SUCESSO):**
-````javascript
+
+```javascript
 {
     "data": {
         "active": true,
@@ -52,12 +56,13 @@ photo | String | Opcional
         "updatedAt": "2018-10-21T20:47:17.063Z"
     }
 }
-````
+```
 
 <br>
 
 **Resposta (ERROR):**
-````javascript
+
+```javascript
 {
     "error": {
         "operationTime": "6614909179607908353",
@@ -75,32 +80,35 @@ photo | String | Opcional
         "name": "MongoError"
     }
 }
-````
+```
 
 <br>
 
 ### Apagar Pessoa Física (Cliente)
+
 #### Método **DELETE: /customers**
 
 <br>
 
-Chave | Tipo | Requerimento
-------|------|-------------
+Chave | Tipo   | Requerimento
+----- | ------ | ------------
 token | String | Obrigatório
 
 <br>
 
 **Corpo:**
-````javascript
+
+```javascript
 {
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YmNjZDQxNGNmMzk5ZDIzMTAwMDg0OWQiLCJ1c2VyIjp7Il9pZCI6IjViY2NkNDE0Y2YzOTlkMjMxMDAwODQ5YyIsImVtYWlsIjoidGVzdGVAdGVzdGUuY29tIn0sImlhdCI6MTU0MDE1MTEyOSwiZXhwIjoxNTQwMjM3NTI5fQ.o9UJuaX3uJL1vW3MxqydUk8QA9PnJS0yL3x7rZHgJrg"
 }
-````
+```
 
 <br>
 
 **Resposta (SUCESSO):**
-````javascript
+
+```javascript
 {
     "data": {
         "active": false,
@@ -118,28 +126,31 @@ token | String | Obrigatório
         "updatedAt": "2018-10-21T20:51:30.984Z"
     }
 }
-````
+```
 
 <br>
 
 **Resposta (ERROR):**
-````javascript
+
+```javascript
 {
     "error": "Anunciante não encontrado ou inativo."
 }
-````
+```
 
 <br>
 
 ### Listar Pessoas Física (Cliente)
+
 #### Método **GET: /customers**
 
 <br>
 
 **Resposta (SUCESSO):**
-````javascript
+
+```javascript
 {
-    "list": [
+    "customers": [
         {
             "active": true,
             "_id": "5bca0f42f9475400159db27f",
@@ -187,32 +198,35 @@ token | String | Obrigatório
         }
     ]
 }
-````
+```
 
 <br>
 
 **Resposta (ERROR):**
-````javascript
+
+```javascript
 {
     "error": "Token Inválido"
 }
-````
+```
 
 <br>
 
 ### Pesquisar Pessoa Física pelo ID (Cliente)
+
 #### Método **GET: /customers/:id**
 
 <br>
 
 Parametro | Observação
-------|------
-ID | O ID deve ser passado no fim da rota.
+--------- | -------------------------------------
+ID        | O ID deve ser passado no fim da rota.
 
 <br>
 
 **Resposta (SUCESSO):**
-````javascript
+
+```javascript
 {
     "active": true,
     "_id": "5bccd5c5cf399d23100084a0",
@@ -228,13 +242,14 @@ ID | O ID deve ser passado no fim da rota.
     "createdAt": "2018-10-21T19:38:45.931Z",
     "updatedAt": "2018-10-21T20:51:30.984Z"
 }
-````
+```
 
 <br>
 
 **Resposta (ERROR):**
-````javascript
+
+```javascript
 {
     "error": "Token Inválido"
 }
-````
+```

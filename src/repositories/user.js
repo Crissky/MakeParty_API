@@ -8,7 +8,7 @@ exports.get = async () => {
     const res = await User.find({
         active: true
     }, 'email');
-    
+
     return res;
 }
 
@@ -22,7 +22,7 @@ exports.create = async (data) => {
 exports.authenticate = async (data) => {
     console.log("user-repositories: authenticate");
     const res = await User.findOne({
-        email: { $regex : new RegExp(data.email, "i") }, //RegExp for case insensitive
+        email: { $regex: new RegExp(data.email, "i") }, //RegExp for case insensitive
         password: data.password,
         active: true
     }).select('+password');
@@ -41,7 +41,7 @@ exports.getByIdActive = async (id) => {
         _id: id,
         active: true
     });
-    
+
     return res;
 }
 
@@ -51,6 +51,6 @@ exports.deleteRaw = async (id) => {
         _id: id,
         active: true
     });
-    
+
     return res;
 }
