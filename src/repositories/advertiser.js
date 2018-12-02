@@ -28,7 +28,8 @@ exports.getByIdActive = async (id) => {
         .findOne({
             _id: id,
             active: true
-        });
+        }, CONSTANTS_REPOSITORIES.ADVERTISER_COLUMNS)
+        .populate(CONSTANTS_REPOSITORIES.USER_POPULATE);
 
     return res;
 }

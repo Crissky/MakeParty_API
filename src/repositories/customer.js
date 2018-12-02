@@ -27,7 +27,7 @@ exports.getByIdActive = async (id) => {
     const res = await Customer.findOne({
         _id: id,
         active: true
-    });
+    }, CONSTANTS_REPOSITORIES.CUSTOMER_COLUMNS).populate(CONSTANTS_REPOSITORIES.USER_POPULATE);;
 
     return res;
 }

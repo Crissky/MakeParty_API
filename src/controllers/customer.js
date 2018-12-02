@@ -9,9 +9,9 @@ exports.get = async (req, res, next) => {
     try {
         console.log("customer-controller: Listar Clientes");
         var data = await repository.get();
-        console.log("customer-controller: Pesquisar Clientes - Pesquisa finalizada");
+        console.log("customer-controller: Listar Clientes - Pesquisa finalizada");
         if (!data) {
-            console.log("customer-controller: Pesquisar Clientes - Cliente não encontrado");
+            console.log("customer-controller: Listar Clientes - Cliente não encontrado");
             res.status(404).send({
                 error: "Cliente não encontrado."
             });
@@ -47,6 +47,31 @@ exports.getById = async (req, res, next) => {
         res.status(200).send(data);
     } catch (error) {
         console.log("CATCH = customer-controller: Pesquisar Cliente pelo ID");
+        res.status(500).send({
+            error: error
+        });
+    }
+}
+
+exports.getByToken = async (req, res, next) => {
+    console.log("customer-controller: Pesquisar Cliente pelo Token");
+    try {
+        const dataToken = await authService.decodeTokenREQ(req);
+        const data = await repository.getByIdActive(dataToken._id);
+
+        console.log("customer-controller: Pesquisar Cliente pelo Token - Pesquisa finalizada");
+        if (!data) {
+            console.log("customer-controller: Pesquisar Cliente pelo Token - Cliente não encontrado");
+            res.status(404).send({
+                error: "Cliente não encontrado ou desativado."
+            });
+
+            return;
+        }
+
+        res.status(200).send(data);
+    } catch (error) {
+        console.log("CATCH = customer-controller: Pesquisar Cliente pelo Token");
         res.status(500).send({
             error: error
         });
