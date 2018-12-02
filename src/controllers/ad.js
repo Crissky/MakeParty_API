@@ -106,26 +106,78 @@ exports.getByTitle = async (req, res, next) => {
     }
 }
 
+exports.getByPrice = async (req, res, next) => {
+    console.log("ad-controller: Pesquisar Anúncios pelo Preço");
+
+    console.log(req);
+
+    try {
+        const regexp = /^(\d+)\-(\d+)/;
+        const price = req.params.price;
+
+        if (!regexp.test(price)) {
+            console.log("ERROR = ad-controller: Pesquisar Anúncios pelo Preço - Preço não está no formato 100-550");
+            res.status(400).send({
+                error: "O parametro preço deve estar no formato de 100-500",
+                value: price
+            }).end();
+
+            return;
+        }
+
+        const arrayPrice = price.split("-").map(Number);
+
+        if (arrayPrice[0] > arrayPrice[1] && arrayPrice[1] != 0) {
+            console.log("ERROR = ad-controller: Pesquisar Anúncios pelo Preço - Preço não está no formato 100-550 (Primeiro valor maior que o segundo)");
+            res.status(400).send({
+                error: "O parametro preço deve estar no formato de 100-500, O primeiro valor deve ser igual ou menor que o segundo"
+            }).end();
+
+            return;
+        }
+
+        var data = await repository.getByPrice(arrayPrice);
+        console.log("ad-controller: Pesquisar Anúncios pelo Preço - Pesquisa finalizada");
+        if (!data) {
+            console.log("ad-controller: Listar Anúncios pelo Preço - Anúncio não encontrado");
+            res.status(404).send({
+                error: "Anúncio não encontrado."
+            });
+
+            return;
+        }
+
+        res.status(200).send({
+            ads: data
+        });
+    } catch (error) {
+        console.log("CATCH = ad-controller: Pesquisar Anúncios pelo Preço");
+        res.status(500).send({
+            error: error
+        });
+    }
+}
+
 exports.getByOwnerId = async (req, res, next) => {
     console.log("ad-controller: Pesquisar Anúncios pelo ID do Anunciante");
-    
-    try{
+
+    try {
         var dataToken = await authService.decodeTokenREQ(req);
-    } catch (error){
+    } catch (error) {
         console.log("ad-controller: Pesquisar Anúncios pelo ID do Anunciante - Token não fornecido");
         var dataToken = undefined;
     }
 
     try {
-        
-        if(!req.body.owner && req.params.owner){
+
+        if (!req.body.owner && req.params.owner) {
             console.log("ad-controller: Pesquisar Anúncios pelo ID do Anunciante - IF");
             req.body.owner = req.params.owner;
-        } else if(dataToken) {
+        } else if (dataToken) {
             console.log("ad-controller: Pesquisar Anúncios pelo ID do Anunciante - ELSE IF");
             req.body.owner = dataToken._id;
         }
-        
+
         var data = await repository.getByOwnerId(req.body.owner);
         console.log("ad-controller: Pesquisar Anúncios pelo ID do Anunciante - Pesquisa finalizada");
         if (!data) {
@@ -284,3 +336,35 @@ exports.delete = async (req, res, next) => {
         });
     }
 };
+
+async function choiceQuery(query) {
+    if (query.tag) {
+        return await repository.getByTag(query.tag);
+    } else if (query.type) {
+        return await repository.getByType(query.type);
+    } else if (query.title) {
+        return await repository.getByTitle(query.title);
+    } else if (query.price) {
+        return await getByQueryPrice(query.price);
+    } else if (query.owner) {
+        return await repository.getByOwnerId(query.owner);
+    }
+
+    return await repository.get();
+}
+
+async function getByQueryPrice(price) {
+    const regexp = /^(\d+)\-(\d+)/;
+
+    if (!regexp.test(price)) {
+        return undefined;
+    }
+
+    const arrayPrice = price.split("-").map(Number);
+
+    if (arrayPrice[0] > arrayPrice[1] && arrayPrice[1] != 0) {
+        return undefined;
+    }
+
+    return await repository.getByPrice(arrayPrice);
+}

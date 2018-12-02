@@ -41,7 +41,6 @@ exports.update = async (data) => {
                 _id: data._id,
                 ad: data.ad,
                 customer: data.customer,
-                comment: comment,
                 active: true
             },
             {

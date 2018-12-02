@@ -15,6 +15,26 @@ exports.get = async () => {
     return res;
 }
 
+exports.getByPrice = async (price) => {
+    console.log("ad-repositories: getByPrice");
+    
+    var priceArgs = { $gte: price[0], $lte: price[1] };
+    
+    if (!price[1]) {
+        priceArgs = { $gte: price[0] };
+    }
+    
+    const res = await Ad
+        .find({
+            price: priceArgs,
+            active: true
+        }, CONSTANTS_REPOSITORIES.AD_COLUMNS)
+        .sort('price')
+        .populate(CONSTANTS_REPOSITORIES.OWNER_POPULATE);
+
+    return res;
+}
+
 exports.getByTag = async (tag) => {
     console.log("ad-repositories: getByTag");
     const res = await Ad
