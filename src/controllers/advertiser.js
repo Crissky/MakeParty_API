@@ -9,11 +9,11 @@ exports.get = async (req, res, next) => {
     try {
         console.log("advertiser-controller: Listar Anunciantes");
         var data = await repository.get();
-        console.log("advertiser-controller: Pesquisar Anunciante - Pesquisa finalizada");
+        console.log("advertiser-controller: Listar Anunciante - Pesquisa finalizada");
         if (!data) {
             console.log("advertiser-controller: Listar Anunciantes - Anunciante não encontrado");
             res.status(404).send({
-                error: "Anunciante não encontrado."
+                error: "Anunciante não encontrado ou desativado."
             });
 
             return;
@@ -36,7 +36,7 @@ exports.getById = async (req, res, next) => {
         var data = await repository.getById(req.params.id);
         console.log("advertiser-controller: Pesquisar Anunciante pelo ID - Pesquisa finalizada");
         if (!data) {
-            console.log("advertiser-controller: Listar Anunciantes pelo ID - Anunciante não encontrado");
+            console.log("advertiser-controller: Pesquisar Anunciantes pelo ID - Anunciante não encontrado");
             res.status(404).send({
                 error: "Anunciante não encontrado."
             });
@@ -47,6 +47,31 @@ exports.getById = async (req, res, next) => {
         res.status(200).send(data);
     } catch (error) {
         console.log("CATCH = advertiser-controller: Pesquisar Anunciante pelo ID");
+        res.status(500).send({
+            error: error
+        });
+    }
+}
+
+exports.getByToken = async (req, res, next) => {
+    console.log("advertiser-controller: Pesquisar Anunciante pelo Token");
+    try {
+        const dataToken = await authService.decodeTokenREQ(req);
+        const data = await repository.getByIdActive(dataToken._id);
+
+        console.log("advertiser-controller: Pesquisar Anunciante pelo Token - Pesquisa finalizada");
+        if (!data) {
+            console.log("advertiser-controller: Pesquisar Anunciantes pelo Token - Anunciante não encontrado");
+            res.status(404).send({
+                error: "Anunciante não encontrado."
+            });
+
+            return;
+        }
+
+        res.status(200).send(data);
+    } catch (error) {
+        console.log("CATCH = advertiser-controller: Pesquisar Anunciante pelo Token");
         res.status(500).send({
             error: error
         });

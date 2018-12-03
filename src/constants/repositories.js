@@ -2,7 +2,7 @@ const AD_COLUMNS = 'owner title description price type phone tags mainphoto phot
 const ADVERTISER_COLUMNS = 'active user socialname cnpj authorization photo plan createdAt updatedAt';
 const CUSTOMER_COLUMNS = 'active user name cpf birthdate photo phone createdAt updatedAt';
 const NOTIFICATION_COLUMNS = 'active user message createdAt updatedAt';
-const RATING_COLUMNS = 'customer ad rating createdAt updatedAt active';
+const RATING_COLUMNS = 'customer ad rating comment createdAt updatedAt active';
 const USER_COLUMNS = 'active email createdAt updatedAt';
 const WISHLIST_COLUMNS = 'customer ad createdAt updatedAt active';
 

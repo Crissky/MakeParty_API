@@ -1065,6 +1065,177 @@ TITLE     | O TITLE deve ser passado no fim da rota.
 
 <br>
 
+<br>
+
+### Listar Anúncios pelo Preço - ROTA ABERTA (NÃO NECESSITA DE TOKEN)
+
+#### Método **GET: /prices/:price**
+
+<br>
+
+Parametro | Observação
+--------- | --------------------------------------------------------------------------------------------------------------------------------------------------
+PRICE     | O PRICE deve ser passado no fim da rota no formato 150-500\. (Este exemplo pesquisaria Anúncios a partir de 150 até 500) SOMENTE VALORES INTEIROS.
+
+<br>
+
+**Resposta (SUCESSO):**
+
+```javascript
+{
+    "ads": [
+        {
+            "description": "Festa muito topzera 2018 UFRPE",
+            "price": 150,
+            "tags": [
+                "festa",
+                "top",
+                "ufrpe"
+            ],
+            "photos": [
+                "Foto.jpg",
+                "Capa.jpg"
+            ],
+            "active": true,
+            "_id": "5bccc9890a6229312442519c",
+            "title": "Calourada Top 2018 UFRPE",
+            "type": "Festa",
+            "phone": "89452639",
+            "owner": {
+                "plan": {
+                    "name": "prata",
+                    "totalad": 20,
+                    "totalphoto": 100
+                },
+                "active": true,
+                "_id": "5bca1207f9475400159db281",
+                "user": {
+                    "active": true,
+                    "_id": "5bca1207f9475400159db280",
+                    "email": "pg2006pe@hotmail.com",
+                    "createdAt": "2018-10-19T17:19:03.690Z",
+                    "updatedAt": "2018-10-19T17:19:03.690Z"
+                },
+                "socialname": "Fagner INC.",
+                "cnpj": "24242424246006",
+                "authorization": "13a2sd465asd",
+                "photo": "photo2.jpg",
+                "createdAt": "2018-10-19T17:19:03.698Z",
+                "updatedAt": "2018-12-02T19:29:39.914Z"
+            },
+            "createdAt": "2018-10-21T18:46:33.825Z",
+            "updatedAt": "2018-10-21T18:46:33.825Z"
+        },
+        {
+            "address": {
+                "street": "Rua do Barro",
+                "number": "302",
+                "neighborhood": "Macaxeira",
+                "city": "Hellcife",
+                "zipcode": "53000-100",
+                "state": "PE"
+            },
+            "description": "Festa muito topzera 2018 UFRPE",
+            "price": 150,
+            "tags": [
+                "festa",
+                "top",
+                "ufrpe"
+            ],
+            "photos": [
+                "Foto.jpg",
+                "Capa.jpg"
+            ],
+            "active": true,
+            "_id": "5bd3d2592a0e2a1404941e9e",
+            "title": "Calourada Top 2018 UFRPE",
+            "type": "Festa",
+            "phone": "89452639",
+            "owner": {
+                "plan": {
+                    "name": "prata",
+                    "totalad": 20,
+                    "totalphoto": 100
+                },
+                "active": true,
+                "_id": "5bca1207f9475400159db281",
+                "user": {
+                    "active": true,
+                    "_id": "5bca1207f9475400159db280",
+                    "email": "pg2006pe@hotmail.com",
+                    "createdAt": "2018-10-19T17:19:03.690Z",
+                    "updatedAt": "2018-10-19T17:19:03.690Z"
+                },
+                "socialname": "Fagner INC.",
+                "cnpj": "24242424246006",
+                "authorization": "13a2sd465asd",
+                "photo": "photo2.jpg",
+                "createdAt": "2018-10-19T17:19:03.698Z",
+                "updatedAt": "2018-12-02T19:29:39.914Z"
+            },
+            "createdAt": "2018-10-27T02:50:01.721Z",
+            "updatedAt": "2018-10-27T02:50:01.721Z"
+        },
+        {
+            "description": "Rave muito topzera 2018 UFRPE",
+            "price": 150,
+            "tags": [
+                "festa",
+                "top",
+                "ufrpe"
+            ],
+            "photos": [
+                "Foto.jpg",
+                "Capa.jpg"
+            ],
+            "active": true,
+            "_id": "5bcf589da279c3001599878c",
+            "title": "Calourada Rave 2018 UFRPE",
+            "type": "Rave",
+            "phone": "89452639",
+            "owner": {
+                "active": true,
+                "_id": "5bcf1c7d05c1ce0015130769",
+                "user": {
+                    "active": true,
+                    "_id": "5bcf1c7d05c1ce0015130768",
+                    "email": "paulo@hotmail.com",
+                    "createdAt": "2018-10-23T13:05:01.458Z",
+                    "updatedAt": "2018-10-23T13:05:01.458Z"
+                },
+                "socialname": "Paulo INC.",
+                "cnpj": "12345678901238",
+                "authorization": "13a2sd465asd",
+                "photo": "photo2.jpg",
+                "createdAt": "2018-10-23T13:05:01.461Z",
+                "updatedAt": "2018-10-23T13:07:45.914Z"
+            },
+            "createdAt": "2018-10-23T17:21:33.481Z",
+            "updatedAt": "2018-10-23T17:21:33.481Z"
+        }
+    ]
+}
+```
+
+<br>
+
+**Resposta (ERROR):**
+
+```javascript
+{
+    "error": {
+        "message": "Cast to ObjectId failed for value \"price\" at path \"_id\" for model \"Ad\"",
+        "name": "CastError",
+        "stringValue": "\"a150\"",
+        "kind": "ObjectId",
+        "value": "a150",
+        "path": "_id"
+    }
+}
+```
+
+<br>
+
 ### Listar Anúncios pelo ID do Anunciante - ROTA ABERTA (NÃO NECESSITA DE TOKEN)
 
 #### É possível passar o ID do Anunciante como paramentro pela URL ou com o envio do TOKEN.

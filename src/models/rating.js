@@ -23,6 +23,9 @@ const schema = new Schema({
         max: 5,
         default: 0
     },
+    comment: {
+        type: String
+    },
     active: {
         type: Boolean,
         default: true

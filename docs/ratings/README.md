@@ -14,10 +14,11 @@
 
 <br>
 
-Chave  | Tipo         | Requerimento
------- | ------------ | ------------
-ad     | String       | Obrigatório
-rating | Number (0-5) | Obrigatório
+Chave   | Tipo         | Requerimento
+------- | ------------ | ------------
+ad      | String       | Obrigatório
+rating  | Number (0-5) | Obrigatório
+comment | String       | Obrigatório
 
 <br>
 
@@ -25,8 +26,9 @@ rating | Number (0-5) | Obrigatório
 
 ```javascript
 {
-    "ad": "5bccc9b30b0a3715b4a07b38",
-    "rating": 4.5
+    "ad": "5bccc9890a6229312442519c",
+    "rating": 4.5,
+    "comment": "Muito organizado e chique"
 }
 ```
 
@@ -39,11 +41,12 @@ rating | Number (0-5) | Obrigatório
     "data": {
         "rating": 4.5,
         "active": true,
-        "_id": "5bf333702efa900d34913344",
-        "ad": "5bccc9b30b0a3715b4a07b38",
+        "_id": "5c04488d9e334c1c2c83e2a6",
+        "ad": "5bccc9890a6229312442519c",
+        "comment": "Muito organizado e chique",
         "customer": "5bca0f42f9475400159db27f",
-        "createdAt": "2018-11-19T22:04:32.690Z",
-        "updatedAt": "2018-11-19T22:04:32.690Z"
+        "createdAt": "2018-12-02T21:03:09.984Z",
+        "updatedAt": "2018-12-02T21:03:09.984Z"
     }
 }
 ```
@@ -72,11 +75,12 @@ rating | Number (0-5) | Obrigatório
 
 <br>
 
-Chave  | Tipo         | Requerimento
------- | ------------ | ------------
-_id    | String       | Obrigatório
-ad     | String       | Obrigatório
-rating | Number (0-5) | Obrigatório
+Chave   | Tipo         | Requerimento
+------- | ------------ | ------------
+_id     | String       | Obrigatório
+ad      | String       | Obrigatório
+rating  | Number (0-5) | Obrigatório
+comment | String       | Obrigatório
 
 <br>
 
@@ -84,9 +88,10 @@ rating | Number (0-5) | Obrigatório
 
 ```javascript
 {
-    "_id": "5bf00e1734916523d4e3e01a",
+    "_id": "5c04488d9e334c1c2c83e2a6",
     "ad": "5bccc9890a6229312442519c",
-    "rating": 1.5
+    "rating": 1.5,
+    "comment": "Muito organizado e chique. Só falta sal na comida."
 }
 ```
 
@@ -99,7 +104,7 @@ rating | Number (0-5) | Obrigatório
     "data": {
         "rating": 1.5,
         "active": true,
-        "_id": "5bf00e1734916523d4e3e01a",
+        "_id": "5c04488d9e334c1c2c83e2a6",
         "ad": {
             "description": "Festa muito topzera 2018 UFRPE",
             "price": 150,
@@ -137,11 +142,12 @@ rating | Number (0-5) | Obrigatório
                 "authorization": "13a2sd465asd",
                 "photo": "photo2.jpg",
                 "createdAt": "2018-10-19T17:19:03.698Z",
-                "updatedAt": "2018-12-02T09:56:32.106Z"
+                "updatedAt": "2018-12-02T19:29:39.914Z"
             },
             "createdAt": "2018-10-21T18:46:33.825Z",
             "updatedAt": "2018-10-21T18:46:33.825Z"
         },
+        "comment": "Muito organizado e chique",
         "customer": {
             "active": true,
             "_id": "5bca0f42f9475400159db27f",
@@ -158,10 +164,10 @@ rating | Number (0-5) | Obrigatório
             "phone": "34333163",
             "photo": "photo.jpg",
             "createdAt": "2018-10-19T17:07:14.888Z",
-            "updatedAt": "2018-12-02T10:17:16.885Z"
+            "updatedAt": "2018-12-02T19:27:52.106Z"
         },
-        "createdAt": "2018-11-17T12:48:23.763Z",
-        "updatedAt": "2018-12-02T12:04:49.734Z"
+        "createdAt": "2018-12-02T21:03:09.984Z",
+        "updatedAt": "2018-12-02T21:15:54.439Z"
     }
 }
 ```
@@ -195,7 +201,7 @@ ad    | String | Obrigatório
 
 ```javascript
 {
-    "_id": "5bf00e1734916523d4e3e01a",
+    "_id": "5c04488d9e334c1c2c83e2a6",
     "ad": "5bccc9890a6229312442519c"
 }
 ```
@@ -209,7 +215,7 @@ ad    | String | Obrigatório
     "data": {
         "rating": 1.5,
         "active": false,
-        "_id": "5bf00e1734916523d4e3e01a",
+        "_id": "5c04488d9e334c1c2c83e2a6",
         "ad": {
             "description": "Festa muito topzera 2018 UFRPE",
             "price": 150,
@@ -247,11 +253,12 @@ ad    | String | Obrigatório
                 "authorization": "13a2sd465asd",
                 "photo": "photo2.jpg",
                 "createdAt": "2018-10-19T17:19:03.698Z",
-                "updatedAt": "2018-12-02T09:56:32.106Z"
+                "updatedAt": "2018-12-02T19:29:39.914Z"
             },
             "createdAt": "2018-10-21T18:46:33.825Z",
             "updatedAt": "2018-10-21T18:46:33.825Z"
         },
+        "comment": "Muito organizado e chique",
         "customer": {
             "active": true,
             "_id": "5bca0f42f9475400159db27f",
@@ -268,10 +275,10 @@ ad    | String | Obrigatório
             "phone": "34333163",
             "photo": "photo.jpg",
             "createdAt": "2018-10-19T17:07:14.888Z",
-            "updatedAt": "2018-12-02T10:17:16.885Z"
+            "updatedAt": "2018-12-02T19:27:52.106Z"
         },
-        "createdAt": "2018-11-17T12:48:23.763Z",
-        "updatedAt": "2018-12-02T12:04:49.734Z"
+        "createdAt": "2018-12-02T21:03:09.984Z",
+        "updatedAt": "2018-12-02T21:16:41.409Z"
     }
 }
 ```
@@ -306,7 +313,7 @@ AD        | O AD (id do anúncio) deve ser passada no fim da rota.
 {
     "rating": 1.5,
     "active": true,
-    "_id": "5bf00e1734916523d4e3e01a",
+    "_id": "5c04488d9e334c1c2c83e2a6",
     "ad": {
         "description": "Festa muito topzera 2018 UFRPE",
         "price": 150,
@@ -344,11 +351,12 @@ AD        | O AD (id do anúncio) deve ser passada no fim da rota.
             "authorization": "13a2sd465asd",
             "photo": "photo2.jpg",
             "createdAt": "2018-10-19T17:19:03.698Z",
-            "updatedAt": "2018-12-02T09:56:32.106Z"
+            "updatedAt": "2018-12-02T19:29:39.914Z"
         },
         "createdAt": "2018-10-21T18:46:33.825Z",
         "updatedAt": "2018-10-21T18:46:33.825Z"
     },
+    "comment": "Muito organizado e chique",
     "customer": {
         "active": true,
         "_id": "5bca0f42f9475400159db27f",
@@ -365,10 +373,10 @@ AD        | O AD (id do anúncio) deve ser passada no fim da rota.
         "phone": "34333163",
         "photo": "photo.jpg",
         "createdAt": "2018-10-19T17:07:14.888Z",
-        "updatedAt": "2018-12-02T10:17:16.885Z"
+        "updatedAt": "2018-12-02T19:27:52.106Z"
     },
-    "createdAt": "2018-11-17T12:48:23.763Z",
-    "updatedAt": "2018-12-02T12:04:49.734Z"
+    "createdAt": "2018-12-02T21:03:09.984Z",
+    "updatedAt": "2018-12-02T21:16:41.409Z"
 }
 ```
 
