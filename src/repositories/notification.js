@@ -4,32 +4,22 @@ const mongoose = require('mongoose');
 const Notification = mongoose.model('Notification');
 const CONSTANTS_REPOSITORIES = require('../constants/repositories');
 
-exports.getByUserIdActive = async () => {
+exports.getByUserIdActive = async (userId) => {
     console.log("notification-repositories: get");
     const res = await Notification
         .find({
+            user: userId,
             active: true
-        }, CONSTANTS_REPOSITORIES.RATING_COLUMNS).populate(CONSTANTS_REPOSITORIES.AD_CUSTOMER_POPULATE);
-
-    return res;
-}
-
-exports.getByAdAndCustomer = async (data) => {
-    console.log("notification-repositories: getByAdAndCustomer");
-    const res = await Notification.findOne({
-        ad: data.ad,
-        customer: data.customer,
-        active: true
-    }, CONSTANTS_REPOSITORIES.RATING_COLUMNS).populate(CONSTANTS_REPOSITORIES.AD_CUSTOMER_POPULATE);
+        }, CONSTANTS_REPOSITORIES.NOTIFICATION_COLUMNS).populate(CONSTANTS_REPOSITORIES.USER_POPULATE);
 
     return res;
 }
 
 exports.create = async (data) => {
     console.log("notification-repositories: create");
-    var ad = new Notification(data);
+    var notification = new Notification(data);
 
-    return await ad.save();
+    return await notification.save();
 }
 
 exports.update = async (data) => {
@@ -39,18 +29,17 @@ exports.update = async (data) => {
         .findOneAndUpdate(
             {
                 _id: data._id,
-                ad: data.ad,
-                customer: data.customer,
+                user: data.user,
                 active: true
             },
             {
-                rating: data.rating
+                message: data.message
             },
             {
                 runValidators: true,
                 new: true,
-                fields: CONSTANTS_REPOSITORIES.RATING_COLUMNS
-            }).populate(CONSTANTS_REPOSITORIES.AD_CUSTOMER_POPULATE);
+                fields: CONSTANTS_REPOSITORIES.NOTIFICATION_COLUMNS
+            }).populate(CONSTANTS_REPOSITORIES.USER_POPULATE);
 }
 
 exports.delete = async (data) => {
@@ -60,8 +49,7 @@ exports.delete = async (data) => {
         .findOneAndUpdate(
             {
                 _id: data._id,
-                ad: data.ad,
-                customer: data.customer,
+                user: data.user,
                 active: true
             },
             {
@@ -70,6 +58,6 @@ exports.delete = async (data) => {
             {
                 runValidators: true,
                 new: true,
-                fields: CONSTANTS_REPOSITORIES.RATING_COLUMNS
-            }).populate(CONSTANTS_REPOSITORIES.AD_CUSTOMER_POPULATE);
+                fields: CONSTANTS_REPOSITORIES.NOTIFICATION_COLUMNS
+            }).populate(CONSTANTS_REPOSITORIES.USER_POPULATE);
 }

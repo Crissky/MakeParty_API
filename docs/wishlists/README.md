@@ -14,9 +14,9 @@
 
 <br>
 
-Chave | Tipo   | Requerimento
------ | ------ | ------------
-ad    | String | Obrigatório
+Chave | Tipo                   | Requerimento
+----- | ---------------------- | ------------
+ad    | String (id do anúncio) | Obrigatório
 
 <br>
 
@@ -64,9 +64,9 @@ ad    | String | Obrigatório
 
 <br>
 
-Chave | Tipo   | Requerimento
------ | ------ | ------------
-ad    | String | Obrigatório
+Chave | Tipo                   | Requerimento
+----- | ---------------------- | ------------
+ad    | String (id do anúncio) | Obrigatório
 
 <br>
 

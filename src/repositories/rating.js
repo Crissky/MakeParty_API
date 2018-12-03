@@ -27,9 +27,9 @@ exports.getByAdAndCustomer = async (data) => {
 
 exports.create = async (data) => {
     console.log("rating-repositories: create");
-    var ad = new Rating(data);
+    var rating = new Rating(data);
 
-    return await ad.save();
+    return await rating.save();
 }
 
 exports.update = async (data) => {

@@ -12,7 +12,9 @@ exports.get = async (req, res, next) => {
         console.log("rating-controller: Listar Avaliação de Anúncios");
 
         var data = await repository.get();
-        res.status(200).send(data);
+        res.status(200).send({
+            ratings: data
+        });
     } catch (error) {
         console.log("CATCH = rating-controller: Listar Avaliação de Anúncios\n", error);
         res.status(500).send({
@@ -59,7 +61,9 @@ exports.getByAdAndCustomer = async (req, res, next) => {
         }
 
         console.log("rating-controller: Pesquisar Avaliação pelo ID do Anúncio e Cliente - Pesquisa finalizada");
-        res.status(200).send(data);
+        res.status(200).send({
+            ratings: data
+        });
     } catch (error) {
         console.log("CATCH = rating-controller: Pesquisar Avaliação pelo ID do Anúncio e Cliente");
         res.status(500).send({

@@ -14,11 +14,11 @@
 
 <br>
 
-Chave   | Tipo         | Requerimento
-------- | ------------ | ------------
-ad      | String       | Obrigatório
-rating  | Number (0-5) | Obrigatório
-comment | String       | Obrigatório
+Chave   | Tipo                   | Requerimento
+------- | ---------------------- | ------------
+ad      | String (id do anúncio) | Obrigatório
+rating  | Number (0-5)           | Obrigatório
+comment | String                 | Obrigatório
 
 <br>
 
@@ -75,12 +75,12 @@ comment | String       | Obrigatório
 
 <br>
 
-Chave   | Tipo         | Requerimento
-------- | ------------ | ------------
-_id     | String       | Obrigatório
-ad      | String       | Obrigatório
-rating  | Number (0-5) | Obrigatório
-comment | String       | Obrigatório
+Chave   | Tipo                   | Requerimento
+------- | ---------------------- | ------------
+_id     | String                 | Obrigatório
+ad      | String (id do anúncio) | Obrigatório
+rating  | Number (0-5)           | Obrigatório
+comment | String                 | Obrigatório
 
 <br>
 
@@ -190,10 +190,10 @@ comment | String       | Obrigatório
 
 <br>
 
-Chave | Tipo   | Requerimento
------ | ------ | ------------
-_id   | String | Obrigatório
-ad    | String | Obrigatório
+Chave | Tipo                   | Requerimento
+----- | ---------------------- | ------------
+_id   | String                 | Obrigatório
+ad    | String (id do anúncio) | Obrigatório
 
 <br>
 

@@ -8,9 +8,9 @@ exports.getByUserIdActive = async (req, res, next) => {
     try {
         console.log("notification-controller: Listar Notificações pelo ID de Usuário Ativo");
 
-        const dataToken = await authService.decodeTokenREQ(req);        
-        const user = await userRepository.getByUserIdActive(dataToken.user._id);
-        req.body.userId = dataToken.user._id;
+        const dataToken = await authService.decodeTokenREQ(req);
+        const user = await userRepository.getByIdActive(dataToken.user._id);
+        req.body.user = dataToken.user._id;
 
         if (!user) {
             console.log("Usuário não autorizado ou desativado");
@@ -20,9 +20,11 @@ exports.getByUserIdActive = async (req, res, next) => {
             return;
         }
 
-        var data = await repository.getByIdActive(req.body.userId);
+        var data = await repository.getByUserIdActive(req.body.user);
 
-        res.status(200).send(data);
+        res.status(200).send({
+            notifications: data
+        });
     } catch (error) {
         console.log("CATCH = notification-controller: Listar Notificações pelo ID de Usuário Ativo\n", error);
         res.status(500).send({
@@ -44,7 +46,7 @@ exports.post = async (req, res, next) => {
     try {
         const dataToken = await authService.decodeTokenREQ(req);
         const user = await userRepository.getByIdActive(dataToken.user._id);
-        req.body.userId = dataToken.user._id;
+        req.body.user = dataToken.user._id;
 
         if (!user) {
             console.log("Usuário não autorizado ou desativado");
@@ -71,7 +73,7 @@ exports.post = async (req, res, next) => {
 
 exports.put = async (req, res, next) => {
     console.log("notification-controller: Atualizar Notificação");
-    
+
     if (!req.body.message) {
         console.log("ERROR = notification-controller: campo 'message' não informado\n");
         res.status(400).send({ error: "Campo 'message' não informado." }).end();
@@ -82,7 +84,7 @@ exports.put = async (req, res, next) => {
     try {
         const dataToken = await authService.decodeTokenREQ(req);
         const user = await userRepository.getByIdActive(dataToken.user._id);
-        req.body.userId = dataToken.user._id;
+        req.body.user = dataToken.user._id;
 
         if (!user) {
             console.log("Usuário não autorizado ou desativado");
@@ -117,11 +119,11 @@ exports.put = async (req, res, next) => {
 
 exports.delete = async (req, res, next) => {
     console.log("notification-controller: Apagar Notificação");
-    
+
     try {
         const dataToken = await authService.decodeTokenREQ(req);
         const user = await userRepository.getByIdActive(dataToken.user._id);
-        req.body.userId = dataToken.user._id;
+        req.body.user = dataToken.user._id;
 
         if (!user) {
             console.log("Usuário não autorizado ou desativado");
