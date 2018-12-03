@@ -1,6 +1,7 @@
 const AD_COLUMNS = 'owner title description price type phone tags mainphoto photos createdAt updatedAt active address';
 const ADVERTISER_COLUMNS = 'active user socialname cnpj authorization photo plan createdAt updatedAt';
 const CUSTOMER_COLUMNS = 'active user name cpf birthdate photo phone createdAt updatedAt';
+const NOTIFICATION_COLUMNS = 'active user message createdAt updatedAt';
 const RATING_COLUMNS = 'customer ad rating createdAt updatedAt active';
 const USER_COLUMNS = 'active email createdAt updatedAt';
 const WISHLIST_COLUMNS = 'customer ad createdAt updatedAt active';
@@ -37,6 +38,7 @@ module.exports = {
     RATING_COLUMNS: RATING_COLUMNS,
     USER_COLUMNS: USER_COLUMNS,
     WISHLIST_COLUMNS: WISHLIST_COLUMNS,
+    NOTIFICATION_COLUMNS: NOTIFICATION_COLUMNS,
 
     USER_POPULATE: USER_POPULATE,
     OWNER_POPULATE: OWNER_POPULATE,

@@ -91,6 +91,16 @@ exports.post = async (req, res, next) => {
             return;
         }
 
+        const ad = await adRepository.getByIdActive(req.body.ad);
+
+        if (!ad) {
+            console.log("Anúncio desativado ou não existe");
+            res.status(401).send({
+                error: "Anúncio desativado ou não existe."
+            });
+            return;
+        }
+
         const data = await repository.create(req.body);
         data.__v = undefined;
 
@@ -136,7 +146,7 @@ exports.put = async (req, res, next) => {
         if (!ad) {
             console.log("Anúncio desativado ou não existe");
             res.status(401).send({
-                error: "Avaliação não encontrada ou não pertence a este Usuário."
+                error: "Anúncio desativado ou não existe."
             });
             return;
         }
@@ -185,7 +195,7 @@ exports.delete = async (req, res, next) => {
         if (!ad) {
             console.log("Anúncio desativado ou não existe");
             res.status(401).send({
-                error: "Avaliação não encontrada ou não pertence a este Usuário."
+                error: "Anúncio desativado ou não existe."
             });
             return;
         }
