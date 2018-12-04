@@ -263,6 +263,13 @@ token | String | Obrigatório
 
 <br>
 
+Query | Observação                                                             | Requerimento
+----- | ---------------------------------------------------------------------- | ------------
+limit | Número máximo de itens retornados                                      | Opcional
+page  | Número da página. Número de itens ignorados com base no (limit * page) | Opcional
+
+<br>
+
 **Resposta (SUCESSO):**
 
 ```javascript
