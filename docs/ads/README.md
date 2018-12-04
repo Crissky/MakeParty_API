@@ -335,6 +335,13 @@ _id   | String | Obrigatório
 
 <br>
 
+Query | Observação                                                             | Requerimento
+----- | ---------------------------------------------------------------------- | ------------
+Limit | Número máximo de Itens Retornados                                      | Opcional
+Page  | Número da página. Número de Itens ignorados com base no (Limit * Page) | Opcional
+
+<br>
+
 **Resposta (SUCESSO):**
 
 ```javascript
@@ -570,6 +577,13 @@ TAG       | A TAG deve ser passada no fim da rota.
 
 <br>
 
+Query | Observação                                                             | Requerimento
+----- | ---------------------------------------------------------------------- | ------------
+Limit | Número máximo de Itens Retornados                                      | Opcional
+Page  | Número da página. Número de Itens ignorados com base no (Limit * Page) | Opcional
+
+<br>
+
 **Resposta (SUCESSO):**
 
 ```javascript
@@ -737,6 +751,13 @@ TYPE      | O TYPE deve ser passado no fim da rota.
 
 <br>
 
+Query | Observação                                                             | Requerimento
+----- | ---------------------------------------------------------------------- | ------------
+Limit | Número máximo de Itens Retornados                                      | Opcional
+Page  | Número da página. Número de Itens ignorados com base no (Limit * Page) | Opcional
+
+<br>
+
 **Resposta (SUCESSO):**
 
 ```javascript
@@ -901,6 +922,13 @@ TYPE      | O TYPE deve ser passado no fim da rota.
 Parametro | Observação
 --------- | ----------------------------------------
 TITLE     | O TITLE deve ser passado no fim da rota.
+
+<br>
+
+Query | Observação                                                             | Requerimento
+----- | ---------------------------------------------------------------------- | ------------
+Limit | Número máximo de Itens Retornados                                      | Opcional
+Page  | Número da página. Número de Itens ignorados com base no (Limit * Page) | Opcional
 
 <br>
 
@@ -1079,6 +1107,13 @@ PRICE     | O PRICE deve ser passado no fim da rota no formato 150-500\. (Este e
 
 <br>
 
+Query | Observação                                                             | Requerimento
+----- | ---------------------------------------------------------------------- | ------------
+Limit | Número máximo de Itens Retornados                                      | Opcional
+Page  | Número da página. Número de Itens ignorados com base no (Limit * Page) | Opcional
+
+<br>
+
 **Resposta (SUCESSO):**
 
 ```javascript
@@ -1253,6 +1288,188 @@ OWNER     | O OWNER (ID do Anúnciante) deve ser passado no fim da rota.
 Chave | Tipo   | Requerimento
 ----- | ------ | ------------
 token | String | Obrigatório
+
+<br>
+
+Query | Observação                                                             | Requerimento
+----- | ---------------------------------------------------------------------- | ------------
+Limit | Número máximo de Itens Retornados                                      | Opcional
+Page  | Número da página. Número de Itens ignorados com base no (Limit * Page) | Opcional
+
+<br>
+
+**Resposta (SUCESSO):**
+
+```javascript
+{
+    "ads": [
+        {
+            "description": "Festa muito topzera 2018 UFRPE",
+            "price": 150,
+            "tags": [
+                "festa",
+                "top",
+                "ufrpe"
+            ],
+            "photos": [
+                "Foto.jpg",
+                "Capa.jpg"
+            ],
+            "active": true,
+            "_id": "5bccc9b30b0a3715b4a07b38",
+            "title": "Calourada Top 2018 UFRPE",
+            "type": "Festa",
+            "phone": "89452639",
+            "owner": {
+                "plan": {
+                    "name": "prata",
+                    "totalad": 20,
+                    "totalphoto": 100
+                },
+                "active": true,
+                "_id": "5bca1207f9475400159db281",
+                "user": {
+                    "active": true,
+                    "_id": "5bca1207f9475400159db280",
+                    "email": "pg2006pe@hotmail.com",
+                    "createdAt": "2018-10-19T17:19:03.690Z",
+                    "updatedAt": "2018-10-19T17:19:03.690Z"
+                },
+                "socialname": "Fagner INC.",
+                "cnpj": "24242424246006",
+                "authorization": "13a2sd465asd",
+                "photo": "photo2.jpg",
+                "createdAt": "2018-10-19T17:19:03.698Z",
+                "updatedAt": "2018-12-02T09:56:32.106Z"
+            },
+            "createdAt": "2018-10-21T18:47:15.622Z",
+            "updatedAt": "2018-10-21T18:47:15.622Z"
+        },
+        {
+            "description": "Festa muito topzera 2018 UFRPE",
+            "price": 150,
+            "tags": [
+                "festa",
+                "top",
+                "ufrpe"
+            ],
+            "photos": [
+                "Foto.jpg",
+                "Capa.jpg"
+            ],
+            "active": true,
+            "_id": "5bccc9890a6229312442519c",
+            "title": "Calourada Top 2018 UFRPE",
+            "type": "Festa",
+            "phone": "89452639",
+            "owner": {
+                "plan": {
+                    "name": "prata",
+                    "totalad": 20,
+                    "totalphoto": 100
+                },
+                "active": true,
+                "_id": "5bca1207f9475400159db281",
+                "user": {
+                    "active": true,
+                    "_id": "5bca1207f9475400159db280",
+                    "email": "pg2006pe@hotmail.com",
+                    "createdAt": "2018-10-19T17:19:03.690Z",
+                    "updatedAt": "2018-10-19T17:19:03.690Z"
+                },
+                "socialname": "Fagner INC.",
+                "cnpj": "24242424246006",
+                "authorization": "13a2sd465asd",
+                "photo": "photo2.jpg",
+                "createdAt": "2018-10-19T17:19:03.698Z",
+                "updatedAt": "2018-12-02T09:56:32.106Z"
+            },
+            "createdAt": "2018-10-21T18:46:33.825Z",
+            "updatedAt": "2018-10-21T18:46:33.825Z"
+        },
+        {
+            "description": "Festa muito top...",
+            "price": 400,
+            "tags": [
+                "FESTA",
+                "Topzera",
+                "BEST",
+                "Bebidas"
+            ],
+            "photos": [
+                "Foto.jpg",
+                "Capa.jpg"
+            ],
+            "active": true,
+            "_id": "5bccca0821a0c4057cd1eaf4",
+            "title": "Festa Best Topzera 2018 22",
+            "type": "Festa",
+            "phone": "89452639",
+            "owner": {
+                "plan": {
+                    "name": "prata",
+                    "totalad": 20,
+                    "totalphoto": 100
+                },
+                "active": true,
+                "_id": "5bca1207f9475400159db281",
+                "user": {
+                    "active": true,
+                    "_id": "5bca1207f9475400159db280",
+                    "email": "pg2006pe@hotmail.com",
+                    "createdAt": "2018-10-19T17:19:03.690Z",
+                    "updatedAt": "2018-10-19T17:19:03.690Z"
+                },
+                "socialname": "Fagner INC.",
+                "cnpj": "24242424246006",
+                "authorization": "13a2sd465asd",
+                "photo": "photo2.jpg",
+                "createdAt": "2018-10-19T17:19:03.698Z",
+                "updatedAt": "2018-12-02T09:56:32.106Z"
+            },
+            "createdAt": "2018-10-21T18:48:40.472Z",
+            "updatedAt": "2018-10-21T18:55:09.348Z"
+        }
+    ]
+}
+```
+
+<br>
+
+**Resposta (ERROR):**
+
+```javascript
+{
+    "error": {
+        "message": "Cast to ObjectId failed for value \"owner\" at path \"_id\" for model \"Ad\"",
+        "name": "CastError",
+        "stringValue": "\"5bca1207f9475400159db281\"",
+        "kind": "ObjectId",
+        "value": "5bca1207f9475400159db281",
+        "path": "_id"
+    }
+}
+```
+
+<br>
+
+### Listar Anúncios por Query - ROTA ABERTA (NÃO NECESSITA DE TOKEN)
+
+#### Método **GET: /queries?**
+
+#### É possível usar mais de um argumento na query usando **&** para separá-los. (/queries?price=100-200&limit=5&page=3) _Pesquisa Anúncios com preços entre 100 e 200\. Retornando 5 Anúncios, mas ignorando os 15 primeiros resultados_
+
+<br>
+
+Query | Observação                                                                              | Requerimento
+----- | --------------------------------------------------------------------------------------- | ------------
+Limit | Número máximo de Itens Retornados                                                       | Opcional
+Page  | Número da página. Número de Itens ignorados com base no (Limit * Page)                  | Opcional
+Tag   | Pesquisas Anúncios por Tag                                                              | Opcional
+Type  | Pesquisas Anúncios por Tipo                                                             | Opcional
+Title | Pesquisas Anúncios por Título                                                           | Opcional
+Price | Pesquisas Anúncios por Preço. (100-0) - Retorna Anúncios com preço maior ou igual a 100 | Opcional
+Owner | Pesquisas Anúncios pelo Anunciante                                                      | Opcional
 
 <br>
 

@@ -11,7 +11,7 @@ router.get('/types/:type', controller.getByType);
 router.get('/titles/:title', controller.getByTitle);
 router.get('/prices/:price', controller.getByPrice);
 router.get('/queries/', controller.getByQuery);
-router.get('/owners/', controller.getByOwnerId);
+router.get('/owners/', authService.authorize, controller.getByOwnerId);
 router.get('/owners/:owner', controller.getByOwnerId);
 router.get('/:id', controller.getById);
 router.post('/', authService.authorize, controller.post);

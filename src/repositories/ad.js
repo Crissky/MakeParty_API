@@ -15,6 +15,7 @@ exports.get = async (query) => {
             active: true
         }, CONSTANTS_REPOSITORIES.AD_COLUMNS)
         .populate(CONSTANTS_REPOSITORIES.OWNER_POPULATE)
+        .sort('-createdAt')
         .setOptions(options);
 
     return res;
@@ -36,7 +37,7 @@ exports.getByQuery = async (query) => {
     const res = await Ad
         .find(query, CONSTANTS_REPOSITORIES.AD_COLUMNS)
         .populate(CONSTANTS_REPOSITORIES.OWNER_POPULATE)
-        .sort('price')
+        .sort('-createdAt')
         .setOptions(options);
 
     return res;
@@ -71,6 +72,7 @@ exports.getByTag = async (tag, query) => {
             active: true
         }, CONSTANTS_REPOSITORIES.AD_COLUMNS)
         .populate(CONSTANTS_REPOSITORIES.OWNER_POPULATE)
+        .sort('-createdAt')
         .setOptions(options);
 
     return res;
@@ -87,6 +89,7 @@ exports.getByType = async (type, query) => {
             active: true
         }, CONSTANTS_REPOSITORIES.AD_COLUMNS)
         .populate(CONSTANTS_REPOSITORIES.OWNER_POPULATE)
+        .sort('-createdAt')
         .setOptions(options);
 
     return res;
@@ -103,6 +106,7 @@ exports.getByTitle = async (title, query) => {
             active: true
         }, CONSTANTS_REPOSITORIES.AD_COLUMNS)
         .populate(CONSTANTS_REPOSITORIES.OWNER_POPULATE)
+        .sort('-createdAt')
         .setOptions(options);
 
     return res;
@@ -119,6 +123,7 @@ exports.getByOwnerId = async (owner, query) => {
             active: true
         }, CONSTANTS_REPOSITORIES.AD_COLUMNS)
         .populate(CONSTANTS_REPOSITORIES.OWNER_POPULATE)
+        .sort('-createdAt')
         .setOptions(options);
 
     return res;
@@ -207,16 +212,16 @@ exports.delete = async (data) => {
 }
 
 function getQueryLimitAndSkip(query) {
-    const REPOSITORIES_VALIDATOR = new RepositoriesValidator();
+    const repositoriesValidator = new RepositoriesValidator();
 
-    return REPOSITORIES_VALIDATOR.getQueryLimitAndSkip(query);
+    return repositoriesValidator.getQueryLimitAndSkip(query);
 
 }
 
 function getPriceArgs(price) {
-    const REPOSITORIES_VALIDATOR = new RepositoriesValidator();
+    const repositoriesValidator = new RepositoriesValidator();
 
-    return REPOSITORIES_VALIDATOR.getPriceArgs(price);
+    return repositoriesValidator.getPriceArgs(price);
 
 }
 
