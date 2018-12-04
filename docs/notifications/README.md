@@ -169,7 +169,7 @@ _id   | String | Obrigatório
 
 <br>
 
-### Buscar Notificação pelo ID do Usuário
+### Buscar Notificações pelo ID do Usuário
 
 #### Método **GET: /notifications/users**
 
