@@ -337,8 +337,8 @@ _id   | String | Obrigatório
 
 Query | Observação                                                             | Requerimento
 ----- | ---------------------------------------------------------------------- | ------------
-Limit | Número máximo de Itens Retornados                                      | Opcional
-Page  | Número da página. Número de Itens ignorados com base no (Limit * Page) | Opcional
+limit | Número máximo de itens retornados                                      | Opcional
+page  | Número da página. Número de itens ignorados com base no (limit * page) | Opcional
 
 <br>
 
@@ -579,8 +579,8 @@ TAG       | A TAG deve ser passada no fim da rota.
 
 Query | Observação                                                             | Requerimento
 ----- | ---------------------------------------------------------------------- | ------------
-Limit | Número máximo de Itens Retornados                                      | Opcional
-Page  | Número da página. Número de Itens ignorados com base no (Limit * Page) | Opcional
+limit | Número máximo de itens retornados                                      | Opcional
+page  | Número da página. Número de itens ignorados com base no (limit * page) | Opcional
 
 <br>
 
@@ -753,8 +753,8 @@ TYPE      | O TYPE deve ser passado no fim da rota.
 
 Query | Observação                                                             | Requerimento
 ----- | ---------------------------------------------------------------------- | ------------
-Limit | Número máximo de Itens Retornados                                      | Opcional
-Page  | Número da página. Número de Itens ignorados com base no (Limit * Page) | Opcional
+limit | Número máximo de itens retornados                                      | Opcional
+page  | Número da página. Número de itens ignorados com base no (limit * page) | Opcional
 
 <br>
 
@@ -927,8 +927,8 @@ TITLE     | O TITLE deve ser passado no fim da rota.
 
 Query | Observação                                                             | Requerimento
 ----- | ---------------------------------------------------------------------- | ------------
-Limit | Número máximo de Itens Retornados                                      | Opcional
-Page  | Número da página. Número de Itens ignorados com base no (Limit * Page) | Opcional
+limit | Número máximo de itens retornados                                      | Opcional
+page  | Número da página. Número de itens ignorados com base no (limit * page) | Opcional
 
 <br>
 
@@ -1109,8 +1109,8 @@ PRICE     | O PRICE deve ser passado no fim da rota no formato 150-500\. (Este e
 
 Query | Observação                                                             | Requerimento
 ----- | ---------------------------------------------------------------------- | ------------
-Limit | Número máximo de Itens Retornados                                      | Opcional
-Page  | Número da página. Número de Itens ignorados com base no (Limit * Page) | Opcional
+limit | Número máximo de itens retornados                                      | Opcional
+page  | Número da página. Número de itens ignorados com base no (limit * page) | Opcional
 
 <br>
 
@@ -1293,8 +1293,8 @@ token | String | Obrigatório
 
 Query | Observação                                                             | Requerimento
 ----- | ---------------------------------------------------------------------- | ------------
-Limit | Número máximo de Itens Retornados                                      | Opcional
-Page  | Número da página. Número de Itens ignorados com base no (Limit * Page) | Opcional
+limit | Número máximo de itens retornados                                      | Opcional
+page  | Número da página. Número de itens ignorados com base no (limit * page) | Opcional
 
 <br>
 
@@ -1463,13 +1463,13 @@ Page  | Número da página. Número de Itens ignorados com base no (Limit * Page
 
 Query | Observação                                                                              | Requerimento
 ----- | --------------------------------------------------------------------------------------- | ------------
-Limit | Número máximo de Itens Retornados                                                       | Opcional
-Page  | Número da página. Número de Itens ignorados com base no (Limit * Page)                  | Opcional
-Tag   | Pesquisas Anúncios por Tag                                                              | Opcional
-Type  | Pesquisas Anúncios por Tipo                                                             | Opcional
-Title | Pesquisas Anúncios por Título                                                           | Opcional
-Price | Pesquisas Anúncios por Preço. (100-0) - Retorna Anúncios com preço maior ou igual a 100 | Opcional
-Owner | Pesquisas Anúncios pelo Anunciante                                                      | Opcional
+limit | Número máximo de itens Retornados                                                       | Opcional
+page  | Número da página. Número de itens ignorados com base no (limit * page)                  | Opcional
+tag   | Pesquisas Anúncios por tag                                                              | Opcional
+type  | Pesquisas Anúncios por tipo                                                             | Opcional
+title | Pesquisas Anúncios por título                                                           | Opcional
+price | Pesquisas Anúncios por preço. (100-0) - Retorna Anúncios com preço maior ou igual a 100 | Opcional
+owner | Pesquisas Anúncios pelo anunciante                                                      | Opcional
 
 <br>
 
