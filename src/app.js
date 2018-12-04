@@ -4,10 +4,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const configDB = require('./config/database');
-const cors = require('./cors');
+//const cors = require('./cors');
 
 const app = express();
-app.use(cors());
+//app.use(cors());
 
 console.log("app: Carregando Banco de Dados...");
 //Load Database
