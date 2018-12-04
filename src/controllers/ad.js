@@ -9,8 +9,8 @@ exports.get = async (req, res, next) => {
     try {
         console.log("ad-controller: Listar Anúncios");
 
-        var data = await repository.get();
-        console.log("ad-controller: Pesquisar Anúncios pela TAG - Pesquisa finalizada");
+        var data = await repository.get(req.query);
+        console.log("ad-controller: Listar Anúncios - Pesquisa finalizada");
         if (!data) {
             console.log("ad-controller: Listar Anúncios - Anúncio não encontrado");
             res.status(404).send({
@@ -31,11 +31,39 @@ exports.get = async (req, res, next) => {
     }
 }
 
+exports.getByQuery = async (req, res, next) => {
+    try {
+        console.log("ad-controller: Listar Anúncios pela query");
+        var myQuery = choiceQuery(req.query);
+        var data = await repository.getByQuery(myQuery);
+        console.log("ad-controller: Listar Anúncios pela query - Pesquisa finalizada");
+        
+        if (!data) {
+            console.log("ad-controller: Listar Anúncios pela query - Anúncio não encontrado");
+            res.status(404).send({
+                error: "Anúncio não encontrado."
+            });
+
+            return;
+        }
+
+        res.status(200).send({
+            ads: data
+        });
+    } catch (error) {
+        console.log("CATCH = ad-controller: Listar Anúncios pela query\n", error);
+        res.status(500).send({
+            error: error
+        });
+    }
+}
+
 exports.getByTag = async (req, res, next) => {
     console.log("ad-controller: Pesquisar Anúncios pela TAG");
     try {
-        var data = await repository.getByTag(req.params.tag);
+        var data = await repository.getByTag(req.params.tag, req.query);
         console.log("ad-controller: Pesquisar Anúncios pela TAG - Pesquisa finalizada");
+        
         if (!data) {
             console.log("ad-controller: Listar Anúncios pela TAG - Anúncio não encontrado");
             res.status(404).send({
@@ -59,8 +87,9 @@ exports.getByTag = async (req, res, next) => {
 exports.getByType = async (req, res, next) => {
     console.log("ad-controller: Pesquisar Anúncios pelo Tipo");
     try {
-        var data = await repository.getByType(req.params.type);
+        var data = await repository.getByType(req.params.type, req.query);
         console.log("ad-controller: Pesquisar Anúncios pelo Tipo - Pesquisa finalizada");
+        
         if (!data) {
             console.log("ad-controller: Listar Anúncios pelo Tipo - Anúncio não encontrado");
             res.status(404).send({
@@ -84,7 +113,7 @@ exports.getByType = async (req, res, next) => {
 exports.getByTitle = async (req, res, next) => {
     console.log("ad-controller: Pesquisar Anúncios pelo Título");
     try {
-        var data = await repository.getByTitle(req.params.title);
+        var data = await repository.getByTitle(req.params.title, req.query);
         console.log("ad-controller: Pesquisar Anúncios pelo Título - Pesquisa finalizada");
         if (!data) {
             console.log("ad-controller: Listar Anúncios pelo Título - Anúncio não encontrado");
@@ -109,34 +138,20 @@ exports.getByTitle = async (req, res, next) => {
 exports.getByPrice = async (req, res, next) => {
     console.log("ad-controller: Pesquisar Anúncios pelo Preço");
 
-    console.log(req);
-
     try {
-        const regexp = /^(\d+)\-(\d+)/;
-        const price = req.params.price;
+        const arrayPrice = getQueryPrice(req.params.price);
 
-        if (!regexp.test(price)) {
-            console.log("ERROR = ad-controller: Pesquisar Anúncios pelo Preço - Preço não está no formato 100-550");
+        if (!arrayPrice) {
+            console.log("ERROR = ad-controller: Pesquisar Anúncios pelo Preço - Preço não está no formato correto (100-550)");
             res.status(400).send({
-                error: "O parametro preço deve estar no formato de 100-500",
-                value: price
+                error: "O parametro preço deve estar no formato de 100-500, O primeiro valor deve ser igual ou menor que o segundo ou o segundo tem que ser zero.",
+                value: arrayPrice
             }).end();
 
             return;
         }
 
-        const arrayPrice = price.split("-").map(Number);
-
-        if (arrayPrice[0] > arrayPrice[1] && arrayPrice[1] != 0) {
-            console.log("ERROR = ad-controller: Pesquisar Anúncios pelo Preço - Preço não está no formato 100-550 (Primeiro valor maior que o segundo)");
-            res.status(400).send({
-                error: "O parametro preço deve estar no formato de 100-500, O primeiro valor deve ser igual ou menor que o segundo"
-            }).end();
-
-            return;
-        }
-
-        var data = await repository.getByPrice(arrayPrice);
+        var data = await repository.getByPrice(arrayPrice, req.query);
         console.log("ad-controller: Pesquisar Anúncios pelo Preço - Pesquisa finalizada");
         if (!data) {
             console.log("ad-controller: Listar Anúncios pelo Preço - Anúncio não encontrado");
@@ -178,7 +193,7 @@ exports.getByOwnerId = async (req, res, next) => {
             req.body.owner = dataToken._id;
         }
 
-        var data = await repository.getByOwnerId(req.body.owner);
+        var data = await repository.getByOwnerId(req.body.owner, req.query);
         console.log("ad-controller: Pesquisar Anúncios pelo ID do Anunciante - Pesquisa finalizada");
         if (!data) {
             console.log("ad-controller: Pesquisar Anúncios pelo ID do Anunciante - Anúncio não encontrado");
@@ -240,6 +255,7 @@ exports.post = async (req, res, next) => {
     try {
         const dataToken = await authService.decodeTokenREQ(req);
         const owner = await advertiserRepository.getByIdActive(dataToken._id);
+        console.log("ad-controller: Cadastrar Anúncio - Pesquisa dono finalizada");
         req.body.owner = dataToken._id;
 
         if (!owner) {
@@ -337,34 +353,55 @@ exports.delete = async (req, res, next) => {
     }
 };
 
-async function choiceQuery(query) {
-    if (query.tag) {
-        return await repository.getByTag(query.tag);
-    } else if (query.type) {
-        return await repository.getByType(query.type);
-    } else if (query.title) {
-        return await repository.getByTitle(query.title);
-    } else if (query.price) {
-        return await getByQueryPrice(query.price);
-    } else if (query.owner) {
-        return await repository.getByOwnerId(query.owner);
+function choiceQuery(query) {
+    console.log("ad-controller: inner function = choiceQuery");
+    var myQuery = { active: true }
+
+    if (query.tags) {
+        myQuery.tags = { $regex: new RegExp(query.tags, "i") };
+    }
+    
+    if (query.type) {
+        myQuery.type = { $regex: new RegExp(query.type, "i") };
+    }
+    
+    if (query.title) {
+        myQuery.title = { $regex: new RegExp(query.title, "i") };
+    }
+    
+    if (query.price) {
+        myQuery.price = getQueryPrice(query.price);
+    }
+    
+    if (query.owner) {
+        myQuery.owner = query.owner;
     }
 
-    return await repository.get();
+    if (query.limit) {
+        myQuery.limit = query.limit;
+    }
+
+    if (query.page) {
+        myQuery.page = query.page;
+    }
+
+    return myQuery;
 }
 
-async function getByQueryPrice(price) {
+function getQueryPrice(price) {
+    console.log("ad-controller: inner function = getQueryPrice");
     const regexp = /^(\d+)\-(\d+)/;
 
     if (!regexp.test(price)) {
         return undefined;
     }
 
-    const arrayPrice = price.split("-").map(Number);
+    var arrayPrice = price.split("-").map(Number);
 
     if (arrayPrice[0] > arrayPrice[1] && arrayPrice[1] != 0) {
         return undefined;
     }
 
-    return await repository.getByPrice(arrayPrice);
+    console.log("ad-controller: inner function = getQueryPrice - Price", arrayPrice);
+    return arrayPrice;
 }

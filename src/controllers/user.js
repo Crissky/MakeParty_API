@@ -338,6 +338,7 @@ function encryptPassword(user){
 }
 
 function validationAdvertiser(body){
+    console.log("user-controller: inner function = validationAdvertiser");
     var contract = validationUser(body.user);
     contract.cnpj(body.cnpj);
 
@@ -345,6 +346,7 @@ function validationAdvertiser(body){
 }
 
 function validationCustomer(body){
+    console.log("user-controller: inner function = validationCustomer");
     var contract = validationUser(body.user);
     contract.cpf(body.cpf);
 
@@ -352,6 +354,7 @@ function validationCustomer(body){
 }
 
 function validationUser(user){
+    console.log("user-controller: inner function = validationUser");
     var contract = new ValidationFields();
     contract.email(user.email);
     contract.password(user.password);
@@ -360,6 +363,7 @@ function validationUser(user){
 }
 
 function sendEmail(body){
+    console.log("user-controller: inner function = sendEmail");
     var userName = body.name || body.socialname;
     emailService.send(
         body.email,

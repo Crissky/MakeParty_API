@@ -3,82 +3,130 @@
 const mongoose = require('mongoose');
 const Ad = mongoose.model('Ad');
 const CONSTANTS_REPOSITORIES = require('../constants/repositories');
+const RepositoriesValidator = require('../validators/repositories');
 
-exports.get = async () => {
+exports.get = async (query) => {
     console.log("ad-repositories: get");
+    const REPOSITORIES_VALIDATOR = new RepositoriesValidator();
+    var options = REPOSITORIES_VALIDATOR.getQueryLimitAndSkip(query);
+    console.log("OPÇÕES:", options);
+
     const res = await Ad
         .find({
             active: true
         }, CONSTANTS_REPOSITORIES.AD_COLUMNS)
-        .populate(CONSTANTS_REPOSITORIES.OWNER_POPULATE);
+        .populate(CONSTANTS_REPOSITORIES.OWNER_POPULATE)
+        .setOptions(options);
 
     return res;
 }
 
-exports.getByPrice = async (price) => {
-    console.log("ad-repositories: getByPrice");
-    
-    var priceArgs = { $gte: price[0], $lte: price[1] };
-    
-    if (!price[1]) {
-        priceArgs = { $gte: price[0] };
+exports.getByQuery = async (query) => {
+    console.log("ad-repositories: getByQuery");
+    const REPOSITORIES_VALIDATOR = new RepositoriesValidator();
+    var options = REPOSITORIES_VALIDATOR.getQueryLimitAndSkip(query);
+    //Tirando o limit e o page da query
+    query.limit = query.page = undefined;
+
+    if(query.price){
+        query.price = REPOSITORIES_VALIDATOR.getPriceArgs(query.price);
     }
-    
+
+    console.log("OPÇÕES:", options);
+    console.log("QUERY:", query);
+
+    const res = await Ad
+        .find(query, CONSTANTS_REPOSITORIES.AD_COLUMNS)
+        .populate(CONSTANTS_REPOSITORIES.OWNER_POPULATE)
+        .sort('price')
+        .setOptions(options);
+
+    return res;
+}
+
+exports.getByPrice = async (arrayPrice, query) => {
+    console.log("ad-repositories: getByPrice");
+    const REPOSITORIES_VALIDATOR = new RepositoriesValidator();
+    var priceArgs = REPOSITORIES_VALIDATOR.getPriceArgs(arrayPrice);
+    var options = REPOSITORIES_VALIDATOR.getQueryLimitAndSkip(query);
+    console.log("OPÇÕES:", options);
+
     const res = await Ad
         .find({
             price: priceArgs,
             active: true
         }, CONSTANTS_REPOSITORIES.AD_COLUMNS)
         .sort('price')
-        .populate(CONSTANTS_REPOSITORIES.OWNER_POPULATE);
+        .populate(CONSTANTS_REPOSITORIES.OWNER_POPULATE)
+        .setOptions(options);
 
     return res;
 }
 
-exports.getByTag = async (tag) => {
+exports.getByTag = async (tag, query) => {
     console.log("ad-repositories: getByTag");
+    const REPOSITORIES_VALIDATOR = new RepositoriesValidator();
+    var options = REPOSITORIES_VALIDATOR.getQueryLimitAndSkip(query);
+    console.log("OPÇÕES:", options);
+
     const res = await Ad
         .find({
             tags: { $regex: new RegExp(tag, "i") },
             active: true
         }, CONSTANTS_REPOSITORIES.AD_COLUMNS)
-        .populate(CONSTANTS_REPOSITORIES.OWNER_POPULATE);
+        .populate(CONSTANTS_REPOSITORIES.OWNER_POPULATE)
+        .setOptions(options);
 
     return res;
 }
 
-exports.getByType = async (type) => {
+exports.getByType = async (type, query) => {
     console.log("ad-repositories: getByType");
+    const REPOSITORIES_VALIDATOR = new RepositoriesValidator();
+    var options = REPOSITORIES_VALIDATOR.getQueryLimitAndSkip(query);
+    console.log("OPÇÕES:", options);
+
     const res = await Ad
         .find({
             type: { $regex: new RegExp(type, "i") },
             active: true
         }, CONSTANTS_REPOSITORIES.AD_COLUMNS)
-        .populate(CONSTANTS_REPOSITORIES.OWNER_POPULATE);
+        .populate(CONSTANTS_REPOSITORIES.OWNER_POPULATE)
+        .setOptions(options);
 
     return res;
 }
 
-exports.getByTitle = async (title) => {
+exports.getByTitle = async (title, query) => {
     console.log("ad-repositories: getAllByTitle");
+    const REPOSITORIES_VALIDATOR = new RepositoriesValidator();
+    var options = REPOSITORIES_VALIDATOR.getQueryLimitAndSkip(query);
+    console.log("OPÇÕES:", options);
+
     const res = await Ad
         .find({
             title: { $regex: new RegExp(title, "i") },
             active: true
         }, CONSTANTS_REPOSITORIES.AD_COLUMNS)
-        .populate(CONSTANTS_REPOSITORIES.OWNER_POPULATE);
+        .populate(CONSTANTS_REPOSITORIES.OWNER_POPULATE)
+        .setOptions(options);
 
     return res;
 }
 
-exports.getByOwnerId = async (owner) => {
+exports.getByOwnerId = async (owner, query) => {
     console.log("ad-repositories: getAllByAdvertiserId");
+    const REPOSITORIES_VALIDATOR = new RepositoriesValidator();
+    var options = REPOSITORIES_VALIDATOR.getQueryLimitAndSkip(query);
+    console.log("OPÇÕES:", options);
+
     const res = await Ad
         .find({
             owner: owner,
             active: true
         }, CONSTANTS_REPOSITORIES.AD_COLUMNS)
-        .populate(CONSTANTS_REPOSITORIES.OWNER_POPULATE);
+        .populate(CONSTANTS_REPOSITORIES.OWNER_POPULATE)
+        .setOptions(options);
 
     return res;
 }
