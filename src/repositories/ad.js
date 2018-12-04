@@ -15,7 +15,7 @@ exports.get = async (query) => {
             active: true
         }, CONSTANTS_REPOSITORIES.AD_COLUMNS)
         .populate(CONSTANTS_REPOSITORIES.OWNER_POPULATE)
-        .sort('-createdAt')
+        .sort({ createdAt: -1 })
         .setOptions(options);
 
     return res;
@@ -37,7 +37,7 @@ exports.getByQuery = async (query) => {
     const res = await Ad
         .find(query, CONSTANTS_REPOSITORIES.AD_COLUMNS)
         .populate(CONSTANTS_REPOSITORIES.OWNER_POPULATE)
-        .sort('-createdAt')
+        .sort({ createdAt: -1 })
         .setOptions(options);
 
     return res;
@@ -72,7 +72,7 @@ exports.getByTag = async (tag, query) => {
             active: true
         }, CONSTANTS_REPOSITORIES.AD_COLUMNS)
         .populate(CONSTANTS_REPOSITORIES.OWNER_POPULATE)
-        .sort('-createdAt')
+        .sort({ createdAt: -1 })
         .setOptions(options);
 
     return res;
@@ -89,7 +89,7 @@ exports.getByType = async (type, query) => {
             active: true
         }, CONSTANTS_REPOSITORIES.AD_COLUMNS)
         .populate(CONSTANTS_REPOSITORIES.OWNER_POPULATE)
-        .sort('-createdAt')
+        .sort({ createdAt: -1 })
         .setOptions(options);
 
     return res;
@@ -106,7 +106,7 @@ exports.getByTitle = async (title, query) => {
             active: true
         }, CONSTANTS_REPOSITORIES.AD_COLUMNS)
         .populate(CONSTANTS_REPOSITORIES.OWNER_POPULATE)
-        .sort('-createdAt')
+        .sort({ createdAt: -1 })
         .setOptions(options);
 
     return res;
@@ -123,7 +123,7 @@ exports.getByOwnerId = async (owner, query) => {
             active: true
         }, CONSTANTS_REPOSITORIES.AD_COLUMNS)
         .populate(CONSTANTS_REPOSITORIES.OWNER_POPULATE)
-        .sort('-createdAt')
+        .sort({ createdAt: -1 })
         .setOptions(options);
 
     return res;

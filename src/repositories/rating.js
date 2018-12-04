@@ -3,13 +3,20 @@
 const mongoose = require('mongoose');
 const Rating = mongoose.model('Rating');
 const CONSTANTS_REPOSITORIES = require('../constants/repositories');
+const RepositoriesValidator = require('../validators/repositories');
 
-exports.get = async () => {
+exports.get = async (query) => {
     console.log("rating-repositories: get");
+    var repositoriesValidator = new RepositoriesValidator();
+    var options = repositoriesValidator.getQueryLimitAndSkip(query);
+    console.log("OPÇÕES:", options);
+
     const res = await Rating
         .find({
             active: true
-        }, CONSTANTS_REPOSITORIES.RATING_COLUMNS).populate(CONSTANTS_REPOSITORIES.AD_CUSTOMER_POPULATE);
+        }, CONSTANTS_REPOSITORIES.RATING_COLUMNS)
+        .populate(CONSTANTS_REPOSITORIES.AD_CUSTOMER_POPULATE)
+        .setOptions(options);
 
     return res;
 }

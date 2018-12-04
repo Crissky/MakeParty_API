@@ -20,7 +20,7 @@ exports.getByUserIdActive = async (req, res, next) => {
             return;
         }
 
-        var data = await repository.getByUserIdActive(req.body.user);
+        var data = await repository.getByUserIdActive(req.body.user, req.query);
         console.log("notification-controller: Listar Notificações pelo ID de Usuário Ativo - Pesquisa Finalizada");
 
         res.status(200).send({

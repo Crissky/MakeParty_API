@@ -13,7 +13,7 @@ const emailService = require('../services/email');
 exports.get = async (req, res, next) => {
     try {
         console.log("user-controller: Listar Usuários");
-        var data = await repository.get();
+        var data = await repository.get(req.query);
         console.log("user-controller: Listar Usuários - Pesquisa finalizada");
         if (!data) {
             console.log("user-controller: Listar Usuários - Usuário não encontrado");

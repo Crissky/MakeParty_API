@@ -11,7 +11,7 @@ exports.get = async (req, res, next) => {
     try {
         console.log("rating-controller: Listar Avaliação de Anúncios");
 
-        var data = await repository.get();
+        var data = await repository.get(req.query);
         console.log("rating-controller: Listar Avaliação de Anúncios - Pesquisa Finalizada");
 
         res.status(200).send({

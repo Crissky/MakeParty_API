@@ -3,12 +3,18 @@
 const mongoose = require('mongoose');
 const Advertiser = mongoose.model('Advertiser');
 const CONSTANTS_REPOSITORIES = require('../constants/repositories');
+const RepositoriesValidator = require('../validators/repositories');
 
-exports.get = async () => {
+exports.get = async (query) => {
     console.log("advertiser-repositories: get");
+    var repositoriesValidator = new RepositoriesValidator();
+    var options = repositoriesValidator.getQueryLimitAndSkip(query);
+    console.log("OPÇÕES:", options);
+
     const res = await Advertiser
         .find({ active: true }, CONSTANTS_REPOSITORIES.ADVERTISER_COLUMNS)
-        .populate(CONSTANTS_REPOSITORIES.USER_POPULATE);
+        .populate(CONSTANTS_REPOSITORIES.USER_POPULATE)
+        .setOptions(options);
 
     return res;
 }

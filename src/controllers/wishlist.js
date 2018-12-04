@@ -10,7 +10,7 @@ exports.get = async (req, res, next) => {
     try {
         const dataToken = await authService.decodeTokenREQ(req);
 
-        var data = await repository.getByCustomerId(dataToken._id);
+        var data = await repository.getByCustomerId(dataToken._id, req.query);
         console.log("wishlist-controller: Pesquisar Lista de Desejo pelo TOKEN - Pesquisa finalizada");
         if (!data) {
             console.log("wishlist-controller: Pesquisar Lista de Desejo pelo TOKEN - Lista de Desejo não encontrada");

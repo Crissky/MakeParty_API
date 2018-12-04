@@ -3,14 +3,21 @@
 const mongoose = require('mongoose');
 const Notification = mongoose.model('Notification');
 const CONSTANTS_REPOSITORIES = require('../constants/repositories');
+const RepositoriesValidator = require('../validators/repositories');
 
-exports.getByUserIdActive = async (userId) => {
+exports.getByUserIdActive = async (userId, query) => {
     console.log("notification-repositories: get");
+    var repositoriesValidator = new RepositoriesValidator();
+    var options = repositoriesValidator.getQueryLimitAndSkip(query);
+    console.log("OPÇÕES:", options);
+
     const res = await Notification
         .find({
             user: userId,
             active: true
-        }, CONSTANTS_REPOSITORIES.NOTIFICATION_COLUMNS).populate(CONSTANTS_REPOSITORIES.USER_POPULATE);
+        }, CONSTANTS_REPOSITORIES.NOTIFICATION_COLUMNS)
+        .populate(CONSTANTS_REPOSITORIES.USER_POPULATE)
+        .setOptions(options);
 
     return res;
 }

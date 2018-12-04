@@ -8,7 +8,7 @@ const authService = require('../services/auth');
 exports.get = async (req, res, next) => {
     try {
         console.log("advertiser-controller: Listar Anunciantes");
-        var data = await repository.get();
+        var data = await repository.get(req.query);
         console.log("advertiser-controller: Listar Anunciante - Pesquisa finalizada");
         if (!data) {
             console.log("advertiser-controller: Listar Anunciantes - Anunciante não encontrado");

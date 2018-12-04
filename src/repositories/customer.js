@@ -3,12 +3,18 @@
 const mongoose = require('mongoose');
 const Customer = mongoose.model('Customer');
 const CONSTANTS_REPOSITORIES = require('../constants/repositories');
+const RepositoriesValidator = require('../validators/repositories');
 
-exports.get = async () => {
+exports.get = async (query) => {
     console.log("customer-repositories: get");
+    var repositoriesValidator = new RepositoriesValidator();
+    var options = repositoriesValidator.getQueryLimitAndSkip(query);
+    console.log("OPÇÕES:", options);
+
     const res = await Customer
         .find({ active: true }, CONSTANTS_REPOSITORIES.CUSTOMER_COLUMNS)
-        .populate(CONSTANTS_REPOSITORIES.USER_POPULATE);
+        .populate(CONSTANTS_REPOSITORIES.USER_POPULATE)
+        .setOptions(options);
 
     return res;
 }
