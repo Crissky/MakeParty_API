@@ -7,8 +7,7 @@ const RepositoriesValidator = require('../validators/repositories');
 
 exports.get = async (query) => {
     console.log("ad-repositories: get");
-    const REPOSITORIES_VALIDATOR = new RepositoriesValidator();
-    var options = REPOSITORIES_VALIDATOR.getQueryLimitAndSkip(query);
+    var options = getQueryLimitAndSkip(query);
     console.log("OPÇÕES:", options);
 
     const res = await Ad
@@ -23,13 +22,12 @@ exports.get = async (query) => {
 
 exports.getByQuery = async (query) => {
     console.log("ad-repositories: getByQuery");
-    const REPOSITORIES_VALIDATOR = new RepositoriesValidator();
-    var options = REPOSITORIES_VALIDATOR.getQueryLimitAndSkip(query);
+    var options = getQueryLimitAndSkip(query);
     //Tirando o limit e o page da query
     query.limit = query.page = undefined;
 
-    if(query.price){
-        query.price = REPOSITORIES_VALIDATOR.getPriceArgs(query.price);
+    if (query.price) {
+        query.price = getPriceArgs(query.price);
     }
 
     console.log("OPÇÕES:", options);
@@ -46,9 +44,8 @@ exports.getByQuery = async (query) => {
 
 exports.getByPrice = async (arrayPrice, query) => {
     console.log("ad-repositories: getByPrice");
-    const REPOSITORIES_VALIDATOR = new RepositoriesValidator();
-    var priceArgs = REPOSITORIES_VALIDATOR.getPriceArgs(arrayPrice);
-    var options = REPOSITORIES_VALIDATOR.getQueryLimitAndSkip(query);
+    var priceArgs = getPriceArgs(arrayPrice);
+    var options = getQueryLimitAndSkip(query);
     console.log("OPÇÕES:", options);
 
     const res = await Ad
@@ -65,8 +62,7 @@ exports.getByPrice = async (arrayPrice, query) => {
 
 exports.getByTag = async (tag, query) => {
     console.log("ad-repositories: getByTag");
-    const REPOSITORIES_VALIDATOR = new RepositoriesValidator();
-    var options = REPOSITORIES_VALIDATOR.getQueryLimitAndSkip(query);
+    var options = getQueryLimitAndSkip(query);
     console.log("OPÇÕES:", options);
 
     const res = await Ad
@@ -82,8 +78,7 @@ exports.getByTag = async (tag, query) => {
 
 exports.getByType = async (type, query) => {
     console.log("ad-repositories: getByType");
-    const REPOSITORIES_VALIDATOR = new RepositoriesValidator();
-    var options = REPOSITORIES_VALIDATOR.getQueryLimitAndSkip(query);
+    var options = getQueryLimitAndSkip(query);
     console.log("OPÇÕES:", options);
 
     const res = await Ad
@@ -99,8 +94,7 @@ exports.getByType = async (type, query) => {
 
 exports.getByTitle = async (title, query) => {
     console.log("ad-repositories: getAllByTitle");
-    const REPOSITORIES_VALIDATOR = new RepositoriesValidator();
-    var options = REPOSITORIES_VALIDATOR.getQueryLimitAndSkip(query);
+    var options = getQueryLimitAndSkip(query);
     console.log("OPÇÕES:", options);
 
     const res = await Ad
@@ -115,9 +109,8 @@ exports.getByTitle = async (title, query) => {
 }
 
 exports.getByOwnerId = async (owner, query) => {
-    console.log("ad-repositories: getAllByAdvertiserId");
-    const REPOSITORIES_VALIDATOR = new RepositoriesValidator();
-    var options = REPOSITORIES_VALIDATOR.getQueryLimitAndSkip(query);
+    console.log("ad-repositories: getByOwnerId");
+    var options = getQueryLimitAndSkip(query);
     console.log("OPÇÕES:", options);
 
     const res = await Ad
@@ -212,3 +205,18 @@ exports.delete = async (data) => {
                 fields: CONSTANTS_REPOSITORIES.AD_COLUMNS
             }).populate(CONSTANTS_REPOSITORIES.OWNER_POPULATE);
 }
+
+function getQueryLimitAndSkip(query) {
+    const REPOSITORIES_VALIDATOR = new RepositoriesValidator();
+
+    return REPOSITORIES_VALIDATOR.getQueryLimitAndSkip(query);
+
+}
+
+function getPriceArgs(price) {
+    const REPOSITORIES_VALIDATOR = new RepositoriesValidator();
+
+    return REPOSITORIES_VALIDATOR.getPriceArgs(price);
+
+}
+
