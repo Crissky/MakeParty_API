@@ -4,14 +4,16 @@ const repository = require('../repositories/rating');
 const customerRepository = require('../repositories/customer');
 const adRepository = require("../repositories/ad")
 const authService = require('../services/auth');
+const QueriesValidator = require('../validators/queries');
 const MIN = 0;
 const MAX = 5;
 
 exports.get = async (req, res, next) => {
     try {
         console.log("rating-controller: Listar Avaliação de Anúncios");
-
-        var data = await repository.get(req.query);
+        var queriesValidator = new QueriesValidator();
+        var options = queriesValidator.getQueryLimitAndSkip(req.query);
+        var data = await repository.get(options);
         console.log("rating-controller: Listar Avaliação de Anúncios - Pesquisa Finalizada");
 
         res.status(200).send({
@@ -32,7 +34,7 @@ exports.getByAdAndCustomer = async (req, res, next) => {
         const customer = await customerRepository.getByIdActive(dataToken._id);
         req.body.customer = dataToken._id;
         req.body.ad = req.params.ad;
-        
+
         if (!customer) {
             console.log("Usuário não autorizado ou desativado");
             res.status(401).send({
@@ -126,7 +128,7 @@ exports.post = async (req, res, next) => {
 
 exports.put = async (req, res, next) => {
     console.log("rating-controller: Atualizar Avaliação de Anúncio");
-    
+
     if (!isRating(req.body.rating)) {
         console.log("ERROR = rating-controller: campo 'rating' não informado ou incorreto\n");
         res.status(400).send({ error: "Campo 'rating' não informado ou está incorreto. rating deve ter um valor entre (" + MIN + " e " + MAX + ")." }).end();
@@ -182,7 +184,7 @@ exports.put = async (req, res, next) => {
 
 exports.delete = async (req, res, next) => {
     console.log("rating-controller: Apagar Avaliação do Anúncio");
-    
+
     try {
         const dataToken = await authService.decodeTokenREQ(req);
         const customer = await customerRepository.getByIdActive(dataToken._id);

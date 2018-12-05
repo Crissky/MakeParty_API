@@ -9,11 +9,15 @@ const authService = require('../services/auth');
 const authConfig = require('../config/auth');
 const emailConfig = require('../config/email');
 const emailService = require('../services/email');
+const QueriesValidator = require('../validators/queries');
+
 
 exports.get = async (req, res, next) => {
     try {
         console.log("user-controller: Listar Usuários");
-        var data = await repository.get(req.query);
+        var queriesValidator = new QueriesValidator();
+        var options = queriesValidator.getQueryLimitAndSkip(req.query);
+        var data = await repository.get(options);
         console.log("user-controller: Listar Usuários - Pesquisa finalizada");
         if (!data) {
             console.log("user-controller: Listar Usuários - Usuário não encontrado");
@@ -43,7 +47,7 @@ exports.post = async (req, res, next) => {
 
     console.log("user-controller: Cadastrar Usuário");
     let contract = validationUser(req.body);
-    
+
     if (!contract.isValid()) {
         console.log("ERROR = user-controller: Cadastrar Usuário\n", contract.errors());
         res.status(400).send({
@@ -82,10 +86,10 @@ exports.post = async (req, res, next) => {
 
 exports.signupAdvertiser = async (req, res, next) => {
     console.log("user-controller: Cadastrar Anunciante");
-    
+
     if (!req.body.user) {
-        console.log("ERROR = user-controller: Cadastrar Anunciante\n", );
-        res.status(400).send({error: "Email e Senha são obrigatórios."}).end();
+        console.log("ERROR = user-controller: Cadastrar Anunciante\n");
+        res.status(400).send({ error: "Email e Senha são obrigatórios." }).end();
 
         return;
     }
@@ -113,7 +117,7 @@ exports.signupAdvertiser = async (req, res, next) => {
         res.status(500).send({
             error: error
         });
-        
+
         return;
     }
 
@@ -148,8 +152,8 @@ exports.signupCustomer = async (req, res, next) => {
     console.log("user-controller: Cadastrar Cliente");
 
     if (!req.body.user) {
-        console.log("ERROR = user-controller: Cadastrar Cliente\n", );
-        res.status(400).send({error: "Email e Senha são obrigatórios."}).end();
+        console.log("ERROR = user-controller: Cadastrar Cliente\n");
+        res.status(400).send({ error: "Email e Senha são obrigatórios." }).end();
 
         return;
     }
@@ -177,7 +181,7 @@ exports.signupCustomer = async (req, res, next) => {
         res.status(500).send({
             error: error
         });
-        
+
         return;
     }
 
@@ -211,7 +215,7 @@ exports.signupCustomer = async (req, res, next) => {
 exports.authenticate = async (req, res, next) => {
     console.log("user-controller: Autenticar Usuário");
     let contract = validationUser(req.body);
-    
+
     if (!contract.isValid()) {
         console.log("ERROR = user-controller: Autenticar Usuário\n", contract.errors());
         res.status(400).send({
@@ -247,7 +251,7 @@ exports.authenticate = async (req, res, next) => {
         console.log("user-controller: Autenticar Usuário - Buscando Anunciante ou Cliente vinculado ao Usuário");
         var client = await getCustomerOrAdvertiserByUserId(user._id);
 
-        if(!client){
+        if (!client) {
             console.log("user-controller: Autenticar Usuário - Cliente desativado");
             res.status(404).send({
                 error: 'Usuário Ativo, mas cliente desativado, favor entrar em contato com o administrador.'
@@ -318,11 +322,11 @@ exports.refreshToken = async (req, res, next) => {
 
 };
 
-async function getCustomerOrAdvertiserByUserId(userId){
+async function getCustomerOrAdvertiserByUserId(userId) {
     console.log("user-controller: inner function = getCustomerOrAdvertiserByUserId");
     var client = await advertiserRepository.getByUserId(userId);
-    
-    if(!client){
+
+    if (!client) {
         client = await customerRepository.getByUserId(userId);
         client.type = "customer";
     } else {
@@ -332,12 +336,12 @@ async function getCustomerOrAdvertiserByUserId(userId){
     return client;
 }
 
-function encryptPassword(user){
+function encryptPassword(user) {
     console.log("user-controller: inner function = encryptPassword");
     return md5(user.password + authConfig.secret + user.email);
 }
 
-function validationAdvertiser(body){
+function validationAdvertiser(body) {
     console.log("user-controller: inner function = validationAdvertiser");
     var contract = validationUser(body.user);
     contract.cnpj(body.cnpj);
@@ -345,7 +349,7 @@ function validationAdvertiser(body){
     return contract;
 }
 
-function validationCustomer(body){
+function validationCustomer(body) {
     console.log("user-controller: inner function = validationCustomer");
     var contract = validationUser(body.user);
     contract.cpf(body.cpf);
@@ -353,7 +357,7 @@ function validationCustomer(body){
     return contract;
 }
 
-function validationUser(user){
+function validationUser(user) {
     console.log("user-controller: inner function = validationUser");
     var contract = new ValidationFields();
     contract.email(user.email);
@@ -362,7 +366,7 @@ function validationUser(user){
     return contract;
 }
 
-function sendEmail(body){
+function sendEmail(body) {
     console.log("user-controller: inner function = sendEmail");
     var userName = body.name || body.socialname;
     emailService.send(

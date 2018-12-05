@@ -3,12 +3,9 @@
 const mongoose = require('mongoose');
 const Rating = mongoose.model('Rating');
 const CONSTANTS_REPOSITORIES = require('../constants/repositories');
-const RepositoriesValidator = require('../validators/repositories');
 
-exports.get = async (query) => {
+exports.get = async (options) => {
     console.log("rating-repositories: get");
-    var repositoriesValidator = new RepositoriesValidator();
-    var options = repositoriesValidator.getQueryLimitAndSkip(query);
     console.log("OPÇÕES:", options);
 
     const res = await Rating

@@ -3,12 +3,10 @@
 const mongoose = require('mongoose');
 const Ad = mongoose.model('Ad');
 const CONSTANTS_REPOSITORIES = require('../constants/repositories');
-const RepositoriesValidator = require('../validators/repositories');
 
-exports.get = async (query) => {
+exports.get = async (options) => {
     console.log("ad-repositories: get");
-    var options = getQueryLimitAndSkip(query);
-    console.log("OPÇÕES:", options);
+    console.log("OPÇÕES: ", options);
 
     const res = await Ad
         .find({
@@ -21,17 +19,9 @@ exports.get = async (query) => {
     return res;
 }
 
-exports.getByQuery = async (query) => {
+exports.getByQuery = async (query, options) => {
     console.log("ad-repositories: getByQuery");
-    var options = getQueryLimitAndSkip(query);
-    //Tirando o limit e o page da query
-    query.limit = query.page = undefined;
-
-    if (query.price) {
-        query.price = getPriceArgs(query.price);
-    }
-
-    console.log("OPÇÕES:", options);
+    console.log("OPÇÕES: ", options);
     console.log("QUERY:", query);
 
     const res = await Ad
@@ -43,11 +33,9 @@ exports.getByQuery = async (query) => {
     return res;
 }
 
-exports.getByPrice = async (arrayPrice, query) => {
+exports.getByPrice = async (priceArgs, options) => {
     console.log("ad-repositories: getByPrice");
-    var priceArgs = getPriceArgs(arrayPrice);
-    var options = getQueryLimitAndSkip(query);
-    console.log("OPÇÕES:", options);
+    console.log("OPÇÕES: ", options);
 
     const res = await Ad
         .find({
@@ -61,10 +49,9 @@ exports.getByPrice = async (arrayPrice, query) => {
     return res;
 }
 
-exports.getByTag = async (tag, query) => {
+exports.getByTag = async (tag, options) => {
     console.log("ad-repositories: getByTag");
-    var options = getQueryLimitAndSkip(query);
-    console.log("OPÇÕES:", options);
+    console.log("OPÇÕES: ", options);
 
     const res = await Ad
         .find({
@@ -78,10 +65,9 @@ exports.getByTag = async (tag, query) => {
     return res;
 }
 
-exports.getByType = async (type, query) => {
+exports.getByType = async (type, options) => {
     console.log("ad-repositories: getByType");
-    var options = getQueryLimitAndSkip(query);
-    console.log("OPÇÕES:", options);
+    console.log("OPÇÕES: ", options);
 
     const res = await Ad
         .find({
@@ -95,10 +81,9 @@ exports.getByType = async (type, query) => {
     return res;
 }
 
-exports.getByTitle = async (title, query) => {
+exports.getByTitle = async (title, options) => {
     console.log("ad-repositories: getAllByTitle");
-    var options = getQueryLimitAndSkip(query);
-    console.log("OPÇÕES:", options);
+    console.log("OPÇÕES: ", options);
 
     const res = await Ad
         .find({
@@ -112,10 +97,9 @@ exports.getByTitle = async (title, query) => {
     return res;
 }
 
-exports.getByOwnerId = async (owner, query) => {
+exports.getByOwnerId = async (owner, options) => {
     console.log("ad-repositories: getByOwnerId");
-    var options = getQueryLimitAndSkip(query);
-    console.log("OPÇÕES:", options);
+    console.log("OPÇÕES: ", options);
 
     const res = await Ad
         .find({
@@ -210,18 +194,3 @@ exports.delete = async (data) => {
                 fields: CONSTANTS_REPOSITORIES.AD_COLUMNS
             }).populate(CONSTANTS_REPOSITORIES.OWNER_POPULATE);
 }
-
-function getQueryLimitAndSkip(query) {
-    const repositoriesValidator = new RepositoriesValidator();
-
-    return repositoriesValidator.getQueryLimitAndSkip(query);
-
-}
-
-function getPriceArgs(price) {
-    const repositoriesValidator = new RepositoriesValidator();
-
-    return repositoriesValidator.getPriceArgs(price);
-
-}
-

@@ -4,12 +4,13 @@ const repository = require('../repositories/ad');
 const advertiserRepository = require('../repositories/advertiser');
 const ValidationFields = require('../validators/validator-fields');
 const authService = require('../services/auth');
+const QueriesValidator = require('../validators/queries');
 
 exports.get = async (req, res, next) => {
     try {
         console.log("ad-controller: Listar Anúncios");
-
-        var data = await repository.get(req.query);
+        var options = getQueryLimitAndSkip(req.query);
+        var data = await repository.get(options);
         console.log("ad-controller: Listar Anúncios - Pesquisa finalizada");
         if (!data) {
             console.log("ad-controller: Listar Anúncios - Anúncio não encontrado");
@@ -35,9 +36,11 @@ exports.getByQuery = async (req, res, next) => {
     try {
         console.log("ad-controller: Listar Anúncios pela query");
         var myQuery = choiceQuery(req.query);
-        var data = await repository.getByQuery(myQuery);
-        console.log("ad-controller: Listar Anúncios pela query - Pesquisa finalizada");
+        var options = getQueryLimitAndSkip(req.query);
         
+        var data = await repository.getByQuery(myQuery, options);
+        console.log("ad-controller: Listar Anúncios pela query - Pesquisa finalizada");
+
         if (!data) {
             console.log("ad-controller: Listar Anúncios pela query - Anúncio não encontrado");
             res.status(404).send({
@@ -61,9 +64,10 @@ exports.getByQuery = async (req, res, next) => {
 exports.getByTag = async (req, res, next) => {
     console.log("ad-controller: Pesquisar Anúncios pela TAG");
     try {
-        var data = await repository.getByTag(req.params.tag, req.query);
+        var options = getQueryLimitAndSkip(req.query);
+        var data = await repository.getByTag(req.params.tag, options);
         console.log("ad-controller: Pesquisar Anúncios pela TAG - Pesquisa finalizada");
-        
+
         if (!data) {
             console.log("ad-controller: Listar Anúncios pela TAG - Anúncio não encontrado");
             res.status(404).send({
@@ -87,9 +91,10 @@ exports.getByTag = async (req, res, next) => {
 exports.getByType = async (req, res, next) => {
     console.log("ad-controller: Pesquisar Anúncios pelo Tipo");
     try {
-        var data = await repository.getByType(req.params.type, req.query);
+        var options = getQueryLimitAndSkip(req.query);
+        var data = await repository.getByType(req.params.type, options);
         console.log("ad-controller: Pesquisar Anúncios pelo Tipo - Pesquisa finalizada");
-        
+
         if (!data) {
             console.log("ad-controller: Listar Anúncios pelo Tipo - Anúncio não encontrado");
             res.status(404).send({
@@ -113,7 +118,8 @@ exports.getByType = async (req, res, next) => {
 exports.getByTitle = async (req, res, next) => {
     console.log("ad-controller: Pesquisar Anúncios pelo Título");
     try {
-        var data = await repository.getByTitle(req.params.title, req.query);
+        var options = getQueryLimitAndSkip(req.query);
+        var data = await repository.getByTitle(req.params.title, options);
         console.log("ad-controller: Pesquisar Anúncios pelo Título - Pesquisa finalizada");
         if (!data) {
             console.log("ad-controller: Listar Anúncios pelo Título - Anúncio não encontrado");
@@ -139,7 +145,7 @@ exports.getByPrice = async (req, res, next) => {
     console.log("ad-controller: Pesquisar Anúncios pelo Preço");
 
     try {
-        const arrayPrice = getQueryPrice(req.params.price);
+        const arrayPrice = getArrayPrice(req.params.price);
 
         if (!arrayPrice) {
             console.log("ERROR = ad-controller: Pesquisar Anúncios pelo Preço - Preço não está no formato correto (100-550)");
@@ -151,7 +157,9 @@ exports.getByPrice = async (req, res, next) => {
             return;
         }
 
-        var data = await repository.getByPrice(arrayPrice, req.query);
+        var priceArgs = getPriceArgs(arrayPrice);
+        var options = getQueryLimitAndSkip(req.query);
+        var data = await repository.getByPrice(priceArgs, options);
         console.log("ad-controller: Pesquisar Anúncios pelo Preço - Pesquisa finalizada");
         if (!data) {
             console.log("ad-controller: Listar Anúncios pelo Preço - Anúncio não encontrado");
@@ -193,7 +201,8 @@ exports.getByOwnerId = async (req, res, next) => {
             req.body.owner = dataToken._id;
         }
 
-        var data = await repository.getByOwnerId(req.body.owner, req.query);
+        var options = getQueryLimitAndSkip(req.query);
+        var data = await repository.getByOwnerId(req.body.owner, options);
         console.log("ad-controller: Pesquisar Anúncios pelo ID do Anunciante - Pesquisa finalizada");
         if (!data) {
             console.log("ad-controller: Pesquisar Anúncios pelo ID do Anunciante - Anúncio não encontrado");
@@ -360,36 +369,29 @@ function choiceQuery(query) {
     if (query.tags) {
         myQuery.tags = { $regex: new RegExp(query.tags, "i") };
     }
-    
+
     if (query.type) {
         myQuery.type = { $regex: new RegExp(query.type, "i") };
     }
-    
+
     if (query.title) {
         myQuery.title = { $regex: new RegExp(query.title, "i") };
     }
-    
+
     if (query.price) {
-        myQuery.price = getQueryPrice(query.price);
+        myQuery.price = getArrayPrice(query.price);
+        myQuery.price = getPriceArgs(myQuery.price);
     }
-    
+
     if (query.owner) {
         myQuery.owner = query.owner;
-    }
-
-    if (query.limit) {
-        myQuery.limit = query.limit;
-    }
-
-    if (query.page) {
-        myQuery.page = query.page;
     }
 
     return myQuery;
 }
 
-function getQueryPrice(price) {
-    console.log("ad-controller: inner function = getQueryPrice");
+function getArrayPrice(price) {
+    console.log("ad-controller: inner function = getArrayPrice");
     const regexp = /^(\d+)\-(\d+)/;
 
     if (!regexp.test(price)) {
@@ -402,6 +404,22 @@ function getQueryPrice(price) {
         return undefined;
     }
 
-    console.log("ad-controller: inner function = getQueryPrice - Price", arrayPrice);
+    console.log("ad-controller: inner function = getArrayPrice - Price", arrayPrice);
     return arrayPrice;
+}
+
+function getQueryLimitAndSkip(query) {
+    console.log("ad-controller: inner function = getQueryLimitAndSkip");
+    const queriesValidator = new QueriesValidator();
+
+    return queriesValidator.getQueryLimitAndSkip(query);
+
+}
+
+function getPriceArgs(price) {
+    console.log("ad-controller: inner function = getPriceArgs");
+    const queriesValidator = new QueriesValidator();
+
+    return queriesValidator.getPriceArgs(price);
+
 }

@@ -3,12 +3,9 @@
 const mongoose = require('mongoose');
 const Notification = mongoose.model('Notification');
 const CONSTANTS_REPOSITORIES = require('../constants/repositories');
-const RepositoriesValidator = require('../validators/repositories');
 
-exports.getByUserIdActive = async (userId, query) => {
+exports.getByUserIdActive = async (userId, options) => {
     console.log("notification-repositories: get");
-    var repositoriesValidator = new RepositoriesValidator();
-    var options = repositoriesValidator.getQueryLimitAndSkip(query);
     console.log("OPÇÕES:", options);
 
     const res = await Notification

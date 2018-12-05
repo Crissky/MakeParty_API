@@ -7,9 +7,6 @@ function repositories(){
 repositories.prototype.getQueryLimitAndSkip = (query) => {
     console.log("Validators-repositories: getQueryLimitAndSkip");
     
-    if(!query){
-        return query;
-    }
     var options = {};
 
     if (query.limit && isFinite(query.limit)) {
@@ -24,7 +21,9 @@ repositories.prototype.getQueryLimitAndSkip = (query) => {
 }
 
 repositories.prototype.getPriceArgs = (arrayPrice) => {
-    console.log("Validators-repositories: getPriceArgs", arrayPrice);
+    console.log("Validators-repositories: getPriceArgs");
+    console.log("arrayPrice: ", arrayPrice);
+    
     var priceArgs = { $gte: arrayPrice[0], $lte: arrayPrice[1] };
 
     if (!arrayPrice[1]) {

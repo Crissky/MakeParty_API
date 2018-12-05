@@ -3,12 +3,9 @@
 const mongoose = require('mongoose');
 const Advertiser = mongoose.model('Advertiser');
 const CONSTANTS_REPOSITORIES = require('../constants/repositories');
-const RepositoriesValidator = require('../validators/repositories');
 
-exports.get = async (query) => {
+exports.get = async (options) => {
     console.log("advertiser-repositories: get");
-    var repositoriesValidator = new RepositoriesValidator();
-    var options = repositoriesValidator.getQueryLimitAndSkip(query);
     console.log("OPÇÕES:", options);
 
     const res = await Advertiser

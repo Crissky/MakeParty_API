@@ -3,12 +3,14 @@
 const repository = require('../repositories/advertiser');
 const ValidationFields = require('../validators/validator-fields');
 const authService = require('../services/auth');
-
+const QueriesValidator = require('../validators/queries');
 
 exports.get = async (req, res, next) => {
     try {
         console.log("advertiser-controller: Listar Anunciantes");
-        var data = await repository.get(req.query);
+        var queriesValidator = new QueriesValidator();
+        var options = queriesValidator.getQueryLimitAndSkip(req.query);
+        var data = await repository.get(options);
         console.log("advertiser-controller: Listar Anunciante - Pesquisa finalizada");
         if (!data) {
             console.log("advertiser-controller: Listar Anunciantes - Anunciante não encontrado");
@@ -82,7 +84,7 @@ exports.put = async (req, res, next) => {
     console.log("advertiser-controller: Atualizar Anunciante");
     let contract = new ValidationFields();
     contract.cnpj(req.body.cnpj);
-    
+
     if (!contract.isValid()) {
         console.log("ERROR = advertiser-controller: Atualizar Anunciante\n", contract.errors());
         res.status(400).send({
@@ -91,15 +93,15 @@ exports.put = async (req, res, next) => {
 
         return;
     }
-    
+
     try {
         const dataToken = await authService.decodeTokenREQ(req);
         req.body._id = dataToken._id;
         req.body.user = dataToken.user._id;
-        
+
         const data = await repository.update(req.body);
 
-        if(!data){
+        if (!data) {
             console.log("advertiser-controller: Atualizar Anunciante - Anunciante não encontrado ou inativo.");
             res.status(404).send({
                 error: "Anunciante não encontrado ou inativo."
@@ -126,10 +128,10 @@ exports.delete = async (req, res, next) => {
         const dataToken = await authService.decodeTokenREQ(req);
         req.body._id = dataToken._id;
         req.body.user = dataToken.user._id;
-        
+
         const data = await repository.delete(req.body);
-        
-        if(!data){
+
+        if (!data) {
             console.log("advertiser-controller: Apagar Anunciante - Anunciante não encontrado ou inativo.");
             res.status(404).send({
                 error: "Anunciante não encontrado ou inativo."

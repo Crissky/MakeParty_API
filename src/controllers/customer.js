@@ -3,12 +3,14 @@
 const repository = require('../repositories/customer');
 const ValidationFields = require('../validators/validator-fields');
 const authService = require('../services/auth');
-
+const QueriesValidator = require('../validators/queries');
 
 exports.get = async (req, res, next) => {
     try {
         console.log("customer-controller: Listar Clientes");
-        var data = await repository.get(req.query);
+        var queriesValidator = new QueriesValidator();
+        var options = queriesValidator.getQueryLimitAndSkip(req.query);
+        var data = await repository.get(options);
         console.log("customer-controller: Listar Clientes - Pesquisa finalizada");
         if (!data) {
             console.log("customer-controller: Listar Clientes - Cliente não encontrado");

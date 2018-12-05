@@ -2,12 +2,9 @@
 
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
-const RepositoriesValidator = require('../validators/repositories');
 
-exports.get = async (query) => {
+exports.get = async (options) => {
     console.log("user-repositories: get");
-    var repositoriesValidator = new RepositoriesValidator();
-    var options = repositoriesValidator.getQueryLimitAndSkip(query);
     console.log("OPÇÕES:", options);
 
     const res = await User.find({
