@@ -4,7 +4,7 @@ const repository = require('../repositories/ad');
 const advertiserRepository = require('../repositories/advertiser');
 const ValidationFields = require('../validators/validator-fields');
 const authService = require('../services/auth');
-const QueriesValidator = require('../validators/queries');
+const QueriesServices = require('../services/queries');
 
 exports.get = async (req, res, next) => {
     try {
@@ -410,16 +410,16 @@ function getArrayPrice(price) {
 
 function getQueryLimitAndSkip(query) {
     console.log("ad-controller: inner function = getQueryLimitAndSkip");
-    const queriesValidator = new QueriesValidator();
+    const queriesServices = new QueriesServices();
 
-    return queriesValidator.getQueryLimitAndSkip(query);
+    return queriesServices.getQueryLimitAndSkip(query);
 
 }
 
 function getPriceArgs(price) {
     console.log("ad-controller: inner function = getPriceArgs");
-    const queriesValidator = new QueriesValidator();
+    const queriesServices = new QueriesServices();
 
-    return queriesValidator.getPriceArgs(price);
+    return queriesServices.getPriceArgs(price);
 
 }

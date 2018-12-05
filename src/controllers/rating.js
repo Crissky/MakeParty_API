@@ -4,15 +4,15 @@ const repository = require('../repositories/rating');
 const customerRepository = require('../repositories/customer');
 const adRepository = require("../repositories/ad")
 const authService = require('../services/auth');
-const QueriesValidator = require('../validators/queries');
+const QueriesServices = require('../services/queries');
 const MIN = 0;
 const MAX = 5;
 
 exports.get = async (req, res, next) => {
     try {
         console.log("rating-controller: Listar Avaliação de Anúncios");
-        var queriesValidator = new QueriesValidator();
-        var options = queriesValidator.getQueryLimitAndSkip(req.query);
+        var queriesServices = new QueriesServices();
+        var options = queriesServices.getQueryLimitAndSkip(req.query);
         var data = await repository.get(options);
         console.log("rating-controller: Listar Avaliação de Anúncios - Pesquisa Finalizada");
 

@@ -4,15 +4,15 @@ const repository = require('../repositories/wishlist');
 const customerRepository = require('../repositories/customer');
 const ValidationFields = require('../validators/validator-fields');
 const authService = require('../services/auth');
-const QueriesValidator = require('../validators/queries');
+const QueriesServices = require('../services/queries');
 
 exports.get = async (req, res, next) => {
     console.log("wishlist-controller: Pesquisar Lista de Desejo pelo TOKEN");
     try {
         const dataToken = await authService.decodeTokenREQ(req);
 
-        var queriesValidator = new QueriesValidator();
-        var options = queriesValidator.getQueryLimitAndSkip(req.query);
+        var queriesServices = new QueriesServices();
+        var options = queriesServices.getQueryLimitAndSkip(req.query);
         var data = await repository.getByCustomerId(dataToken._id, options);
         console.log("wishlist-controller: Pesquisar Lista de Desejo pelo TOKEN - Pesquisa finalizada");
         if (!data) {

@@ -3,7 +3,7 @@
 const repository = require('../repositories/notification');
 const userRepository = require("../repositories/user");
 const authService = require('../services/auth');
-const QueriesValidator = require('../validators/queries');
+const QueriesServices = require('../services/queries');
 
 exports.getByUserIdActive = async (req, res, next) => {
     try {
@@ -21,8 +21,8 @@ exports.getByUserIdActive = async (req, res, next) => {
             return;
         }
 
-        var queriesValidator = new QueriesValidator();
-        var options = queriesValidator.getQueryLimitAndSkip(req.query);
+        var queriesServices = new QueriesServices();
+        var options = queriesServices.getQueryLimitAndSkip(req.query);
         var data = await repository.getByUserIdActive(req.body.user, options);
         console.log("notification-controller: Listar Notificações pelo ID de Usuário Ativo - Pesquisa Finalizada");
 

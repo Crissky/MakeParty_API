@@ -9,14 +9,14 @@ const authService = require('../services/auth');
 const authConfig = require('../config/auth');
 const emailConfig = require('../config/email');
 const emailService = require('../services/email');
-const QueriesValidator = require('../validators/queries');
+const QueriesServices = require('../services/queries');
 
 
 exports.get = async (req, res, next) => {
     try {
         console.log("user-controller: Listar Usuários");
-        var queriesValidator = new QueriesValidator();
-        var options = queriesValidator.getQueryLimitAndSkip(req.query);
+        var queriesServices = new QueriesServices();
+        var options = queriesServices.getQueryLimitAndSkip(req.query);
         var data = await repository.get(options);
         console.log("user-controller: Listar Usuários - Pesquisa finalizada");
         if (!data) {
