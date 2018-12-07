@@ -32,7 +32,8 @@ const schema = new Schema({
     phone:{
         type: String,
         trim: true,
-    },tags:[{
+    },
+    tags:[{
         type: String,
         lowercase: true
     }],
