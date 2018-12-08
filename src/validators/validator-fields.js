@@ -5,6 +5,7 @@ const CNPJ_MIN_LEN = 14;
 const CPF_MIN_LEN = 11;
 const NAME_MIN_LEN = 3;
 const TITLE_MIN_LEN = 3;
+const TYPE_MIN_LEN = 3;
 
 let contract = new ValidationContract();
 
@@ -40,6 +41,11 @@ ValidatorFields.prototype.name = (name) => {
 ValidatorFields.prototype.title = (title) => {
     console.log("ValidatorFields: title");
     contract.hasMinLen(title, TITLE_MIN_LEN, "Título deve ter no mínimo " + TITLE_MIN_LEN + " caracteres.");
+}
+
+ValidatorFields.prototype.type = (type) => {
+    console.log("ValidatorFields: title");
+    contract.hasMinLen(type, TYPE_MIN_LEN, "Tipo deve ter no mínimo " + TYPE_MIN_LEN + " caracteres.");
 }
 
 ValidatorFields.prototype.errors = () => { 

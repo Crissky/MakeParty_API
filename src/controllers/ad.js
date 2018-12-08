@@ -308,7 +308,17 @@ exports.put = async (req, res, next) => {
 
     try {
         const dataToken = await authService.decodeTokenREQ(req);
+        const owner = await advertiserRepository.getByIdActive(dataToken._id);
+        console.log("ad-controller: Atualizar Anúncio - Pesquisa dono finalizada");
         req.body.owner = dataToken._id;
+
+        if (!owner) {
+            console.log("Usuário não autorizado ou desativado");
+            res.status(401).send({
+                error: "Usuário não autorizado ou desativado"
+            });
+            return;
+        }
 
         const data = await repository.update(req.body);
 
@@ -337,7 +347,17 @@ exports.delete = async (req, res, next) => {
     console.log("ad-controller: Apagar Anúncio");
     try {
         const dataToken = await authService.decodeTokenREQ(req);
+        const owner = await advertiserRepository.getByIdActive(dataToken._id);
+        console.log("ad-controller: Apagar Anúncio - Pesquisa dono finalizada");
         req.body.owner = dataToken._id;
+
+        if (!owner) {
+            console.log("Usuário não autorizado ou desativado");
+            res.status(401).send({
+                error: "Usuário não autorizado ou desativado"
+            });
+            return;
+        }
 
         const data = await repository.delete(req.body);
 

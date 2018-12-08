@@ -4,9 +4,16 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
+    advertiser: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Advertiser',
+        index: true,
+        required: true
+    },
     client: {
         type: String,
         required: true,
+        trim: true,
     },
     startdate: {
         type: Date,

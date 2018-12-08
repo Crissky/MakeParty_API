@@ -12,6 +12,7 @@ const schema = new Schema({
     },
     message: {
         type: String,
+        trim: true,
         required: true
     },
     active: {

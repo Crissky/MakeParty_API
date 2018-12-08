@@ -24,7 +24,8 @@ const schema = new Schema({
         default: 0
     },
     comment: {
-        type: String
+        type: String,
+        trim: true
     },
     active: {
         type: Boolean,

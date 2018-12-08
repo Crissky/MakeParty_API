@@ -7,69 +7,79 @@ const schema = new Schema({
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Advertiser',
-        index:true,
+        index: true,
         required: true
     },
-    title:{
+    title: {
         type: String,
         required: true,
         trim: true,
     },
-    description:{
+    description: {
         type: String,
         trim: true,
         default: "Sem descrição"
     },
-    price:{
+    price: {
         type: Number,
         default: 0
     },
-    type:{
+    type: {
         type: String,
         required: true,
         trim: true,
     },
-    phone:{
+    phone: {
         type: String,
         trim: true,
     },
-    tags:[{
+    tags: [{
         type: String,
+        trim: true,
         lowercase: true
+
     }],
-    mainphoto:{
-        type: String
+    mainphoto: {
+        type: String,
+        trim: true
     },
-    photos:[{
-        type: String
+    photos: [{
+        type: String,
+        trim: true
     }],
-    address:{
-        street:{
-            type: String
+    address: {
+        street: {
+            type: String,
+            trim: true
         },
-        number:{
-            type: String
+        number: {
+            type: String,
+            trim: true
         },
-        neighborhood:{
-            type: String
+        neighborhood: {
+            type: String,
+            trim: true
         },
-        city:{
-            type: String
+        city: {
+            type: String,
+            trim: true
         },
-        zipcode:{
-            type: String
+        zipcode: {
+            type: String,
+            trim: true
         },
-        state:{
-            type: String
+        state: {
+            type: String,
+            trim: true
         }
     },
-    active:{
+    active: {
         type: Boolean,
         default: true
     }
 }, { timestamps: true });
 
-schema.pre('save', function(next){
+schema.pre('save', function (next) {
     this.active = true;
 
     next();

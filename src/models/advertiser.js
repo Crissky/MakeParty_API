@@ -12,17 +12,20 @@ const schema = new Schema({
     },
     socialname:{
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
     cnpj:{
         type: String,
         index:true,
+        trim: true,
         unique: true,
         required: true
     },
     plan:{
         name:{
-            type:String
+            type:String,
+            trim: true
         },
         totalad:{
             type: Number
@@ -32,10 +35,12 @@ const schema = new Schema({
         }
     },
     authorization:{
-        type: String
+        type: String,
+        trim: true
     },
     photo:{
-        type: String
+        type: String,
+        trim: true
     },
     active:{
         type: Boolean,

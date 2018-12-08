@@ -12,10 +12,12 @@ const schema = new Schema({
     },
     name:{
         type: String,
+        trim: true,
         required: true
     },
     cpf:{
         type: String,
+        trim: true,
         index:true,
         unique: true,
         required: true
@@ -26,10 +28,12 @@ const schema = new Schema({
     },
     phone:{
         type: String,
+        trim: true,
         required: true
     },
     photo:{
-        type: String
+        type: String,
+        trim: true
     },
     active:{
         type: Boolean,

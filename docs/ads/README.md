@@ -1455,9 +1455,9 @@ page  | Número da página. Número de itens ignorados com base no (limit * page
 
 ### Listar Anúncios por Query - ROTA ABERTA (NÃO NECESSITA DE TOKEN)
 
-#### Método **GET: /queries?**
+#### Método **GET: ads/queries?**
 
-#### É possível usar mais de um argumento na query usando **&** para separá-los. (/queries?price=100-200&limit=5&page=3) _Pesquisa Anúncios com preços entre 100 e 200\. Retornando 5 Anúncios, mas ignorando os 15 primeiros resultados_
+#### É possível usar mais de um argumento na query usando **&** para separá-los. (ads/queries?price=100-200&limit=5&page=3) _Pesquisa Anúncios com preços entre 100 e 200\. Retornando 5 Anúncios, mas ignorando os 15 primeiros resultados_
 
 <br>
 
