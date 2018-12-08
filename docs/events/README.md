@@ -446,12 +446,12 @@ page  | Número da página. Número de itens ignorados com base no (limit * page
 
 <br>
 
-Query  | Observação                                                                              | Requerimento
------- | --------------------------------------------------------------------------------------- | ------------
-limit  | Número máximo de itens Retornados                                                       | Opcional
-page   | Número da página. Número de itens ignorados com base no (limit * page)                  | Opcional
-client | Pesquisas Anúncios por cliente                                                          | Opcional
-type   | Pesquisas Anúncios por tipo                                                             | Opcional
+Query  | Observação                                                             | Requerimento
+------ | ---------------------------------------------------------------------- | ------------
+limit  | Número máximo de itens Retornados                                      | Opcional
+page   | Número da página. Número de itens ignorados com base no (limit * page) | Opcional
+client | Pesquisas Anúncios por cliente                                         | Opcional
+type   | Pesquisas Anúncios por tipo                                            | Opcional
 
 <br>
 

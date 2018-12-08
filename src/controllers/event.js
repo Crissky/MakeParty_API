@@ -53,7 +53,7 @@ exports.getByQuery = async (req, res, next) => {
         const dataToken = await authService.decodeTokenREQ(req);
         const advertiser = await advertiserRepository.getByIdActive(dataToken._id);
         console.log("event-controller: Listar Eventos pela query - Pesquisa dono finalizada");
-        
+
         myQuery.advertiser = dataToken._id;
 
         if (!advertiser) {
@@ -140,7 +140,7 @@ exports.put = async (req, res, next) => {
     contract.name(req.body.client);
     contract.type(req.body.type);
 
-console.log(req.body.client, req.body.type)
+    console.log(req.body.client, req.body.type)
 
     if (!contract.isValid()) {
         console.log("ERROR = event-controller: Cadastrar Evento - Nome do cliente ou tipo muito curto\n", contract.errors());

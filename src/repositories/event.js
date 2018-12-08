@@ -59,7 +59,7 @@ exports.update = async (data) => {
         .findOneAndUpdate(
             {
                 _id: data._id,
-                owner: data.owner,
+                advertiser: data.advertiser,
                 active: true
             },
             {
