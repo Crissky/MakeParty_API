@@ -4,17 +4,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const configDB = require('./config/database');
-
+const cors = require('./services/cors')
 const app = express();
 
-// Cors de permição para acesso de api externas 
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', "*");
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    res.header('Access-Control-Allow-Credentials', true);
-    next();
-})
+// Cors de permição para acesso de api externas (Diferentes origens)
+app.use(cors.start);
 
 console.log("app: Carregando Banco de Dados...");
 //Load Database
