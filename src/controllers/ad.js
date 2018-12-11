@@ -250,12 +250,8 @@ exports.getById = async (req, res, next) => {
 
 exports.post = async (req, res, next) => {
     console.log("ad-controller: Cadastrar Anúncio");
-    req.headers[HEADERS.CONTENT_TYPE] = req.headers[HEADERS.CONTENT_TYPE] + "; charset=utf-8";
-    console.log(req.headers);
     let contract = new ValidationFields();
     contract.title(req.body.title);
-
-    console.log(req.body);
 
     if (!contract.isValid()) {
         console.log("ERROR = ad-controller: Cadastrar Anúncio - Título muito curto\n", contract.errors());
