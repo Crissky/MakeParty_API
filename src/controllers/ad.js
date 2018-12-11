@@ -5,6 +5,7 @@ const advertiserRepository = require('../repositories/advertiser');
 const ValidationFields = require('../validators/validator-fields');
 const authService = require('../services/auth');
 const QueriesServices = require('../services/queries');
+const HEADERS = require('../constants/headers');
 
 exports.get = async (req, res, next) => {
     try {
@@ -37,7 +38,7 @@ exports.getByQuery = async (req, res, next) => {
         console.log("ad-controller: Listar Anúncios pela query");
         var myQuery = choiceQuery(req.query);
         var options = getQueryLimitAndSkip(req.query);
-        
+
         var data = await repository.getByQuery(myQuery, options);
         console.log("ad-controller: Listar Anúncios pela query - Pesquisa finalizada");
 
@@ -249,8 +250,12 @@ exports.getById = async (req, res, next) => {
 
 exports.post = async (req, res, next) => {
     console.log("ad-controller: Cadastrar Anúncio");
+    req.headers[HEADERS.CONTENT_TYPE] = req.headers[HEADERS.CONTENT_TYPE] + "; charset=utf-8";
+    console.log(req.headers);
     let contract = new ValidationFields();
     contract.title(req.body.title);
+
+    console.log(req.body);
 
     if (!contract.isValid()) {
         console.log("ERROR = ad-controller: Cadastrar Anúncio - Título muito curto\n", contract.errors());

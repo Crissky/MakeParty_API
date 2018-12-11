@@ -260,3 +260,47 @@ ID        | O ID deve ser passado no fim da rota.
     "error": "Token Inválido"
 }
 ```
+
+<br>
+
+### Pesquisar Pessoa Física pelo TOKEN (Cliente)
+
+#### Método **GET: /customers/token**
+
+<br>
+
+Query | Observação
+----- | ---------------------------------------------------------------------
+token | O Token também pode ser passado no Body ou no Header(x-access-token).
+
+<br>
+
+**Resposta (SUCESSO):**
+
+```javascript
+{
+    "active": true,
+    "_id": "5bccd5c5cf399d23100084a0",
+    "user": {
+        "_id": "5bccd5c5cf399d231000849f",
+        "email": "teste2@teste.com"
+    },
+    "name": "Teste 2 Testoievski",
+    "cpf": "98765432109",
+    "birthdate": "1990-01-03T00:00:00.000Z",
+    "phone": "34333163",
+    "photo": "photo.jpg",
+    "createdAt": "2018-10-21T19:38:45.931Z",
+    "updatedAt": "2018-10-21T20:51:30.984Z"
+}
+```
+
+<br>
+
+**Resposta (ERROR):**
+
+```javascript
+{
+    "error": "Token Inválido"
+}
+```

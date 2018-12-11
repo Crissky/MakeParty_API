@@ -275,3 +275,51 @@ ID        | O ID deve ser passado no fim da rota.
     "error": "Token Inválido"
 }
 ```
+
+<br>
+
+### Pesquisar Pessoa Jurídica pelo TOKEN (Anunciante)
+
+#### Método **GET: /advertisers/token**
+
+<br>
+
+Query | Observação
+----- | ---------------------------------------------------------------------
+token | O Token também pode ser passado no Body ou no Header(x-access-token).
+
+<br>
+
+**Resposta (SUCESSO):**
+
+```javascript
+{
+    "plan": {
+        "name": "prata",
+        "totalad": 20,
+        "totalphoto": 100
+    },
+    "active": true,
+    "_id": "5bccd414cf399d231000849d",
+    "user": {
+        "_id": "5bccd414cf399d231000849c",
+        "email": "teste@teste.com"
+    },
+    "socialname": "Teste Testando",
+    "cnpj": "98765432109876",
+    "authorization": "13a2sd465asd",
+    "photo": "photo2.jpg",
+    "createdAt": "2018-10-21T19:31:32.625Z",
+    "updatedAt": "2018-10-21T20:31:05.665Z"
+}
+```
+
+<br>
+
+**Resposta (ERROR):**
+
+```javascript
+{
+    "error": "Token Inválido"
+}
+```

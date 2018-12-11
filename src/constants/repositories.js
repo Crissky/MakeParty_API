@@ -1,3 +1,5 @@
+'use strict';
+
 const AD_COLUMNS = 'owner title description price type phone tags mainphoto photos createdAt updatedAt active address';
 const ADVERTISER_COLUMNS = 'active user socialname cnpj authorization photo plan createdAt updatedAt';
 const CUSTOMER_COLUMNS = 'active user name cpf birthdate photo phone createdAt updatedAt';
